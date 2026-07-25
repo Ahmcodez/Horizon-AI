@@ -1,20 +1,45 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './lib/authContext'
+import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
 import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
-import { hasCompletedOnboarding } from './lib/profileStore'
+import LoginPage from './pages/LoginPage'
+import RootRedirect from './components/RootRedirect'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={hasCompletedOnboarding() ? <CalculatorPage /> : <Navigate to="/onboarding" replace />}
-        />
-        <Route path="/onboarding" element={<OnboardingPage />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <RootRedirect />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/onboarding"
+            element={
+              <ProtectedRoute>
+                <OnboardingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calculator"
+            element={
+              <ProtectedRoute>
+                <CalculatorPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

@@ -189,6 +189,69 @@ export function calculateSpousalBenefit(
   return round2(maxSpousalBenefit * (1 - reductionPct / 100));
 }
 
+export interface SurvivorBenefitInput {
+  deceasedPia: number;
+  deceasedClaimedEarly: boolean; // if the deceased had already claimed before their own FRA
+  survivorFra: FullRetirementAge;
+  survivorClaimAgeMonths: number; // survivor benefits can start as early as age 60 (600 months)
+}
+
+/**
+ * Survivor benefit: a surviving spouse can receive up to 100% of the
+ * deceased's benefit (their PIA, or their actual reduced/increased benefit
+ * if they'd already claimed). Survivors can claim as early as age 60
+ * (age 50 if disabled - not modeled here), with a reduction for claiming
+ * before the survivor's own full retirement age.
+ *
+ * This is a simplified model - it does not implement the full "widow(er)
+ * limit" rule that caps the survivor benefit relative to what the deceased
+ * was already receiving in every edge case.
+ */
+export function calculateSurvivorBenefit(input: SurvivorBenefitInput): number {
+  const { deceasedPia, survivorFra, survivorClaimAgeMonths } = input;
+  const minMonths = 60 * 12; // survivor benefits can start at 60, not 62
+  const clamped = Math.max(survivorClaimAgeMonths, minMonths);
+
+  if (clamped >= survivorFra.totalMonths) {
+    return round2(deceasedPia); // full survivor benefit at or after survivor's own FRA
+  }
+
+  // Survivor reduction: benefit scales down to 71.5% of the deceased's PIA
+  // at exactly age 60, rising linearly to 100% at the survivor's FRA.
+  const totalReducibleMonths = survivorFra.totalMonths - minMonths;
+  const monthsShort = survivorFra.totalMonths - clamped;
+  const reductionFraction = (monthsShort / totalReducibleMonths) * 0.285; // max 28.5% reduction at 60
+  return round2(deceasedPia * (1 - reductionFraction));
+}
+
+/**
+ * WEP (Windfall Elimination Provision) and GPO (Government Pension Offset)
+ * used to reduce benefits for people who also received a pension from work
+ * not covered by Social Security (e.g. many teachers, firefighters, police).
+ *
+ * The Social Security Fairness Act, signed January 2025, repealed BOTH
+ * provisions retroactive to benefits payable after December 2023. As of
+ * 2026, no current or future beneficiary has their Social Security benefit
+ * reduced for having a non-covered public pension.
+ *
+ * This function exists mainly to power an explainer in the UI - there is no
+ * calculation left to perform, but users with a public pension background
+ * should be told clearly that this no longer affects their numbers.
+ */
+export function getPensionOffsetStatus(hasNonCoveredPension: boolean): {
+  affected: boolean;
+  message: string;
+} {
+  if (!hasNonCoveredPension) {
+    return { affected: false, message: 'Not applicable - no non-covered pension reported.' };
+  }
+  return {
+    affected: false,
+    message:
+      'The Windfall Elimination Provision and Government Pension Offset were repealed by the Social Security Fairness Act (January 2025). Your benefit is calculated the same as anyone else\'s - no reduction applies for your non-covered pension.',
+  };
+}
+
 /** Applies the 2026 cost-of-living adjustment (2.8%) to a benefit amount. */
 export const COLA_2026 = 0.028;
 export function applyCola(amount: number, colaRate: number = COLA_2026): number {

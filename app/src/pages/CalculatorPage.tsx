@@ -1,16 +1,30 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   generateClaimingComparison,
   getFullRetirementAge,
   calculateBreakevenAge,
 } from '../lib/socialSecurity'
+import { getProfile, saveProfile } from '../lib/profileStore'
 import BenefitChart from '../components/BenefitChart'
 import HouseholdPanel from '../components/HouseholdPanel'
 
 export default function CalculatorPage() {
-  const [birthYear, setBirthYear] = useState(1965)
-  const [pia, setPia] = useState(2200)
+  const navigate = useNavigate()
+  const profile = useMemo(() => getProfile(), [])
+
+  const [birthYear, setBirthYearState] = useState(profile.birthYear)
+  const [pia, setPiaState] = useState(profile.pia)
   const [selectedAge, setSelectedAge] = useState(67)
+
+  function setBirthYear(value: number) {
+    setBirthYearState(value)
+    saveProfile({ birthYear: value })
+  }
+  function setPia(value: number) {
+    setPiaState(value)
+    saveProfile({ pia: value })
+  }
 
   const fra = useMemo(() => getFullRetirementAge(birthYear), [birthYear])
   const comparison = useMemo(() => generateClaimingComparison(pia, birthYear), [pia, birthYear])
@@ -36,10 +50,18 @@ export default function CalculatorPage() {
   return (
     <main className="max-w-[1280px] mx-auto px-8 pt-32 pb-24">
       {/* Intro */}
-      <div className="mb-14 max-w-2xl">
-        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5">
-          <span className="w-4 h-[1.5px] bg-amber-deep" />
-          Your claiming-age calculator
+      <div className="mb-10 max-w-2xl">
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold">
+            <span className="w-4 h-[1.5px] bg-amber-deep" />
+            Your claiming-age calculator
+          </div>
+          <button
+            onClick={() => navigate('/onboarding')}
+            className="text-xs font-mono text-slate hover:text-amber-deep transition-colors whitespace-nowrap"
+          >
+            Redo the 5-minute setup →
+          </button>
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight leading-tight">
           See what your benefit is worth, at every age from 62 to 70.

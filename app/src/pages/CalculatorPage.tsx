@@ -5,6 +5,7 @@ import {
   calculateBreakevenAge,
 } from '../lib/socialSecurity'
 import BenefitChart from '../components/BenefitChart'
+import HouseholdPanel from '../components/HouseholdPanel'
 
 export default function CalculatorPage() {
   const [birthYear, setBirthYear] = useState(1965)
@@ -191,11 +192,12 @@ export default function CalculatorPage() {
             </table>
           </div>
 
+          <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
+
           <p className="text-xs text-slate leading-relaxed max-w-2xl">
             These figures are informational estimates based on the Primary Insurance Amount you
             entered and published SSA claiming-age adjustment rules. They do not account for
-            future COLA increases, continued work while claiming, or spousal/survivor
-            coordination — not financial, legal, or tax advice.
+            future COLA increases beyond 2026 — not financial, legal, or tax advice.
           </p>
         </div>
       </div>

@@ -7,12 +7,14 @@ import {
 } from '../lib/socialSecurity'
 import { getProfile, saveProfile, DEFAULT_PROFILE } from '../lib/profileStore'
 import { useAuth } from '../lib/authContext'
+import { useAssistant } from '../lib/assistantContext'
 import BenefitChart from '../components/BenefitChart'
 import HouseholdPanel from '../components/HouseholdPanel'
 
 export default function CalculatorPage() {
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
+  const { setGroundingContext, setDraftQuestion, open } = useAssistant()
 
   const [birthYear, setBirthYearState] = useState(DEFAULT_PROFILE.birthYear)
   const [pia, setPiaState] = useState(DEFAULT_PROFILE.pia)
@@ -57,6 +59,22 @@ export default function CalculatorPage() {
     const total70 = age70.annualBenefit * yearsAt70
     return Math.round(total70 - total62)
   }, [age62, age70])
+
+  useEffect(() => {
+    if (!profileLoaded) return
+    setGroundingContext({
+      birthYear,
+      pia,
+      fullRetirementAge: fra.months > 0 ? `${fra.years} years, ${fra.months} months` : `${fra.years}`,
+      comparison: comparison.map((c) => ({ age: c.age, monthlyBenefit: c.monthlyBenefit })),
+      breakevenAge: breakeven,
+    })
+  }, [profileLoaded, birthYear, pia, fra, comparison, breakeven, setGroundingContext])
+
+  function explain(question: string) {
+    setDraftQuestion(question)
+    open()
+  }
 
   if (!profileLoaded) {
     return (
@@ -165,23 +183,41 @@ export default function CalculatorPage() {
         <div id="results" className="space-y-6">
           {/* Key stat row */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-chalk border border-graphite/10 rounded-2xl p-5 shadow-xs">
+            <div className="bg-chalk border border-graphite/10 rounded-2xl p-5 shadow-xs relative group">
               <div className="font-mono text-2xl font-semibold">
                 ${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </div>
               <div className="text-xs text-slate mt-1">monthly at age {selectedAge}</div>
+              <button
+                onClick={() => explain(`Why is my benefit $${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo at age ${selectedAge}?`)}
+                className="absolute top-3 right-3 text-[10px] font-mono text-slate/50 hover:text-amber-deep transition-colors"
+              >
+                explain
+              </button>
             </div>
-            <div className="bg-graphite text-chalk rounded-2xl p-5 shadow-dark">
+            <div className="bg-graphite text-chalk rounded-2xl p-5 shadow-dark relative group">
               <div className="font-mono text-2xl font-semibold text-amber">
                 +${lifetimeDiff.toLocaleString()}
               </div>
               <div className="text-xs text-chalk/60 mt-1">lifetime gain, 70 vs. 62 (to age 85)</div>
+              <button
+                onClick={() => explain(`Why does waiting until 70 instead of 62 add $${lifetimeDiff.toLocaleString()} over my lifetime?`)}
+                className="absolute top-3 right-3 text-[10px] font-mono text-chalk/40 hover:text-amber transition-colors"
+              >
+                explain
+              </button>
             </div>
-            <div className="bg-chalk border border-graphite/10 rounded-2xl p-5 shadow-xs">
+            <div className="bg-chalk border border-graphite/10 rounded-2xl p-5 shadow-xs relative group">
               <div className="font-mono text-2xl font-semibold">
                 {breakeven ? breakeven.toFixed(1) : '—'}
               </div>
               <div className="text-xs text-slate mt-1">breakeven age, 62 vs. 70</div>
+              <button
+                onClick={() => explain(`What does my breakeven age of ${breakeven?.toFixed(1)} actually mean?`)}
+                className="absolute top-3 right-3 text-[10px] font-mono text-slate/50 hover:text-amber-deep transition-colors"
+              >
+                explain
+              </button>
             </div>
           </div>
 

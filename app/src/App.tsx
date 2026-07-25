@@ -1,45 +1,56 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from './lib/authContext'
+import { AuthProvider, useAuth } from './lib/authContext'
+import { AssistantProvider } from './lib/assistantContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
+import AssistantWidget from './components/AssistantWidget'
 import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
 import RootRedirect from './components/RootRedirect'
 
+function GlobalAssistant() {
+  const { user } = useAuth()
+  if (!user) return null
+  return <AssistantWidget />
+}
+
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <RootRedirect />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/onboarding"
-            element={
-              <ProtectedRoute>
-                <OnboardingPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/calculator"
-            element={
-              <ProtectedRoute>
-                <CalculatorPage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <AssistantProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <RootRedirect />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <OnboardingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/calculator"
+              element={
+                <ProtectedRoute>
+                  <CalculatorPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+          <GlobalAssistant />
+        </BrowserRouter>
+      </AssistantProvider>
     </AuthProvider>
   )
 }

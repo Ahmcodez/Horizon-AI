@@ -3,10 +3,89 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Horizon — Your Social Security, calculated</title>
+<title>Horizon — Social Security Calculator & Claiming Age Planner</title>
+<meta name="description" content="See exactly what your Social Security benefit is worth at every claiming age from 62 to 70 — personalized to your record, updated for 2026 rules, free to start." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.horizon.com/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Horizon — Social Security Calculator & Claiming Age Planner" />
+<meta property="og:description" content="Personalized Social Security claiming-age analysis, spousal & survivor coordination, and plain-English guidance — updated automatically as the rules change." />
+<meta property="og:url" content="https://www.horizon.com/" />
+<meta property="og:site_name" content="Horizon" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Horizon — Social Security Calculator & Claiming Age Planner" />
+<meta name="twitter:description" content="See exactly what your Social Security benefit is worth at every claiming age — personalized, updated for 2026 rules." />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Horizon",
+  "url": "https://www.horizon.com/",
+  "description": "Personalized Social Security claiming-age planning and retirement benefit calculator.",
+  "sameAs": []
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Horizon",
+  "url": "https://www.horizon.com/"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Horizon Social Security Planner",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": [
+    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Plan", "price": "12.00", "priceCurrency": "USD" }
+  ],
+  "description": "Calculates personalized Social Security claiming-age scenarios, spousal and survivor coordination, and WEP/GPO-aware benefit estimates."
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best age to claim Social Security?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no single best age for everyone — it depends on your health, other income, and household situation. Claiming at 62 reduces your monthly benefit permanently, while waiting until 70 increases it. Horizon models your specific numbers across every age from 62 to 70 so you can compare the real dollar difference for your situation." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Social Security increase if I wait to claim?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Delaying benefits past full retirement age adds delayed retirement credits worth roughly 8% per year, up until age 70. Claiming before full retirement age instead reduces your benefit, by as much as 30% at age 62." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is full retirement age (FRA) in 2026?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For anyone born in 1960 or later, full retirement age is 67. This is the final step of a phase-in that began with 1983 legislation." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does working while claiming Social Security reduce my benefit?",
+      "acceptedAnswer": { "@type": "Answer", "text": "If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. The limit and withholding rules change each year and no longer apply once you reach full retirement age." }
+    }
+  ]
+}
+</script>
+
 <style>
   :root {
     --graphite: #0E0F12;
@@ -28,26 +107,27 @@
     --body: 'Inter', -apple-system, sans-serif;
     --mono: 'IBM Plex Mono', monospace;
 
-    /* shadow system */
     --shadow-xs: 0 1px 2px rgba(14,15,18,0.06);
     --shadow-sm: 0 2px 8px rgba(14,15,18,0.06), 0 1px 2px rgba(14,15,18,0.04);
     --shadow-md: 0 8px 24px rgba(14,15,18,0.08), 0 2px 6px rgba(14,15,18,0.05);
     --shadow-lg: 0 20px 48px rgba(14,15,18,0.12), 0 6px 16px rgba(14,15,18,0.06);
     --shadow-amber: 0 16px 36px rgba(232,163,61,0.32), 0 4px 10px rgba(232,163,61,0.18);
     --shadow-dark: 0 24px 60px rgba(0,0,0,0.35);
+
+    --fs-h1: clamp(38px, 4.6vw, 68px);
+    --fs-h2: clamp(28px, 3.6vw, 46px);
+    --fs-h3: clamp(19px, 1.6vw, 22px);
+    --fs-body-lg: 18px;
+    --fs-body: 15.5px;
+    --fs-small: 13px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--chalk);
-    color: var(--graphite);
-    font-family: var(--body);
-    line-height: 1.5;
-    overflow-x: hidden;
-  }
+  body { background: var(--chalk); color: var(--graphite); font-family: var(--body); line-height: 1.5; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
   :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -62,72 +142,73 @@
   .reveal.d3 { transition-delay: 0.24s; }
   .reveal.d4 { transition-delay: 0.32s; }
 
-  /* ---------- NAV ---------- */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+  .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 300; }
+  nav.primary-nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 48px;
+    padding: 18px 48px;
     background: rgba(250,247,242,0.78);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--chalk-line);
+    transition: box-shadow 0.3s ease, padding 0.3s ease, background 0.3s ease;
   }
+  nav.primary-nav.scrolled { padding: 13px 48px; box-shadow: var(--shadow-md); background: rgba(250,247,242,0.92); }
+
   .logo { font-family: var(--display); font-size: 21px; font-weight: 600; display: flex; align-items: center; gap: 9px; letter-spacing: -0.01em; }
   .logo-mark { width: 18px; height: 18px; background: var(--amber); border-radius: 5px 5px 5px 0; flex-shrink: 0; box-shadow: 0 2px 8px rgba(232,163,61,0.5); }
-  .nav-links { display: flex; gap: 34px; font-size: 14px; font-weight: 500; }
-  .nav-links a { color: var(--slate); transition: color 0.2s ease; }
-  .nav-links a:hover { color: var(--graphite); }
-  .nav-cta {
-    background: var(--graphite); color: var(--chalk); padding: 11px 22px; border-radius: 100px;
-    font-size: 13.5px; font-weight: 600; transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .nav-cta:hover { background: var(--amber); color: var(--graphite); transform: translateY(-1px); box-shadow: var(--shadow-amber); }
-  @media (max-width: 900px) { .nav-links { display: none; } nav { padding: 16px 22px; } }
 
-  /* ---------- HERO ---------- */
-  .hero { padding: 168px 48px 0; max-width: 1280px; margin: 0 auto; }
+  .nav-links { display: flex; gap: 6px; font-size: 14px; font-weight: 500; align-items: center; }
+  .nav-item { position: relative; }
+  .nav-link { display: flex; align-items: center; gap: 5px; padding: 10px 16px; border-radius: 10px; color: var(--slate); transition: color 0.2s ease, background 0.2s ease; }
+  .nav-link:hover, .nav-item:hover .nav-link { color: var(--graphite); background: var(--chalk-dim); }
+  .nav-link .caret { font-size: 9px; transition: transform 0.25s ease; opacity: 0.6; }
+  .nav-item:hover .caret { transform: rotate(180deg); }
+
+  .nav-dropdown {
+    position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(-6px);
+    width: 480px; background: var(--chalk); border: 1px solid var(--chalk-line-strong); border-radius: 18px;
+    box-shadow: var(--shadow-lg); padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .nav-item:hover .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+  .dd-item { display: flex; gap: 12px; padding: 12px; border-radius: 12px; transition: background 0.2s ease; }
+  .dd-item:hover { background: var(--chalk-dim); }
+  .dd-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--graphite); color: var(--amber); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; flex-shrink: 0; }
+  .dd-item h3 { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; font-family: var(--body); }
+  .dd-item p { font-size: 12px; color: var(--slate); line-height: 1.4; }
+
+  .nav-cta { background: var(--graphite); color: var(--chalk); padding: 11px 22px; border-radius: 100px; font-size: 13.5px; font-weight: 600; transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s ease, box-shadow 0.25s ease; box-shadow: var(--shadow-sm); }
+  .nav-cta:hover { background: var(--amber); color: var(--graphite); transform: translateY(-1px); box-shadow: var(--shadow-amber); }
+  @media (max-width: 980px) { .nav-links { display: none; } nav.primary-nav { padding: 16px 22px; } }
+
+  .section-divider { max-width: 1280px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; gap: 18px; }
+  .section-divider .line { flex: 1; height: 1px; background: var(--chalk-line-strong); box-shadow: 0 1px 0 rgba(250,247,242,0.6); }
+  .section-divider .marker { width: 8px; height: 8px; border-radius: 2px; background: var(--amber); transform: rotate(45deg); box-shadow: var(--shadow-xs); }
+
+  .hero { padding: 160px 48px 0; max-width: 1280px; margin: 0 auto; }
   .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
 
   .trust-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
-  .trust-chip {
-    display: flex; align-items: center; gap: 7px;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em;
-    padding: 7px 13px; border-radius: 100px;
-    background: var(--chalk-dim); border: 1px solid var(--chalk-line);
-    color: var(--slate); box-shadow: var(--shadow-xs);
-  }
+  .trust-chip { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em; padding: 7px 13px; border-radius: 100px; background: var(--chalk-dim); border: 1px solid var(--chalk-line); color: var(--slate); box-shadow: var(--shadow-xs); }
   .trust-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
 
-  .kinetic-h1 {
-    font-family: var(--display); font-weight: 380;
-    font-size: clamp(38px, 4.6vw, 68px);
-    line-height: 1.02; letter-spacing: -0.02em;
-  }
+  h1.kinetic-h1 { font-family: var(--display); font-weight: 380; font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.02em; }
   .kinetic-h1 .word { display: inline-block; opacity: 0; filter: blur(6px); transform: translateY(22px); animation: wordIn 0.9s cubic-bezier(.16,.8,.24,1) forwards; }
   .kinetic-h1 .accent-fill { color: var(--amber-deep); font-style: italic; font-weight: 500; }
   @keyframes wordIn { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
-  .hero-sub { margin-top: 26px; font-size: 18px; color: var(--slate); max-width: 520px; line-height: 1.6; }
+  .hero-sub { margin-top: 26px; font-size: var(--fs-body-lg); color: var(--slate); max-width: 520px; line-height: 1.6; }
 
-  /* dual-path CTA cards */
   .dual-cta { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .path-card {
-    flex: 1; min-width: 220px;
-    border: 1.5px solid var(--chalk-line-strong);
-    border-radius: 18px;
-    padding: 20px 22px;
-    background: var(--chalk);
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: var(--shadow-sm);
-  }
+  .path-card { flex: 1; min-width: 220px; border: 1.5px solid var(--chalk-line-strong); border-radius: 18px; padding: 20px 22px; background: var(--chalk); cursor: pointer; transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease; box-shadow: var(--shadow-sm); }
   .path-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--amber-deep); }
   .path-card.primary { background: var(--graphite); border-color: var(--graphite); }
   .path-card.primary:hover { box-shadow: var(--shadow-dark); }
   .path-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--amber-deep); margin-bottom: 8px; font-weight: 600; }
   .path-card.primary .path-label { color: var(--amber); }
-  .path-card h4 { font-family: var(--display); font-size: 18px; font-weight: 500; margin-bottom: 6px; }
-  .path-card.primary h4 { color: var(--chalk); }
+  .path-card .path-title { font-family: var(--display); font-size: 18px; font-weight: 500; margin-bottom: 6px; display: block; }
+  .path-card.primary .path-title { color: var(--chalk); }
   .path-card p { font-size: 13px; color: var(--slate); }
   .path-card.primary p { color: var(--fog-text); }
   .path-arrow { margin-top: 14px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
@@ -136,21 +217,9 @@
   .path-card:hover .path-arrow span { transform: translateX(4px); }
   .path-arrow span { display: inline-block; transition: transform 0.25s ease; }
 
-  /* ---------- HERO MOCKUP PANEL (crossfade slider) ---------- */
-  .mockup-frame {
-    border-radius: 20px;
-    background: var(--graphite-2);
-    border: 1px solid var(--fog-line);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    transform: perspective(1400px) rotateY(-4deg) rotateX(1deg);
-    transition: transform 0.5s ease;
-  }
+  .mockup-frame { border-radius: 20px; background: var(--graphite-2); border: 1px solid var(--fog-line); box-shadow: var(--shadow-lg); overflow: hidden; transform: perspective(1400px) rotateY(-4deg) rotateX(1deg); transition: transform 0.5s ease; }
   .mockup-frame:hover { transform: perspective(1400px) rotateY(-1deg) rotateX(0deg); }
-  .mockup-chrome {
-    display: flex; align-items: center; gap: 7px;
-    padding: 13px 16px; background: var(--graphite-3); border-bottom: 1px solid var(--fog-line);
-  }
+  .mockup-chrome { display: flex; align-items: center; gap: 7px; padding: 13px 16px; background: var(--graphite-3); border-bottom: 1px solid var(--fog-line); }
   .chrome-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(250,247,242,0.18); }
   .chrome-dot:nth-child(1) { background: #E8846B; }
   .chrome-dot:nth-child(2) { background: #E8C86B; }
@@ -158,66 +227,61 @@
   .chrome-url { margin-left: 12px; font-family: var(--mono); font-size: 11.5px; color: var(--fog-text); background: rgba(250,247,242,0.06); padding: 4px 12px; border-radius: 6px; flex: 1; }
 
   .mockup-stage { position: relative; height: 400px; }
-  .mockup-screen {
-    position: absolute; inset: 0; padding: 32px;
-    opacity: 0; transform: scale(0.98) translateY(6px);
-    transition: opacity 0.7s cubic-bezier(.2,.8,.2,1), transform 0.7s cubic-bezier(.2,.8,.2,1);
-    pointer-events: none;
-  }
+  .mockup-screen { position: absolute; inset: 0; padding: 32px; opacity: 0; transform: scale(0.98) translateY(6px); transition: opacity 0.7s cubic-bezier(.2,.8,.2,1), transform 0.7s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
   .mockup-screen.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
-
   .screen-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--amber); margin-bottom: 18px; }
 
-  /* screen 1: claiming chart */
   .s-chart { display: flex; align-items: flex-end; gap: 16px; height: 190px; margin-top: 24px; }
   .s-bar { flex: 1; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, rgba(250,247,242,0.2), rgba(250,247,242,0.05)); transform-origin: bottom; position: relative; }
   .s-bar.peak { background: linear-gradient(180deg, var(--amber), var(--amber-deep)); box-shadow: 0 -8px 20px rgba(232,163,61,0.25); }
   .s-bar .v { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 12px; color: var(--chalk); white-space: nowrap; }
   .s-bar .a { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 11px; color: var(--fog-text); }
 
-  /* screen 2: chat */
   .s-chat-bubble { font-size: 13.5px; padding: 12px 16px; border-radius: 14px; background: rgba(250,247,242,0.07); margin-bottom: 10px; max-width: 85%; color: var(--chalk); line-height: 1.5; }
   .s-chat-bubble.user { background: var(--amber); color: var(--graphite); margin-left: auto; font-weight: 500; }
 
-  /* screen 3: alert */
   .s-alert { display: flex; gap: 12px; padding: 16px; border-radius: 12px; background: rgba(250,247,242,0.06); margin-bottom: 10px; align-items: flex-start; }
   .s-alert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); margin-top: 6px; flex-shrink: 0; }
   .s-alert p { color: var(--chalk); font-size: 13.5px; line-height: 1.55; }
   .s-alert small { color: var(--fog-text); font-family: var(--mono); font-size: 11px; }
 
   .mockup-dots { display: flex; gap: 8px; justify-content: center; padding: 18px 0 22px; }
-  .m-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fog-line); cursor: pointer; transition: all 0.3s ease; }
+  .m-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fog-line); cursor: pointer; transition: all 0.3s ease; border: none; }
   .m-dot.active { background: var(--amber); width: 20px; border-radius: 3px; }
 
   @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; } .mockup-frame { max-width: 560px; } }
 
-  /* ---------- ACTIONS ROW UNDER HERO ---------- */
   .hero-secondary { display: flex; gap: 24px; align-items: center; margin-top: 30px; }
   .btn-ghost { background: none; border: none; font-family: var(--body); font-size: 14.5px; font-weight: 600; color: var(--graphite); cursor: pointer; display: flex; align-items: center; gap: 8px; border-bottom: 1.5px solid var(--graphite); padding-bottom: 2px; }
   .btn-ghost .arrow { transition: transform 0.25s ease; }
   .btn-ghost:hover .arrow { transform: translateX(4px); }
 
-  /* ---------- STAT BAR ---------- */
-  .stat-bar { margin-top: 88px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--chalk-line); border-bottom: 1px solid var(--chalk-line); max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 48px; }
-  .stat-cell { padding: 28px 24px 28px 0; border-right: 1px solid var(--chalk-line); }
+  .stat-bar { margin-top: 84px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--chalk-line); border-bottom: 1px solid var(--chalk-line); max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 48px; }
+  .stat-cell { padding: 26px 24px 26px 0; border-right: 1px solid var(--chalk-line); }
   .stat-cell:last-child { border-right: none; }
   .stat-cell .num { font-family: var(--mono); font-size: clamp(24px,2.6vw,34px); font-weight: 600; letter-spacing: -0.02em; }
   .stat-cell .num .accent-num { color: var(--amber-deep); }
   .stat-cell .lbl { font-size: 12px; color: var(--slate); margin-top: 6px; }
   @media (max-width: 860px) { .stat-bar { grid-template-columns: repeat(2,1fr); padding: 0 24px; } }
 
-  /* ---------- SECTION SHARED ---------- */
-  section.block { padding: 120px 48px; max-width: 1280px; margin: 0 auto; }
+  section.block { padding: 108px 48px; max-width: 1280px; margin: 0 auto; }
   .eyebrow-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-deep); margin-bottom: 20px; font-weight: 600; }
   .eyebrow-label::before { content: ''; width: 16px; height: 1.5px; background: var(--amber-deep); }
-  h2.section-title { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.1; letter-spacing: -0.02em; max-width: 760px; }
+  h2.section-title { font-family: var(--display); font-weight: 400; font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -0.02em; max-width: 760px; }
   .section-sub { margin-top: 18px; font-size: 16.5px; color: var(--slate); max-width: 540px; line-height: 1.6; }
 
-  /* ---------- TESTIMONIALS w/ placeholder avatars ---------- */
-  .testimonial-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .problem-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--chalk-line-strong); border: 1px solid var(--chalk-line-strong); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .problem-card { background: var(--chalk); padding: 36px 30px; transition: background 0.3s ease; }
+  .problem-card:hover { background: var(--chalk-dim); }
+  .problem-num { font-family: var(--mono); font-size: 13px; color: var(--amber-deep); margin-bottom: 18px; }
+  .problem-card h3 { font-family: var(--display); font-size: var(--fs-h3); font-weight: 500; margin-bottom: 10px; }
+  .problem-card p { font-size: 14.5px; color: var(--slate); line-height: 1.6; }
+  @media (max-width: 860px) { .problem-grid { grid-template-columns: 1fr; } }
+
+  .testimonial-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .t-card { background: var(--chalk); border: 1px solid var(--chalk-line); border-radius: 20px; padding: 28px; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease; }
   .t-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-  .t-quote { font-family: var(--display); font-size: 16.5px; line-height: 1.5; margin-bottom: 20px; font-weight: 400; }
+  .t-quote { font-family: var(--display); font-size: 16px; line-height: 1.5; margin-bottom: 20px; font-weight: 400; }
   .t-person { display: flex; align-items: center; gap: 12px; }
   .t-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--chalk-line); }
   .t-name { font-size: 13.5px; font-weight: 600; }
@@ -225,8 +289,7 @@
   .sample-tag { font-family: var(--mono); font-size: 10.5px; color: var(--slate); opacity: 0.6; margin-top: 14px; }
   @media (max-width: 900px) { .testimonial-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- BENTO GRID ---------- */
-  .bento { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 130px; gap: 16px; }
+  .bento { margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 130px; gap: 16px; }
   .bento-cell { border-radius: 22px; padding: 28px; position: relative; overflow: hidden; transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; }
   .bento-cell:hover { transform: translateY(-4px); }
   .bento-cell.light { background: var(--chalk-dim); border: 1px solid var(--chalk-line); box-shadow: var(--shadow-xs); }
@@ -245,7 +308,7 @@
   .b-6 { grid-column: span 2; grid-row: span 1; }
 
   .bento-label { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.65; margin-bottom: 14px; }
-  .bento-cell h3 { font-family: var(--display); font-size: 21px; font-weight: 500; line-height: 1.25; margin-bottom: 10px; }
+  .bento-cell h3 { font-family: var(--display); font-size: var(--fs-h3); font-weight: 500; line-height: 1.25; margin-bottom: 10px; }
   .bento-cell p { font-size: 14px; line-height: 1.6; opacity: 0.75; max-width: 90%; }
   .bento-cell.dark p, .bento-cell.dark .bento-label { opacity: 0.6; }
 
@@ -262,8 +325,7 @@
   .mini-bar { flex: 1; background: var(--amber); border-radius: 4px 4px 0 0; opacity: 0.9; transform-origin: bottom; }
   .mini-bar.dim { background: rgba(250,247,242,0.25); }
 
-  /* ---------- DARK PRODUCT SECTION ---------- */
-  .product-section { background: var(--graphite); color: var(--chalk); border-radius: 32px; padding: 68px 56px; margin: 0 48px; position: relative; overflow: hidden; box-shadow: var(--shadow-dark); }
+  .product-section { background: var(--graphite); color: var(--chalk); border-radius: 32px; padding: 64px 56px; margin: 0 48px; position: relative; overflow: hidden; box-shadow: var(--shadow-dark); }
   .product-section::before { content: ''; position: absolute; top: -180px; right: -140px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, var(--amber-glow), transparent 70%); }
   .product-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
   .product-section .eyebrow-label { color: var(--amber); }
@@ -271,294 +333,358 @@
   .product-section h2.section-title { color: var(--chalk); }
   .product-section .section-sub { color: var(--fog-text); }
 
-  .product-image-frame { margin-top: 48px; border-radius: 20px; overflow: hidden; border: 1px solid var(--fog-line); box-shadow: var(--shadow-lg); position: relative; }
+  .product-image-frame { margin-top: 44px; border-radius: 20px; overflow: hidden; border: 1px solid var(--fog-line); box-shadow: var(--shadow-lg); position: relative; }
   .product-image-frame img { width: 100%; display: block; }
-  .product-image-frame .placeholder-caption { font-family: var(--mono); }
 
-  /* ---------- PRICING ---------- */
-  .pricing-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .faq-list { margin-top: 48px; max-width: 780px; }
+  .faq-item { border-bottom: 1px solid var(--chalk-line); }
+  .faq-question { width: 100%; text-align: left; background: none; border: none; cursor: pointer; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: var(--body); font-size: 16px; font-weight: 600; color: var(--graphite); }
+  .faq-question .plus { font-family: var(--mono); font-size: 18px; color: var(--amber-deep); transition: transform 0.3s ease; flex-shrink: 0; }
+  .faq-item.open .plus { transform: rotate(45deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(.2,.8,.2,1); }
+  .faq-item.open .faq-answer { max-height: 240px; }
+  .faq-answer p { font-size: 14.5px; color: var(--slate); line-height: 1.65; padding-bottom: 22px; max-width: 640px; }
+
+  .pricing-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .price-card { border: 1px solid var(--chalk-line); border-radius: 22px; padding: 36px 30px; background: var(--chalk); transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease; box-shadow: var(--shadow-sm); }
   .price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
   .price-card.featured { background: var(--graphite); color: var(--chalk); position: relative; border-color: var(--graphite); box-shadow: var(--shadow-dark); }
   .price-tag { position: absolute; top: -13px; right: 28px; background: var(--amber); color: var(--graphite); font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 6px 13px; border-radius: 100px; box-shadow: var(--shadow-amber); }
   .price-tier { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--amber-deep); margin-bottom: 16px; font-weight: 600; }
   .price-card.featured .price-tier { color: var(--amber); }
-  .price-amount { font-family: var(--display); font-size: 40px; font-weight: 500; margin-bottom: 6px; }
+  .price-card h3.price-amount { font-family: var(--display); font-size: 38px; font-weight: 500; margin-bottom: 6px; }
   .price-amount sub { font-family: var(--body); font-size: 13.5px; font-weight: 500; color: var(--slate); }
   .price-card.featured .price-amount sub { color: var(--fog-text); }
   .price-desc { font-size: 13.5px; color: var(--slate); margin-bottom: 24px; }
   .price-card.featured .price-desc { color: var(--fog-text); }
-  .price-features { list-style: none; font-size: 13.5px; }
-  .price-features li { padding: 10px 0; border-top: 1px solid var(--chalk-line); display: flex; gap: 10px; }
+  .price-features li { padding: 10px 0; border-top: 1px solid var(--chalk-line); display: flex; gap: 10px; font-size: 13.5px; }
   .price-card.featured .price-features li { border-top: 1px solid var(--fog-line); }
   .check { color: var(--amber-deep); font-weight: 700; }
   .price-card.featured .check { color: var(--amber); }
   @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- FINAL CTA ---------- */
-  .final-cta { text-align: center; padding: 140px 48px 100px; }
+  .final-cta { text-align: center; padding: 130px 48px 100px; }
   .final-cta h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.6vw, 56px); letter-spacing: -0.02em; max-width: 740px; margin: 0 auto 32px; line-height: 1.12; }
   .final-cta .accent-fill { color: var(--amber-deep); font-style: italic; }
   .btn-primary { background: var(--amber); color: var(--graphite); border: none; padding: 17px 30px; border-radius: 100px; font-size: 15px; font-weight: 700; font-family: var(--body); cursor: pointer; transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease; box-shadow: var(--shadow-sm); }
   .btn-primary:hover { transform: translateY(-2px) scale(1.015); box-shadow: var(--shadow-amber); }
 
-  footer { border-top: 1px solid var(--chalk-line); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--slate); flex-wrap: wrap; gap: 16px; }
+  footer.site-footer { border-top: 1px solid var(--chalk-line); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--slate); flex-wrap: wrap; gap: 16px; }
   .footer-disclaimer { max-width: 600px; font-size: 12px; line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo"><span class="logo-mark"></span>Horizon</div>
-  <div class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#advisors">For advisors</a>
-  </div>
-  <a href="#" class="nav-cta">Get your number</a>
-</nav>
-
-<header class="hero">
-  <div class="hero-grid">
-    <div>
-      <div class="trust-row reveal in">
-        <div class="trust-chip"><span class="dot"></span>2026 COLA applied</div>
-        <div class="trust-chip"><span class="dot"></span>Not affiliated with the SSA</div>
-        <div class="trust-chip"><span class="dot"></span>Informational only</div>
-      </div>
-
-      <h1 class="kinetic-h1">
-        <span class="word" style="animation-delay:0.05s">Your</span>
-        <span class="word" style="animation-delay:0.12s">Social</span>
-        <span class="word" style="animation-delay:0.19s">Security,</span>
-        <span class="word accent-fill" style="animation-delay:0.30s">calculated exactly.</span>
-      </h1>
-
-      <p class="hero-sub reveal in d3">One decision, made once, that can move your lifetime income by six figures. Horizon shows you the real numbers — yours, not an average.</p>
-
-      <div class="dual-cta reveal in d4">
-        <div class="path-card primary">
-          <div class="path-label">For myself</div>
-          <h4>Plan my own claim</h4>
-          <p>Get your personalized claiming-age breakdown in 5 minutes.</p>
-          <div class="path-arrow">Start free <span>→</span></div>
+<header class="site-header">
+  <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+    <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"></span>Horizon</a>
+    <ul class="nav-links">
+      <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="#features">Features <span class="caret">▾</span></a>
+        <div class="nav-dropdown">
+          <div class="dd-item"><div class="dd-icon">AI</div><div><h3>AI assistant</h3><p>Ask questions about your plan in plain English</p></div></div>
+          <div class="dd-item"><div class="dd-icon">Σ</div><div><h3>Claiming calculator</h3><p>Compare every age from 62 to 70</p></div></div>
+          <div class="dd-item"><div class="dd-icon">✉</div><div><h3>Document reader</h3><p>Upload SSA &amp; Medicare letters, get plain-English answers</p></div></div>
+          <div class="dd-item"><div class="dd-icon">◔</div><div><h3>Rule-change alerts</h3><p>Know the moment something affects your plan</p></div></div>
         </div>
-        <div class="path-card">
-          <div class="path-label">For my clients</div>
-          <h4>I'm a financial advisor</h4>
-          <p>Manage claiming strategy across your whole book.</p>
-          <div class="path-arrow">See advisor tools <span>→</span></div>
-        </div>
-      </div>
-
-      <div class="hero-secondary reveal in d4">
-        <button class="btn-ghost">Watch a 90-second demo <span class="arrow">→</span></button>
-      </div>
-    </div>
-
-    <div class="reveal in d2">
-      <div class="mockup-frame">
-        <div class="mockup-chrome">
-          <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
-          <div class="chrome-url">app.horizon.com/plan</div>
-        </div>
-        <div class="mockup-stage" id="mockupStage">
-          <div class="mockup-screen active" data-screen="0">
-            <div class="screen-label">Claiming comparison</div>
-            <div class="s-chart">
-              <div class="s-bar" style="height:52%"><span class="v">$1,890</span><span class="a">62</span></div>
-              <div class="s-bar" style="height:68%"><span class="v">$2,340</span><span class="a">64</span></div>
-              <div class="s-bar peak" style="height:82%"><span class="v">$2,690</span><span class="a">67</span></div>
-              <div class="s-bar" style="height:90%"><span class="v">$2,910</span><span class="a">68</span></div>
-              <div class="s-bar" style="height:100%"><span class="v">$3,320</span><span class="a">70</span></div>
-            </div>
-          </div>
-          <div class="mockup-screen" data-screen="1">
-            <div class="screen-label">Ask Horizon</div>
-            <div class="s-chat-bubble user">Should I claim now or wait 2 years?</div>
-            <div class="s-chat-bubble">Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that, waiting wins.</div>
-            <div class="s-chat-bubble user">What if I keep working part-time?</div>
-          </div>
-          <div class="mockup-screen" data-screen="2">
-            <div class="screen-label">Rule-change alerts</div>
-            <div class="s-alert"><div class="s-alert-dot"></div><div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.</p><small>2 days ago</small></div></div>
-            <div class="s-alert"><div class="s-alert-dot"></div><div><p>The Fairness Act repeal added an estimated $340/mo to your benefit.</p><small>Last week</small></div></div>
-          </div>
-        </div>
-        <div class="mockup-dots">
-          <div class="m-dot active" data-dot="0"></div>
-          <div class="m-dot" data-dot="1"></div>
-          <div class="m-dot" data-dot="2"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stat-bar reveal">
-    <div class="stat-cell"><div class="num"><span class="accent-num">+31%</span></div><div class="lbl">benefit increase, claiming at 70 vs. 62</div></div>
-    <div class="stat-cell"><div class="num">$214<span class="accent-num">k</span></div><div class="lbl">average lifetime difference between strategies</div></div>
-    <div class="stat-cell"><div class="num"><span class="accent-num">2032</span></div><div class="lbl">projected trust fund depletion year</div></div>
-    <div class="stat-cell"><div class="num">40</div><div class="lbl">work credits needed to qualify</div></div>
-  </div>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+      <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+      <li class="nav-item"><a class="nav-link" href="#advisors">For advisors</a></li>
+    </ul>
+    <a href="#top" class="nav-cta">Get your number</a>
+  </nav>
 </header>
 
-<section class="block" id="how">
-  <div class="eyebrow-label reveal">The problem</div>
-  <h2 class="section-title reveal d1">Every free calculator gives you a number. Nothing gives you a plan that keeps up.</h2>
-  <p class="section-sub reveal d2">Claiming Social Security is permanent, the rules move every year, and the letters that matter arrive impossible to parse — right when the decision they affect can't be undone.</p>
-</section>
+<main id="top">
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-grid">
+      <div>
+        <div class="trust-row reveal in">
+          <div class="trust-chip"><span class="dot"></span>2026 COLA applied</div>
+          <div class="trust-chip"><span class="dot"></span>Not affiliated with the SSA</div>
+          <div class="trust-chip"><span class="dot"></span>Informational only</div>
+        </div>
 
-<div class="product-section reveal">
-  <div class="product-inner">
-    <div class="eyebrow-label">Your actual numbers</div>
-    <h2 class="section-title">Not an estimate. Your record, run against every claiming age.</h2>
-    <p class="section-sub">Enter your earnings history — or photograph your SSA statement — and Horizon models exactly what changes at 62, at full retirement age, and at 70.</p>
+        <h1 class="kinetic-h1">
+          <span class="word" style="animation-delay:0.05s">Your</span>
+          <span class="word" style="animation-delay:0.12s">Social</span>
+          <span class="word" style="animation-delay:0.19s">Security,</span>
+          <span class="word accent-fill" style="animation-delay:0.30s">calculated exactly.</span>
+        </h1>
 
-    <div class="product-image-frame">
-      <div class="placeholder-img-wrap">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=650&fit=crop" alt="placeholder — replace with real product screenshot of the claiming comparison dashboard" />
-        <div class="placeholder-caption">[ Placeholder — swap for real product screenshot: claiming-age comparison dashboard ]</div>
+        <p class="hero-sub reveal in d3">One decision, made once, that can move your lifetime income by six figures. Horizon shows you the real numbers — yours, not an average — at every claiming age from 62 to 70.</p>
+
+        <div class="dual-cta reveal in d4">
+          <div class="path-card primary">
+            <div class="path-label">For myself</div>
+            <span class="path-title">Plan my own claim</span>
+            <p>Get your personalized claiming-age breakdown in 5 minutes.</p>
+            <div class="path-arrow">Start free <span>→</span></div>
+          </div>
+          <div class="path-card">
+            <div class="path-label">For my clients</div>
+            <span class="path-title">I'm a financial advisor</span>
+            <p>Manage claiming strategy across your whole book.</p>
+            <div class="path-arrow">See advisor tools <span>→</span></div>
+          </div>
+        </div>
+
+        <div class="hero-secondary reveal in d4">
+          <button class="btn-ghost">Watch a 90-second demo <span class="arrow">→</span></button>
+        </div>
       </div>
+
+      <div class="reveal in d2">
+        <div class="mockup-frame" role="img" aria-label="Preview of the Horizon app showing a Social Security claiming-age comparison chart">
+          <div class="mockup-chrome">
+            <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
+            <div class="chrome-url">app.horizon.com/plan</div>
+          </div>
+          <div class="mockup-stage" id="mockupStage">
+            <div class="mockup-screen active" data-screen="0">
+              <div class="screen-label">Claiming comparison</div>
+              <div class="s-chart">
+                <div class="s-bar" style="height:52%"><span class="v">$1,890</span><span class="a">62</span></div>
+                <div class="s-bar" style="height:68%"><span class="v">$2,340</span><span class="a">64</span></div>
+                <div class="s-bar peak" style="height:82%"><span class="v">$2,690</span><span class="a">67</span></div>
+                <div class="s-bar" style="height:90%"><span class="v">$2,910</span><span class="a">68</span></div>
+                <div class="s-bar" style="height:100%"><span class="v">$3,320</span><span class="a">70</span></div>
+              </div>
+            </div>
+            <div class="mockup-screen" data-screen="1">
+              <div class="screen-label">Ask Horizon</div>
+              <div class="s-chat-bubble user">Should I claim now or wait 2 years?</div>
+              <div class="s-chat-bubble">Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that, waiting wins.</div>
+              <div class="s-chat-bubble user">What if I keep working part-time?</div>
+            </div>
+            <div class="mockup-screen" data-screen="2">
+              <div class="screen-label">Rule-change alerts</div>
+              <div class="s-alert"><div class="s-alert-dot"></div><div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.</p><small>2 days ago</small></div></div>
+              <div class="s-alert"><div class="s-alert-dot"></div><div><p>The Fairness Act repeal added an estimated $340/mo to your benefit.</p><small>Last week</small></div></div>
+            </div>
+          </div>
+          <div class="mockup-dots">
+            <button class="m-dot active" data-dot="0" aria-label="Show claiming comparison screen"></button>
+            <button class="m-dot" data-dot="1" aria-label="Show AI assistant screen"></button>
+            <button class="m-dot" data-dot="2" aria-label="Show alerts screen"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-bar reveal">
+      <div class="stat-cell"><div class="num"><span class="accent-num">+31%</span></div><div class="lbl">benefit increase, claiming at 70 vs. 62</div></div>
+      <div class="stat-cell"><div class="num">$214<span class="accent-num">k</span></div><div class="lbl">average lifetime difference between strategies</div></div>
+      <div class="stat-cell"><div class="num"><span class="accent-num">2032</span></div><div class="lbl">projected trust fund depletion year</div></div>
+      <div class="stat-cell"><div class="num">40</div><div class="lbl">work credits needed to qualify</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
+
+  <section class="block" id="how" aria-labelledby="how-heading">
+    <div class="eyebrow-label reveal">The problem</div>
+    <h2 class="section-title reveal d1" id="how-heading">Every free Social Security calculator gives you a number. Nothing gives you a plan that keeps up.</h2>
+    <p class="section-sub reveal d2">Claiming Social Security is permanent, the rules move every year, and the letters that matter arrive impossible to parse — right when the decision they affect can't be undone.</p>
+
+    <div class="problem-grid reveal d3">
+      <article class="problem-card">
+        <div class="problem-num">01</div>
+        <h3>The decision is permanent</h3>
+        <p>Claim early and the reduction follows you for life. Most people file at 62 without ever seeing what waiting would have paid.</p>
+      </article>
+      <article class="problem-card">
+        <div class="problem-num">02</div>
+        <h3>The rules keep moving</h3>
+        <p>COLA, tax law, and provisions like the Social Security Fairness Act change your real numbers every year — nothing tells you when your plan is out of date.</p>
+      </article>
+      <article class="problem-card">
+        <div class="problem-num">03</div>
+        <h3>The letters aren't written for you</h3>
+        <p>SSA and Medicare notices arrive dense and unclear, right when the decision they affect can't be undone.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="product-section reveal" aria-labelledby="product-heading">
+    <div class="product-inner">
+      <div class="eyebrow-label">Your actual numbers</div>
+      <h2 class="section-title" id="product-heading">Not an estimate. Your record, run against every claiming age.</h2>
+      <p class="section-sub">Enter your earnings history — or photograph your SSA statement — and Horizon models exactly what changes at 62, at full retirement age, and at 70.</p>
+
+      <figure class="product-image-frame">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=650&fit=crop" alt="Placeholder — replace with a real screenshot of the Horizon claiming-age comparison dashboard" />
+        <figcaption class="visually-hidden">Placeholder product screenshot — to be replaced with an actual dashboard screenshot before launch</figcaption>
+      </figure>
     </div>
   </div>
-</div>
 
-<section class="block" id="features">
-  <div class="eyebrow-label reveal">What's inside</div>
-  <h2 class="section-title reveal d1">A plan that talks back, reads your mail, and tells you when something changes.</h2>
+  <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
 
-  <div class="bento reveal d2">
-    <div class="bento-cell dark b-1">
-      <div class="bento-label">Ask, in plain english</div>
-      <h3>"Should I claim now, or wait two years?"</h3>
-      <p>Horizon's assistant answers using your actual saved numbers — not a rule of thumb.</p>
-      <div class="mini-chat">
-        <div class="mini-bubble">If you claim at 63 and earn $18k/yr part-time, none of it gets withheld.</div>
-        <div class="mini-bubble user">What about at 65?</div>
+  <section class="block" id="features" aria-labelledby="features-heading">
+    <div class="eyebrow-label reveal">What's inside</div>
+    <h2 class="section-title reveal d1" id="features-heading">A plan that talks back, reads your mail, and tells you when something changes.</h2>
+
+    <div class="bento reveal d2">
+      <article class="bento-cell dark b-1">
+        <div class="bento-label">Ask, in plain english</div>
+        <h3>"Should I claim now, or wait two years?"</h3>
+        <p>Horizon's assistant answers using your actual saved numbers — not a rule of thumb.</p>
+        <div class="mini-chat">
+          <div class="mini-bubble">If you claim at 63 and earn $18k/yr part-time, none of it gets withheld.</div>
+          <div class="mini-bubble user">What about at 65?</div>
+        </div>
+      </article>
+
+      <figure class="bento-cell image-cell b-3">
+        <div class="placeholder-img-wrap">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=500&fit=crop" alt="Placeholder — replace with a screenshot of the document upload feature" />
+          <figcaption class="placeholder-caption">Mail, decoded</figcaption>
+        </div>
+      </figure>
+
+      <article class="bento-cell amber b-4">
+        <div class="bento-label">Coordination</div>
+        <h3>Spousal &amp; survivor</h3>
+        <p>Maximize household lifetime benefit, together.</p>
+      </article>
+
+      <article class="bento-cell light b-6">
+        <div class="bento-label">Stay current</div>
+        <h3>Rule-change alerts, personalized</h3>
+        <p>"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
+      </article>
+
+      <article class="bento-cell dark b-5">
+        <div class="bento-label">Scenario modeling</div>
+        <h3>"What if I get laid off at 63?"</h3>
+        <p>Ask in your own words — Horizon runs the real calculation behind it.</p>
+        <div class="mini-bars">
+          <div class="mini-bar dim" style="height:40%"></div>
+          <div class="mini-bar dim" style="height:58%"></div>
+          <div class="mini-bar" style="height:78%"></div>
+          <div class="mini-bar dim" style="height:65%"></div>
+          <div class="mini-bar" style="height:92%"></div>
+        </div>
+      </article>
+
+      <article class="bento-cell light b-2">
+        <div class="bento-label">WEP / GPO aware</div>
+        <h3>Public-service pensions, handled correctly</h3>
+        <p>Reflects the 2025 Social Security Fairness Act repeal automatically.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="eyebrow-label reveal">Sample feedback</div>
+    <h2 class="section-title reveal d1" id="testimonials-heading">What early testers are saying.</h2>
+    <div class="testimonial-grid reveal d2">
+      <article class="t-card">
+        <p class="t-quote">"I found out waiting three more years would net me an extra $86,000 over my expected lifespan. I had no idea the gap was that big."</p>
+        <div class="t-person">
+          <img class="t-avatar" src="https://i.pravatar.cc/80?img=12" alt="Placeholder avatar for sample testimonial">
+          <div><div class="t-name">Diane R.</div><div class="t-role">Pre-retiree, age 61</div></div>
+        </div>
+        <div class="sample-tag">Sample quote — placeholder for design</div>
+      </article>
+      <article class="t-card">
+        <p class="t-quote">"My spouse and I were about to claim at the same age. Horizon showed us a staggered strategy that added real money to our household total."</p>
+        <div class="t-person">
+          <img class="t-avatar" src="https://i.pravatar.cc/80?img=33" alt="Placeholder avatar for sample testimonial">
+          <div><div class="t-name">Marcus T.</div><div class="t-role">Married, age 64</div></div>
+        </div>
+        <div class="sample-tag">Sample quote — placeholder for design</div>
+      </article>
+      <article class="t-card">
+        <p class="t-quote">"I manage 80 client files. Being able to pull a claiming report in two minutes instead of an hour changed how many clients I can actually serve."</p>
+        <div class="t-person">
+          <img class="t-avatar" src="https://i.pravatar.cc/80?img=47" alt="Placeholder avatar for sample testimonial">
+          <div><div class="t-name">Priya K.</div><div class="t-role">Financial advisor</div></div>
+        </div>
+        <div class="sample-tag">Sample quote — placeholder for design</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
+
+  <section class="block" id="faq" aria-labelledby="faq-heading">
+    <div class="eyebrow-label reveal">Common questions</div>
+    <h2 class="section-title reveal d1" id="faq-heading">Social Security claiming — answered plainly.</h2>
+
+    <div class="faq-list reveal d2">
+      <div class="faq-item open">
+        <button class="faq-question" aria-expanded="true">What is the best age to claim Social Security?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>There is no single best age for everyone — it depends on your health, other income, and household situation. Claiming at 62 reduces your monthly benefit permanently, while waiting until 70 increases it. Horizon models your specific numbers across every age from 62 to 70 so you can compare the real dollar difference for your situation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How much does Social Security increase if I wait to claim?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>Delaying benefits past full retirement age adds delayed retirement credits worth roughly 8% per year, up until age 70. Claiming before full retirement age instead reduces your benefit, by as much as 30% at age 62.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">What is full retirement age (FRA) in 2026?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>For anyone born in 1960 or later, full retirement age is 67 — the final step of a phase-in that began with 1983 legislation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Does working while claiming Social Security reduce my benefit?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. The limit and withholding rules change each year and no longer apply once you reach full retirement age.</p></div>
       </div>
     </div>
+  </section>
 
-    <div class="bento-cell image-cell b-3">
-      <div class="placeholder-img-wrap">
-        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=500&fit=crop" alt="placeholder — replace with document upload screenshot" />
-        <div class="placeholder-caption">Mail, decoded</div>
-      </div>
-    </div>
+  <section class="block" id="pricing" aria-labelledby="pricing-heading">
+    <div class="eyebrow-label reveal">Pricing</div>
+    <h2 class="section-title reveal d1" id="pricing-heading">Start free. Upgrade when you're ready to see the full picture.</h2>
 
-    <div class="bento-cell amber b-4">
-      <div class="bento-label">Coordination</div>
-      <h3>Spousal &amp; survivor</h3>
-      <p>Maximize household lifetime benefit, together.</p>
+    <div class="pricing-grid reveal d2">
+      <article class="price-card">
+        <div class="price-tier">Free</div>
+        <h3 class="price-amount">$0</h3>
+        <div class="price-desc">A real first look at your options.</div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Single claiming-age estimate</li>
+          <li><span class="check">✓</span> FRA &amp; delayed credit calculation</li>
+          <li><span class="check">✓</span> 2026 COLA applied</li>
+        </ul>
+      </article>
+      <article class="price-card featured">
+        <div class="price-tag">Most chosen</div>
+        <div class="price-tier">Plan</div>
+        <h3 class="price-amount">$12<sub>/mo</sub></h3>
+        <div class="price-desc">The full picture, kept current every year.</div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Spousal &amp; survivor coordination</li>
+          <li><span class="check">✓</span> WEP/GPO-aware calculations</li>
+          <li><span class="check">✓</span> Medicare IRMAA impact</li>
+          <li><span class="check">✓</span> AI assistant &amp; document reader</li>
+          <li><span class="check">✓</span> Annual re-check &amp; rule alerts</li>
+        </ul>
+      </article>
+      <article class="price-card">
+        <div class="price-tier">Advisor</div>
+        <h3 class="price-amount">$149<sub>/mo</sub></h3>
+        <div class="price-desc">For advisors managing a full client book.</div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Unlimited client profiles</li>
+          <li><span class="check">✓</span> Client-ready PDF reports</li>
+          <li><span class="check">✓</span> Book-wide rule-change alerts</li>
+        </ul>
+      </article>
     </div>
+  </section>
 
-    <div class="bento-cell light b-6">
-      <div class="bento-label">Stay current</div>
-      <h3>Rule-change alerts, personalized</h3>
-      <p>"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
-    </div>
+  <section class="final-cta reveal" aria-labelledby="final-cta-heading">
+    <h2 id="final-cta-heading">Your number is waiting. <span class="accent-fill">It takes five minutes to see it.</span></h2>
+    <button class="btn-primary">Calculate my benefit — free</button>
+  </section>
+</main>
 
-    <div class="bento-cell dark b-5">
-      <div class="bento-label">Scenario modeling</div>
-      <h3>"What if I get laid off at 63?"</h3>
-      <p>Ask in your own words — Horizon runs the real calculation behind it.</p>
-      <div class="mini-bars">
-        <div class="mini-bar dim" style="height:40%"></div>
-        <div class="mini-bar dim" style="height:58%"></div>
-        <div class="mini-bar" style="height:78%"></div>
-        <div class="mini-bar dim" style="height:65%"></div>
-        <div class="mini-bar" style="height:92%"></div>
-      </div>
-    </div>
-
-    <div class="bento-cell light b-2">
-      <div class="bento-label">WEP / GPO aware</div>
-      <h3>Public-service pensions, handled correctly</h3>
-      <p>Reflects the 2025 Social Security Fairness Act repeal automatically.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="testimonials">
-  <div class="eyebrow-label reveal">Sample feedback</div>
-  <h2 class="section-title reveal d1">What early testers are saying.</h2>
-  <div class="testimonial-grid reveal d2">
-    <div class="t-card">
-      <div class="t-quote">"I found out waiting three more years would net me an extra $86,000 over my expected lifespan. I had no idea the gap was that big."</div>
-      <div class="t-person">
-        <img class="t-avatar" src="https://i.pravatar.cc/80?img=12" alt="placeholder avatar">
-        <div><div class="t-name">Diane R.</div><div class="t-role">Pre-retiree, age 61</div></div>
-      </div>
-      <div class="sample-tag">Sample quote — placeholder for design</div>
-    </div>
-    <div class="t-card">
-      <div class="t-quote">"My spouse and I were about to claim at the same age. Horizon showed us a staggered strategy that added real money to our household total."</div>
-      <div class="t-person">
-        <img class="t-avatar" src="https://i.pravatar.cc/80?img=33" alt="placeholder avatar">
-        <div><div class="t-name">Marcus T.</div><div class="t-role">Married, age 64</div></div>
-      </div>
-      <div class="sample-tag">Sample quote — placeholder for design</div>
-    </div>
-    <div class="t-card">
-      <div class="t-quote">"I manage 80 client files. Being able to pull a claiming report in two minutes instead of an hour changed how many clients I can actually serve."</div>
-      <div class="t-person">
-        <img class="t-avatar" src="https://i.pravatar.cc/80?img=47" alt="placeholder avatar">
-        <div><div class="t-name">Priya K.</div><div class="t-role">Financial advisor</div></div>
-      </div>
-      <div class="sample-tag">Sample quote — placeholder for design</div>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="pricing">
-  <div class="eyebrow-label reveal">Pricing</div>
-  <h2 class="section-title reveal d1">Start free. Upgrade when you're ready to see the full picture.</h2>
-
-  <div class="pricing-grid reveal d2">
-    <div class="price-card">
-      <div class="price-tier">Free</div>
-      <div class="price-amount">$0</div>
-      <div class="price-desc">A real first look at your options.</div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> Single claiming-age estimate</li>
-        <li><span class="check">✓</span> FRA &amp; delayed credit calculation</li>
-        <li><span class="check">✓</span> 2026 COLA applied</li>
-      </ul>
-    </div>
-    <div class="price-card featured">
-      <div class="price-tag">Most chosen</div>
-      <div class="price-tier">Plan</div>
-      <div class="price-amount">$12<sub>/mo</sub></div>
-      <div class="price-desc">The full picture, kept current every year.</div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> Spousal &amp; survivor coordination</li>
-        <li><span class="check">✓</span> WEP/GPO-aware calculations</li>
-        <li><span class="check">✓</span> Medicare IRMAA impact</li>
-        <li><span class="check">✓</span> AI assistant &amp; document reader</li>
-        <li><span class="check">✓</span> Annual re-check &amp; rule alerts</li>
-      </ul>
-    </div>
-    <div class="price-card">
-      <div class="price-tier">Advisor</div>
-      <div class="price-amount">$149<sub>/mo</sub></div>
-      <div class="price-desc">For advisors managing a full client book.</div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> Unlimited client profiles</li>
-        <li><span class="check">✓</span> Client-ready PDF reports</li>
-        <li><span class="check">✓</span> Book-wide rule-change alerts</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<div class="final-cta reveal">
-  <h2>Your number is waiting. <span class="accent-fill">It takes five minutes to see it.</span></h2>
-  <button class="btn-primary">Calculate my benefit — free</button>
-</div>
-
-<footer>
+<footer class="site-footer">
   <div>© 2026 Horizon Financial Technologies</div>
-  <div class="footer-disclaimer">Horizon provides informational estimates only and is not a substitute for financial, legal, or tax advice. Not affiliated with or endorsed by the Social Security Administration.</div>
+  <p class="footer-disclaimer">Horizon provides informational estimates only and is not a substitute for financial, legal, or tax advice. Not affiliated with or endorsed by the Social Security Administration.</p>
 </footer>
 
 <script>
@@ -567,7 +693,11 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Hero mockup crossfade slider
+  const nav = document.getElementById('primaryNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
   const screens = document.querySelectorAll('.mockup-screen');
   const dots = document.querySelectorAll('.m-dot');
   let current = 0;
@@ -581,7 +711,6 @@
   dots.forEach(d => d.addEventListener('click', () => showScreen(parseInt(d.dataset.dot))));
   setInterval(() => { showScreen((current + 1) % screens.length); }, 4200);
 
-  // subtle mouse-parallax tilt on the mockup frame
   const frame = document.querySelector('.mockup-frame');
   const heroGrid = document.querySelector('.hero-grid');
   if (frame && heroGrid) {
@@ -595,6 +724,15 @@
       frame.style.transform = 'perspective(1400px) rotateY(-4deg) rotateX(1deg)';
     });
   }
+
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-question').setAttribute('aria-expanded','false'); });
+      if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
 </script>
 
 </body>

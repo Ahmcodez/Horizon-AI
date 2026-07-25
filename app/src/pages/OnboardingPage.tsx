@@ -1,21 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { saveProfile, getProfile, type HorizonProfile } from '../lib/profileStore'
+import { saveProfile, getProfile, DEFAULT_PROFILE, type HorizonProfile } from '../lib/profileStore'
+import { useAuth } from '../lib/authContext'
 
 const STEPS = ['welcome', 'birthYear', 'pia', 'marital', 'pension', 'done'] as const
 type Step = (typeof STEPS)[number]
 
 export default function OnboardingPage() {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [stepIndex, setStepIndex] = useState(0)
-  const [draft, setDraft] = useState<HorizonProfile>(getProfile())
+  const [draft, setDraft] = useState<HorizonProfile>(DEFAULT_PROFILE)
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    getProfile(user.uid).then(setDraft)
+  }, [user])
 
   const step: Step = STEPS[stepIndex]
   const isLastContentStep = stepIndex === STEPS.length - 2
 
-  function next() {
-    if (isLastContentStep) {
-      saveProfile({ ...draft, onboardingCompletedAt: new Date().toISOString() })
+  async function next() {
+    if (isLastContentStep && user) {
+      setSaving(true)
+      await saveProfile(user.uid, { ...draft, onboardingCompletedAt: new Date().toISOString() })
+      setSaving(false)
     }
     setStepIndex((i) => Math.min(i + 1, STEPS.length - 1))
   }
@@ -23,7 +33,7 @@ export default function OnboardingPage() {
     setStepIndex((i) => Math.max(i - 1, 0))
   }
   function finish() {
-    navigate('/')
+    navigate('/calculator')
   }
 
   return (
@@ -171,9 +181,10 @@ export default function OnboardingPage() {
               </button>
               <button
                 onClick={next}
-                className="bg-graphite text-chalk px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-amber hover:text-graphite transition-colors"
+                disabled={saving}
+                className="bg-graphite text-chalk px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-amber hover:text-graphite transition-colors disabled:opacity-60"
               >
-                {isLastContentStep ? 'Finish' : 'Continue'}
+                {saving ? 'Saving…' : isLastContentStep ? 'Finish' : 'Continue'}
               </button>
             </div>
           )}
@@ -181,7 +192,7 @@ export default function OnboardingPage() {
 
         {step !== 'welcome' && step !== 'done' && (
           <p className="text-center text-xs text-slate mt-5">
-            Saved only on this device for now — not synced across browsers or devices yet.
+            Saved securely to your account — available whenever you sign back in.
           </p>
         )}
       </div>

@@ -1,29 +1,40 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   generateClaimingComparison,
   getFullRetirementAge,
   calculateBreakevenAge,
 } from '../lib/socialSecurity'
-import { getProfile, saveProfile } from '../lib/profileStore'
+import { getProfile, saveProfile, DEFAULT_PROFILE } from '../lib/profileStore'
+import { useAuth } from '../lib/authContext'
 import BenefitChart from '../components/BenefitChart'
 import HouseholdPanel from '../components/HouseholdPanel'
 
 export default function CalculatorPage() {
   const navigate = useNavigate()
-  const profile = useMemo(() => getProfile(), [])
+  const { user, signOut } = useAuth()
 
-  const [birthYear, setBirthYearState] = useState(profile.birthYear)
-  const [pia, setPiaState] = useState(profile.pia)
+  const [birthYear, setBirthYearState] = useState(DEFAULT_PROFILE.birthYear)
+  const [pia, setPiaState] = useState(DEFAULT_PROFILE.pia)
   const [selectedAge, setSelectedAge] = useState(67)
+  const [profileLoaded, setProfileLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    getProfile(user.uid).then((profile) => {
+      setBirthYearState(profile.birthYear)
+      setPiaState(profile.pia)
+      setProfileLoaded(true)
+    })
+  }, [user])
 
   function setBirthYear(value: number) {
     setBirthYearState(value)
-    saveProfile({ birthYear: value })
+    if (user) saveProfile(user.uid, { birthYear: value })
   }
   function setPia(value: number) {
     setPiaState(value)
-    saveProfile({ pia: value })
+    if (user) saveProfile(user.uid, { pia: value })
   }
 
   const fra = useMemo(() => getFullRetirementAge(birthYear), [birthYear])
@@ -47,6 +58,14 @@ export default function CalculatorPage() {
     return Math.round(total70 - total62)
   }, [age62, age70])
 
+  if (!profileLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="font-mono text-sm text-slate">Loading your numbers…</div>
+      </div>
+    )
+  }
+
   return (
     <main className="max-w-[1280px] mx-auto px-8 pt-32 pb-24">
       {/* Intro */}
@@ -56,12 +75,21 @@ export default function CalculatorPage() {
             <span className="w-4 h-[1.5px] bg-amber-deep" />
             Your claiming-age calculator
           </div>
-          <button
-            onClick={() => navigate('/onboarding')}
-            className="text-xs font-mono text-slate hover:text-amber-deep transition-colors whitespace-nowrap"
-          >
-            Redo the 5-minute setup →
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate('/onboarding')}
+              className="text-xs font-mono text-slate hover:text-amber-deep transition-colors whitespace-nowrap"
+            >
+              Redo the 5-minute setup →
+            </button>
+            <span className="text-graphite/15">|</span>
+            <button
+              onClick={() => signOut()}
+              className="text-xs font-mono text-slate hover:text-warn transition-colors whitespace-nowrap"
+            >
+              Sign out
+            </button>
+          </div>
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-normal tracking-tight leading-tight">
           See what your benefit is worth, at every age from 62 to 70.

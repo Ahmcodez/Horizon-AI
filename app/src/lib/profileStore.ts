@@ -1,26 +1,25 @@
 /**
- * Horizon — Profile store
- * ------------------------
- * IMPORTANT SCOPE NOTE: this is a client-side-only persistence layer using
- * localStorage. It is NOT a real account system - there is no server, no
- * auth, and data does not sync across devices or survive a cleared browser.
+ * Horizon — Profile store (Firestore-backed)
+ * --------------------------------------------
+ * Replaces the Phase 4 localStorage version now that real accounts exist.
+ * Each user's profile lives at profiles/{uid} in Firestore, readable and
+ * writable only by that user (see firestore.rules).
  *
- * It's built this way deliberately, as a "repository" with a narrow
- * interface (getProfile / saveProfile / clearProfile), so that swapping the
- * implementation for real backend calls later (once accounts/auth exist)
- * only requires changing this one file - nothing in the UI needs to know
- * where the data actually lives.
+ * Every function here is async and requires a uid — there is no anonymous
+ * fallback in this version. Screens that need profile data should only
+ * render once useAuth() has resolved to a signed-in user.
  */
 
-export interface HorizonProfile {
-  birthYear: number;
-  pia: number;
-  maritalStatus: 'single' | 'married' | 'widowed';
-  hasNonCoveredPension: boolean;
-  onboardingCompletedAt: string | null; // ISO timestamp, null until onboarding finishes
-}
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
+import { db } from './firebase'
 
-const STORAGE_KEY = 'horizon:profile:v1';
+export interface HorizonProfile {
+  birthYear: number
+  pia: number
+  maritalStatus: 'single' | 'married' | 'widowed'
+  hasNonCoveredPension: boolean
+  onboardingCompletedAt: string | null // ISO timestamp, null until onboarding finishes
+}
 
 export const DEFAULT_PROFILE: HorizonProfile = {
   birthYear: 1965,
@@ -28,41 +27,30 @@ export const DEFAULT_PROFILE: HorizonProfile = {
   maritalStatus: 'single',
   hasNonCoveredPension: false,
   onboardingCompletedAt: null,
-};
-
-export function getProfile(): HorizonProfile {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_PROFILE;
-    const parsed = JSON.parse(raw);
-    return { ...DEFAULT_PROFILE, ...parsed };
-  } catch {
-    // Corrupted or inaccessible storage (e.g. private browsing) - fall back
-    // to defaults rather than crashing the app.
-    return DEFAULT_PROFILE;
-  }
 }
 
-export function saveProfile(profile: Partial<HorizonProfile>): HorizonProfile {
-  const current = getProfile();
-  const next = { ...current, ...profile };
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  } catch {
-    // localStorage unavailable - fail silently, in-memory state in the UI
-    // still works for the current session.
-  }
-  return next;
+function profileRef(uid: string) {
+  return doc(db, 'profiles', uid)
 }
 
-export function clearProfile(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // ignore
-  }
+export async function getProfile(uid: string): Promise<HorizonProfile> {
+  const snap = await getDoc(profileRef(uid))
+  if (!snap.exists()) return DEFAULT_PROFILE
+  return { ...DEFAULT_PROFILE, ...(snap.data() as Partial<HorizonProfile>) }
 }
 
-export function hasCompletedOnboarding(): boolean {
-  return getProfile().onboardingCompletedAt !== null;
+export async function saveProfile(
+  uid: string,
+  profile: Partial<HorizonProfile>
+): Promise<void> {
+  await setDoc(profileRef(uid), profile, { merge: true })
+}
+
+export async function clearProfile(uid: string): Promise<void> {
+  await deleteDoc(profileRef(uid))
+}
+
+export async function hasCompletedOnboarding(uid: string): Promise<boolean> {
+  const profile = await getProfile(uid)
+  return profile.onboardingCompletedAt !== null
 }

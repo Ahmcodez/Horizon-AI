@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/*
+  Design tokens — ported 1:1 from the approved Phase 1 HTML mockups.
+  These become real Tailwind utilities: bg-graphite, text-amber, font-display,
+  shadow-amber, etc. Change a value here and it updates everywhere in the app.
+*/
+@theme {
+  --color-graphite: #0E0F12;
+  --color-graphite-2: #1A1C21;
+  --color-graphite-3: #24262D;
+  --color-chalk: #FAF7F2;
+  --color-chalk-dim: #F0ECE3;
+  --color-amber: #E8A33D;
+  --color-amber-deep: #C97F1E;
+  --color-slate: #52565E;
+  --color-warn: #C4573F;
+
+  --font-display: 'Fraunces', serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --shadow-xs: 0 1px 2px rgba(14,15,18,0.06);
+  --shadow-sm: 0 2px 8px rgba(14,15,18,0.06), 0 1px 2px rgba(14,15,18,0.04);
+  --shadow-md: 0 8px 24px rgba(14,15,18,0.08), 0 2px 6px rgba(14,15,18,0.05);
+  --shadow-lg: 0 20px 48px rgba(14,15,18,0.12), 0 6px 16px rgba(14,15,18,0.06);
+  --shadow-amber: 0 16px 36px rgba(232,163,61,0.32), 0 4px 10px rgba(232,163,61,0.18);
+  --shadow-dark: 0 24px 60px rgba(0,0,0,0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-chalk);
+  color: var(--color-graphite);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+}

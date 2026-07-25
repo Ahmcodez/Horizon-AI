@@ -7,6 +7,7 @@ import AssistantWidget from './components/AssistantWidget'
 import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
+import DocumentsPage from './pages/DocumentsPage'
 import RootRedirect from './components/RootRedirect'
 
 function GlobalAssistant() {
@@ -44,6 +45,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <CalculatorPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/documents"
+              element={
+                <ProtectedRoute>
+                  <DocumentsPage />
                 </ProtectedRoute>
               }
             />

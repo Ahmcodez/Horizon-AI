@@ -28,6 +28,11 @@ export default function Navbar() {
             </a>
           </li>
           <li>
+            <a href="/documents" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
+              Documents
+            </a>
+          </li>
+          <li>
             <a href="#results" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
               Results
             </a>

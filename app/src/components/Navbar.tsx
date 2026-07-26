@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../lib/authContext'
+import { useAlerts } from '../lib/alerts'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { user } = useAuth()
+  const alerts = useAlerts(user?.uid)
+  const unreadCount = alerts.filter((a) => !a.read).length
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -42,18 +47,29 @@ export default function Navbar() {
               Billing
             </a>
           </li>
-          <li>
-            <a href="#results" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              Results
-            </a>
-          </li>
         </ul>
-        <a
-          href="#calculator"
-          className="bg-graphite text-chalk px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:bg-amber hover:text-graphite hover:-translate-y-0.5 transition-all"
-        >
-          Get your number
-        </a>
+        <div className="flex items-center gap-3">
+          {user && (
+            <a
+              href="/alerts"
+              className="relative w-9 h-9 rounded-full bg-chalk-dim hover:bg-graphite hover:text-chalk flex items-center justify-center transition-colors text-graphite"
+              aria-label={`Alerts${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
+            >
+              🔔
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-graphite text-[10px] font-bold flex items-center justify-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </a>
+          )}
+          <a
+            href="#calculator"
+            className="bg-graphite text-chalk px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:bg-amber hover:text-graphite hover:-translate-y-0.5 transition-all"
+          >
+            Get your number
+          </a>
+        </div>
       </nav>
     </header>
   )

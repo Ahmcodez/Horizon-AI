@@ -19,6 +19,23 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Personalized rule-change alerts. Users can read, mark-as-read, or
+    // dismiss (delete) their own alerts, but cannot create one - alerts are
+    // only ever written by the scheduled checkRuleUpdates function via the
+    // Admin SDK.
+    match /profiles/{uid}/alerts/{alertId} {
+      allow read, update, delete: if request.auth != null && request.auth.uid == uid;
+      allow create: if false;
+    }
+
+    // Internal rule-monitoring state - not exposed to any client at all.
+    match /ruleSources/{sourceId} {
+      allow read, write: if false;
+    }
+    match /ruleUpdates/{updateId} {
+      allow read, write: if false;
+    }
+
     // Deny everything else by default.
     match /{document=**} {
       allow read, write: if false;

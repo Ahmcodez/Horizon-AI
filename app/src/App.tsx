@@ -12,6 +12,7 @@ import BillingPage from './pages/BillingPage'
 import ScenariosPage from './pages/ScenariosPage'
 import AlertsPage from './pages/AlertsPage'
 import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
+import StateComparisonPage from './pages/StateComparisonPage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
 
@@ -91,6 +92,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AdvisorDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/states"
+              element={
+                <ProtectedRoute>
+                  <StateComparisonPage />
                 </ProtectedRoute>
               }
             />

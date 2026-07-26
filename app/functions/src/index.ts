@@ -2,6 +2,8 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { defineSecret } from 'firebase-functions/params';
 import Anthropic from '@anthropic-ai/sdk';
 
+export { createCheckoutSession, createPortalSession, stripeWebhook } from './billing';
+
 /**
  * Horizon — AI assistant backend
  * --------------------------------

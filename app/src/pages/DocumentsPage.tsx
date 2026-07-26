@@ -1,5 +1,6 @@
 import { useRef, useState, type DragEvent } from 'react'
 import { readDocument, ACCEPTED_TYPES, MAX_FILE_BYTES } from '../lib/documentReader'
+import UpgradeGate from '../components/UpgradeGate'
 
 export default function DocumentsPage() {
   const [file, setFile] = useState<File | null>(null)
@@ -69,34 +70,35 @@ export default function DocumentsPage() {
         </p>
       </div>
 
-      {!file && (
-        <div
-          onDragOver={(e) => {
-            e.preventDefault()
-            setDragOver(true)
-          }}
-          onDragLeave={() => setDragOver(false)}
-          onDrop={onDrop}
-          onClick={() => inputRef.current?.click()}
-          className={`border-2 border-dashed rounded-3xl p-16 text-center cursor-pointer transition-colors ${
-            dragOver ? 'border-amber-deep bg-amber/5' : 'border-graphite/15 bg-chalk-dim hover:border-graphite/30'
-          }`}
-        >
-          <div className="text-4xl mb-4">📄</div>
-          <p className="font-medium text-graphite mb-1">Drop a file here, or click to browse</p>
-          <p className="text-sm text-slate">JPEG, PNG, or PDF — up to 6MB</p>
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPTED_TYPES.join(',')}
-            className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0]
-              if (f) handleFile(f)
+      <UpgradeGate feature="Document reader">
+        {!file && (
+          <div
+            onDragOver={(e) => {
+              e.preventDefault()
+              setDragOver(true)
             }}
-          />
-        </div>
-      )}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={onDrop}
+            onClick={() => inputRef.current?.click()}
+            className={`border-2 border-dashed rounded-3xl p-16 text-center cursor-pointer transition-colors ${
+              dragOver ? 'border-amber-deep bg-amber/5' : 'border-graphite/15 bg-chalk-dim hover:border-graphite/30'
+            }`}
+          >
+            <div className="text-4xl mb-4">📄</div>
+            <p className="font-medium text-graphite mb-1">Drop a file here, or click to browse</p>
+            <p className="text-sm text-slate">JPEG, PNG, or PDF — up to 6MB</p>
+            <input
+              ref={inputRef}
+              type="file"
+              accept={ACCEPTED_TYPES.join(',')}
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0]
+                if (f) handleFile(f)
+              }}
+            />
+          </div>
+        )}
 
       {file && (
         <div className="space-y-6">
@@ -150,6 +152,7 @@ export default function DocumentsPage() {
           </p>
         </div>
       )}
+      </UpgradeGate>
     </main>
   )
 }

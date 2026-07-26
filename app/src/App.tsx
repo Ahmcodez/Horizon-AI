@@ -8,11 +8,14 @@ import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
 import DocumentsPage from './pages/DocumentsPage'
+import BillingPage from './pages/BillingPage'
 import RootRedirect from './components/RootRedirect'
+import { usePlan } from './lib/billing'
 
 function GlobalAssistant() {
   const { user } = useAuth()
-  if (!user) return null
+  const { plan } = usePlan(user?.uid)
+  if (!user || (plan !== 'plan' && plan !== 'advisor')) return null
   return <AssistantWidget />
 }
 
@@ -53,6 +56,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <DocumentsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/billing"
+              element={
+                <ProtectedRoute>
+                  <BillingPage />
                 </ProtectedRoute>
               }
             />

@@ -10,6 +10,7 @@ import { useAuth } from '../lib/authContext'
 import { useAssistant } from '../lib/assistantContext'
 import BenefitChart from '../components/BenefitChart'
 import HouseholdPanel from '../components/HouseholdPanel'
+import UpgradeGate from '../components/UpgradeGate'
 
 export default function CalculatorPage() {
   const navigate = useNavigate()
@@ -278,7 +279,9 @@ export default function CalculatorPage() {
             </table>
           </div>
 
-          <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
+          <UpgradeGate feature="Spousal & survivor coordination">
+            <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
+          </UpgradeGate>
 
           <p className="text-xs text-slate leading-relaxed max-w-2xl">
             These figures are informational estimates based on the Primary Insurance Amount you

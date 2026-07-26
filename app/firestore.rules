@@ -36,6 +36,18 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // Advisor multi-client dashboard. Only the advisor themselves can
+    // access their own client list, and only if they actually hold an
+    // 'advisor' plan right now - checked server-side via a get() against
+    // their own customers doc, not just trusted from the client's request.
+    // This means even if someone's UI is tampered with, a non-advisor
+    // account still can't read or write client records.
+    match /advisorClients/{advisorUid}/clients/{clientId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == advisorUid
+        && get(/databases/$(database)/documents/customers/$(advisorUid)).data.plan == 'advisor';
+    }
+
     // Deny everything else by default.
     match /{document=**} {
       allow read, write: if false;

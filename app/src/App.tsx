@@ -9,6 +9,7 @@ import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
 import DocumentsPage from './pages/DocumentsPage'
 import BillingPage from './pages/BillingPage'
+import ScenariosPage from './pages/ScenariosPage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
 
@@ -64,6 +65,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <BillingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/scenarios"
+              element={
+                <ProtectedRoute>
+                  <ScenariosPage />
                 </ProtectedRoute>
               }
             />

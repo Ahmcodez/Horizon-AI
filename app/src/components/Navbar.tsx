@@ -33,6 +33,11 @@ export default function Navbar() {
             </a>
           </li>
           <li>
+            <a href="/scenarios" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
+              Scenarios
+            </a>
+          </li>
+          <li>
             <a href="/billing" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
               Billing
             </a>

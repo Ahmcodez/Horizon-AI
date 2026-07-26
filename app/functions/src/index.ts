@@ -3,6 +3,7 @@ import { defineSecret } from 'firebase-functions/params';
 import Anthropic from '@anthropic-ai/sdk';
 
 export { createCheckoutSession, createPortalSession, stripeWebhook } from './billing';
+export { checkRuleUpdates } from './alerts';
 
 /**
  * Horizon — AI assistant backend

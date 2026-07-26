@@ -11,6 +11,7 @@ import DocumentsPage from './pages/DocumentsPage'
 import BillingPage from './pages/BillingPage'
 import ScenariosPage from './pages/ScenariosPage'
 import AlertsPage from './pages/AlertsPage'
+import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
 
@@ -82,6 +83,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AlertsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/advisor"
+              element={
+                <ProtectedRoute>
+                  <AdvisorDashboardPage />
                 </ProtectedRoute>
               }
             />

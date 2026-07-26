@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../lib/authContext'
 import { useAlerts } from '../lib/alerts'
+import { usePlan } from '../lib/billing'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { user } = useAuth()
   const alerts = useAlerts(user?.uid)
+  const { plan } = usePlan(user?.uid)
   const unreadCount = alerts.filter((a) => !a.read).length
 
   useEffect(() => {
@@ -47,6 +49,13 @@ export default function Navbar() {
               Billing
             </a>
           </li>
+          {plan === 'advisor' && (
+            <li>
+              <a href="/advisor" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
+                Advisor
+              </a>
+            </li>
+          )}
         </ul>
         <div className="flex items-center gap-3">
           {user && (

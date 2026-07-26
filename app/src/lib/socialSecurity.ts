@@ -97,8 +97,43 @@ export function calculateMonthlyBenefit(
   return round2(pia);
 }
 
-function round2(n: number): number {
+export function round2(n: number): number {
   return Math.round(n * 100) / 100;
+}
+
+/**
+ * "What if Congress cuts benefits" scenario — applies a uniform percentage
+ * reduction across an existing claiming-age comparison. This models the
+ * trust-fund-depletion scenario people read about (projected ~2032-2033),
+ * where SSA could only pay a percentage of scheduled benefits without
+ * legislative action. Purely illustrative - actual policy responses, if
+ * any, are unknown and could look very different from a flat cut.
+ */
+export function applyUniformCut(
+  scenarios: ClaimingScenario[],
+  cutPercent: number
+): ClaimingScenario[] {
+  const factor = 1 - cutPercent / 100;
+  return scenarios.map((s) => ({
+    ...s,
+    monthlyBenefit: round2(s.monthlyBenefit * factor),
+    annualBenefit: round2(s.annualBenefit * factor),
+  }));
+}
+
+/**
+ * Lifetime total if benefits are collected from `claimAge` until
+ * `lifeExpectancy`. Used for the longevity "what if I live to X" scenario -
+ * lets someone compare 62 vs. FRA vs. 70 against an assumed lifespan of
+ * their own choosing instead of a fixed default.
+ */
+export function calculateLifetimeTotal(
+  annualBenefit: number,
+  claimAge: number,
+  lifeExpectancy: number
+): number {
+  const years = Math.max(lifeExpectancy - claimAge, 0);
+  return Math.round(annualBenefit * years);
 }
 
 export interface ClaimingScenario {

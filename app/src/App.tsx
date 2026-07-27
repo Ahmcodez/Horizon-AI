@@ -7,6 +7,7 @@ import AssistantWidget from './components/AssistantWidget'
 import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
+import LandingPage from './pages/LandingPage'
 import DocumentsPage from './pages/DocumentsPage'
 import BillingPage from './pages/BillingPage'
 import ScenariosPage from './pages/ScenariosPage'
@@ -30,9 +31,10 @@ export default function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
-              path="/"
+              path="/app"
               element={
                 <ProtectedRoute>
                   <RootRedirect />

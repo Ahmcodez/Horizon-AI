@@ -28,63 +28,67 @@ export default function Navbar() {
           <span className="w-[18px] h-[18px] bg-amber rounded-[5px_5px_5px_0] shadow-[0_2px_8px_rgba(232,163,61,0.5)]" />
           Horizon
         </a>
-        <ul className="hidden md:flex items-center gap-1 text-sm font-medium">
-          <li>
-            <a href="#calculator" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              Calculator
-            </a>
-          </li>
-          <li>
-            <a href="/documents" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              Documents
-            </a>
-          </li>
-          <li>
-            <a href="/scenarios" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              Scenarios
-            </a>
-          </li>
-          <li>
-            <a href="/states" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              States
-            </a>
-          </li>
-          <li>
-            <a href="/billing" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-              Billing
-            </a>
-          </li>
-          {plan === 'advisor' && (
-            <li>
-              <a href="/advisor" className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors">
-                Advisor
+
+        {user ? (
+          <>
+            <ul className="hidden md:flex items-center gap-1 text-sm font-medium">
+              <li><NavLink href="/calculator">Calculator</NavLink></li>
+              <li><NavLink href="/documents">Documents</NavLink></li>
+              <li><NavLink href="/scenarios">Scenarios</NavLink></li>
+              <li><NavLink href="/states">States</NavLink></li>
+              <li><NavLink href="/billing">Billing</NavLink></li>
+              {plan === 'advisor' && <li><NavLink href="/advisor">Advisor</NavLink></li>}
+            </ul>
+            <div className="flex items-center gap-3">
+              <a
+                href="/alerts"
+                className="relative w-9 h-9 rounded-full bg-chalk-dim hover:bg-graphite hover:text-chalk flex items-center justify-center transition-colors text-graphite"
+                aria-label={`Alerts${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
+              >
+                🔔
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-graphite text-[10px] font-bold flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
               </a>
-            </li>
-          )}
-        </ul>
-        <div className="flex items-center gap-3">
-          {user && (
-            <a
-              href="/alerts"
-              className="relative w-9 h-9 rounded-full bg-chalk-dim hover:bg-graphite hover:text-chalk flex items-center justify-center transition-colors text-graphite"
-              aria-label={`Alerts${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
-            >
-              🔔
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-graphite text-[10px] font-bold flex items-center justify-center">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </a>
-          )}
-          <a
-            href="#calculator"
-            className="bg-graphite text-chalk px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:bg-amber hover:text-graphite hover:-translate-y-0.5 transition-all"
-          >
-            Get your number
-          </a>
-        </div>
+              <a
+                href="/app"
+                className="bg-graphite text-chalk px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:bg-amber hover:text-graphite hover:-translate-y-0.5 transition-all"
+              >
+                Go to my plan
+              </a>
+            </div>
+          </>
+        ) : (
+          <>
+            <ul className="hidden md:flex items-center gap-1 text-sm font-medium">
+              <li><NavLink href="/#how">How it works</NavLink></li>
+              <li><NavLink href="/#features">Features</NavLink></li>
+              <li><NavLink href="/#faq">FAQ</NavLink></li>
+            </ul>
+            <div className="flex items-center gap-3">
+              <a href="/login" className="text-sm font-medium text-slate hover:text-graphite transition-colors px-3">
+                Sign in
+              </a>
+              <a
+                href="/login"
+                className="bg-graphite text-chalk px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:bg-amber hover:text-graphite hover:-translate-y-0.5 transition-all"
+              >
+                Get started
+              </a>
+            </div>
+          </>
+        )}
       </nav>
     </header>
+  )
+}
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} className="px-4 py-2 rounded-lg text-slate hover:text-graphite hover:bg-chalk-dim transition-colors inline-block">
+      {children}
+    </a>
   )
 }

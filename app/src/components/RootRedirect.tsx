@@ -9,9 +9,18 @@ export default function RootRedirect() {
 
   useEffect(() => {
     if (!user) return
-    hasCompletedOnboarding(user.uid).then((done) => {
-      setTarget(done ? 'calculator' : 'onboarding')
-    })
+    hasCompletedOnboarding(user.uid)
+      .then((done) => {
+        setTarget(done ? 'calculator' : 'onboarding')
+      })
+      .catch((err) => {
+        console.error('Failed to check onboarding status from Firestore:', err)
+        // Fail safe: send to onboarding rather than hanging forever. If
+        // Firestore reads are broken (e.g. rules not deployed), onboarding
+        // will still render and its own save action will surface a clear
+        // error message instead of silently getting stuck.
+        setTarget('onboarding')
+      })
   }, [user])
 
   if (!target) {

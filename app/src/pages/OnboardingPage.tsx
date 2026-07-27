@@ -12,10 +12,18 @@ export default function OnboardingPage() {
   const [stepIndex, setStepIndex] = useState(0)
   const [draft, setDraft] = useState<HorizonProfile>(DEFAULT_PROFILE)
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
-    getProfile(user.uid).then(setDraft)
+    getProfile(user.uid)
+      .then(setDraft)
+      .catch((err) => {
+        // Non-fatal here - a new user has no existing profile to load
+        // anyway, so we just log it and keep the defaults rather than
+        // blocking the onboarding flow.
+        console.warn('Could not load existing profile (may be a new user):', err)
+      })
   }, [user])
 
   const step: Step = STEPS[stepIndex]
@@ -24,7 +32,17 @@ export default function OnboardingPage() {
   async function next() {
     if (isLastContentStep && user) {
       setSaving(true)
-      await saveProfile(user.uid, { ...draft, onboardingCompletedAt: new Date().toISOString() })
+      setError(null)
+      try {
+        await saveProfile(user.uid, { ...draft, onboardingCompletedAt: new Date().toISOString() })
+      } catch (err) {
+        console.error('Failed to save profile to Firestore:', err)
+        setError(
+          'Could not save your information — check that Firestore rules are deployed and your Firebase config is correct.'
+        )
+        setSaving(false)
+        return
+      }
       setSaving(false)
     }
     setStepIndex((i) => Math.min(i + 1, STEPS.length - 1))
@@ -175,17 +193,22 @@ export default function OnboardingPage() {
           )}
 
           {step !== 'welcome' && step !== 'done' && (
-            <div className="flex justify-between mt-8">
-              <button onClick={back} className="text-sm font-medium text-slate hover:text-graphite transition-colors">
-                ← Back
-              </button>
-              <button
-                onClick={next}
-                disabled={saving}
-                className="bg-graphite text-chalk px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-amber hover:text-graphite transition-colors disabled:opacity-60"
-              >
-                {saving ? 'Saving…' : isLastContentStep ? 'Finish' : 'Continue'}
-              </button>
+            <div className="mt-8">
+              {error && (
+                <div className="text-xs text-warn bg-warn/10 rounded-lg px-4 py-3 mb-4">{error}</div>
+              )}
+              <div className="flex justify-between">
+                <button onClick={back} className="text-sm font-medium text-slate hover:text-graphite transition-colors">
+                  ← Back
+                </button>
+                <button
+                  onClick={next}
+                  disabled={saving}
+                  className="bg-graphite text-chalk px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-amber hover:text-graphite transition-colors disabled:opacity-60"
+                >
+                  {saving ? 'Saving…' : isLastContentStep ? 'Finish' : 'Continue'}
+                </button>
+              </div>
             </div>
           )}
         </div>

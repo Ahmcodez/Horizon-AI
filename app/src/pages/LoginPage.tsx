@@ -21,7 +21,7 @@ export default function LoginPage() {
       } else {
         await signUp(email, password)
       }
-      navigate('/')
+      navigate('/app')
     } catch (err) {
       setError(friendlyAuthError(err))
     } finally {

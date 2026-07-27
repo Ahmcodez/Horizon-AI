@@ -21,14 +21,24 @@ export default function CalculatorPage() {
   const [pia, setPiaState] = useState(DEFAULT_PROFILE.pia)
   const [selectedAge, setSelectedAge] = useState(67)
   const [profileLoaded, setProfileLoaded] = useState(false)
+  const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
-    getProfile(user.uid).then((profile) => {
-      setBirthYearState(profile.birthYear)
-      setPiaState(profile.pia)
-      setProfileLoaded(true)
-    })
+    getProfile(user.uid)
+      .then((profile) => {
+        setBirthYearState(profile.birthYear)
+        setPiaState(profile.pia)
+        setProfileLoaded(true)
+      })
+      .catch((err) => {
+        console.error('Failed to load profile from Firestore:', err)
+        setLoadError(
+          err?.code === 'permission-denied'
+            ? "Firestore denied this read — your security rules likely haven't been deployed/published yet. See docs/SECURITY.md and firestore.rules in the repo."
+            : 'Could not load your saved numbers. Check your Firebase config in .env.local and that Firestore is enabled for this project.'
+        )
+      })
   }, [user])
 
   function setBirthYear(value: number) {
@@ -75,6 +85,17 @@ export default function CalculatorPage() {
   function explain(question: string) {
     setDraftQuestion(question)
     open()
+  }
+
+  if (loadError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-8">
+        <div className="max-w-md text-center">
+          <div className="font-mono text-xs uppercase tracking-wide text-warn mb-3">Couldn't load your data</div>
+          <p className="text-sm text-graphite leading-relaxed">{loadError}</p>
+        </div>
+      </div>
+    )
   }
 
   if (!profileLoaded) {

@@ -1,9 +1,25 @@
+import { useState } from 'react'
+import { getFunctions, httpsCallable } from 'firebase/functions'
+import { app } from '../lib/firebase'
 import { useAuth } from '../lib/authContext'
 import { useAlerts, markAlertRead, dismissAlert } from '../lib/alerts'
+
+const functions = getFunctions(app)
 
 export default function AlertsPage() {
   const { user } = useAuth()
   const alerts = useAlerts(user?.uid)
+  const [seeding, setSeeding] = useState(false)
+
+  async function seedSamples() {
+    setSeeding(true)
+    try {
+      const callable = httpsCallable(functions, 'seedSampleAlerts')
+      await callable({})
+    } finally {
+      setSeeding(false)
+    }
+  }
 
   return (
     <main className="max-w-2xl mx-auto px-8 pt-32 pb-24">
@@ -23,10 +39,25 @@ export default function AlertsPage() {
 
       {alerts.length === 0 && (
         <div className="bg-chalk-dim rounded-3xl p-10 text-center text-slate text-sm">
-          No alerts yet — you'll see something here the next time a rule change affects your
-          numbers.
+          <p className="mb-5">
+            No alerts yet — you'll see something here the next time a rule change affects your
+            numbers.
+          </p>
+          <button
+            onClick={seedSamples}
+            disabled={seeding}
+            className="font-mono text-xs bg-chalk border border-graphite/15 px-4 py-2 rounded-full hover:border-amber-deep transition-colors disabled:opacity-60"
+          >
+            {seeding ? 'Loading…' : 'See what this looks like (sample data)'}
+          </button>
+          <p className="text-[10px] text-slate/70 mt-3 max-w-sm mx-auto leading-relaxed">
+            This loads 3 realistic sample alerts to preview the feature — it does not test the
+            actual daily SSA/IRS/CMS monitoring, which only produces real alerts after a genuine
+            rule change is detected.
+          </p>
         </div>
       )}
+
 
       <div className="space-y-3">
         {alerts.map((alert) => (

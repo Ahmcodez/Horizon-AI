@@ -26,6 +26,35 @@
   --shadow-lg: 0 20px 48px rgba(14,15,18,0.12), 0 6px 16px rgba(14,15,18,0.06);
   --shadow-amber: 0 16px 36px rgba(232,163,61,0.32), 0 4px 10px rgba(232,163,61,0.18);
   --shadow-dark: 0 24px 60px rgba(0,0,0,0.35);
+
+  /* ============================================================
+     "Obsidian" design system (v2 redesign, rolling out incrementally
+     page by page). Old tokens above stay in place so pages not yet
+     migrated keep rendering correctly during the transition.
+     ============================================================ */
+  --color-obsidian: #0A0A0C;          /* true near-black - dominant surface */
+  --color-obsidian-elevated: #18181C; /* "light black" card on a black background */
+  --color-obsidian-line: rgba(255,255,255,0.1);
+  --color-paper: #FFFFFF;             /* white cards / white buttons on black */
+  --color-paper-dim: #F5F5F7;         /* soft off-white for light-section backgrounds */
+  --color-ink: #0A0A0C;               /* text on white/paper surfaces */
+  --color-muted: #8A8A93;             /* secondary text on both light and dark */
+
+  /* Restrained accent trio - each tied to a specific feature category
+     rather than randomly mixed, so "colorful" still reads intentional. */
+  --color-emerald: #10B981;  /* household / growth-oriented features */
+  --color-azure: #3B82F6;    /* AI assistant / trust features */
+  --color-gold: #F5B700;     /* advisor / premium / alerts features */
+
+  --font-luxe: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-luxe-mono: 'Geist Mono', monospace;
+
+  --shadow-glow-white: 0 8px 30px rgba(255,255,255,0.12);
+  --shadow-glow-emerald: 0 12px 32px rgba(16,185,129,0.35);
+  --shadow-glow-azure: 0 12px 32px rgba(59,130,246,0.35);
+  --shadow-glow-gold: 0 12px 32px rgba(245,183,0,0.35);
+  --shadow-card-dark: 0 24px 60px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-card-light: 0 4px 16px rgba(10,10,12,0.06), 0 1px 3px rgba(10,10,12,0.04);
 }
 
 html {
@@ -56,6 +85,11 @@ body {
 @keyframes growV {
   from { transform: scaleY(0); }
   to { transform: scaleY(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Scroll-reveal utility: starts hidden, .in is toggled on by IntersectionObserver */

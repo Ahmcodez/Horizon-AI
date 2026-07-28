@@ -14,6 +14,7 @@ import ScenariosPage from './pages/ScenariosPage'
 import AlertsPage from './pages/AlertsPage'
 import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
 import StateComparisonPage from './pages/StateComparisonPage'
+import EmbedPage from './pages/EmbedPage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
 
@@ -102,6 +103,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <StateComparisonPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/embed"
+              element={
+                <ProtectedRoute>
+                  <EmbedPage />
                 </ProtectedRoute>
               }
             />

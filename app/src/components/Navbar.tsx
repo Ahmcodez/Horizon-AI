@@ -38,6 +38,7 @@ export default function Navbar() {
               <li><NavLink href="/states">States</NavLink></li>
               <li><NavLink href="/billing">Billing</NavLink></li>
               {plan === 'advisor' && <li><NavLink href="/advisor">Advisor</NavLink></li>}
+              {plan === 'advisor' && <li><NavLink href="/embed">Embed</NavLink></li>}
             </ul>
             <div className="flex items-center gap-3">
               <a

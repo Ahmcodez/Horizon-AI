@@ -4,6 +4,7 @@ import Anthropic from '@anthropic-ai/sdk';
 
 export { createCheckoutSession, createPortalSession, stripeWebhook } from './billing';
 export { checkRuleUpdates } from './alerts';
+export { embedCalculate } from './embed';
 
 /**
  * Horizon — AI assistant backend

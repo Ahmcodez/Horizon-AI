@@ -1,7 +1,7 @@
 import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { defineSecret } from 'firebase-functions/params';
 import * as crypto from 'crypto';
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI } from '@google/genai';
 import { db } from './admin';
 
 /**
@@ -20,7 +20,7 @@ import { db } from './admin';
  * approach may need adjusting for.
  */
 
-const anthropicApiKey = defineSecret('ANTHROPIC_API_KEY');
+const geminiApiKey = defineSecret('GEMINI_API_KEY');
 
 interface RuleSource {
   id: string;
@@ -49,9 +49,9 @@ function hashText(text: string): string {
 }
 
 export const checkRuleUpdates = onSchedule(
-  { schedule: 'every 24 hours', secrets: [anthropicApiKey], timeoutSeconds: 300 },
+  { schedule: 'every 24 hours', secrets: [geminiApiKey], timeoutSeconds: 300 },
   async () => {
-    const client = new Anthropic({ apiKey: anthropicApiKey.value() });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey.value() });
 
     for (const source of SOURCES) {
       try {
@@ -85,23 +85,16 @@ export const checkRuleUpdates = onSchedule(
           continue;
         }
 
-        const analysis = await client.messages.create({
-          model: 'claude-sonnet-5',
-          max_tokens: 300,
-          system: `You monitor ${source.label} for changes relevant to Social Security, Medicare, or retirement-related tax rules. Compare the previous and current page text. If there's a genuine new policy, rule, COLA, premium, or benefit-relevant announcement, summarize it in 2-3 plain-English sentences. If the difference is just incidental page churn (navigation, unrelated news, formatting) with nothing retirement-relevant, respond with exactly: NO_SUBSTANTIVE_CHANGE`,
-          messages: [
-            {
-              role: 'user',
-              content: `PREVIOUS:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT:\n${excerpt}`,
-            },
-          ],
+        const analysis = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: `PREVIOUS:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT:\n${excerpt}`,
+          config: {
+            systemInstruction: `You monitor ${source.label} for changes relevant to Social Security, Medicare, or retirement-related tax rules. Compare the previous and current page text. If there's a genuine new policy, rule, COLA, premium, or benefit-relevant announcement, summarize it in 2-3 plain-English sentences. If the difference is just incidental page churn (navigation, unrelated news, formatting) with nothing retirement-relevant, respond with exactly: NO_SUBSTANTIVE_CHANGE`,
+            maxOutputTokens: 300,
+          },
         });
 
-        const summary = analysis.content
-          .filter((b): b is Anthropic.TextBlock => b.type === 'text')
-          .map((b) => b.text)
-          .join('\n')
-          .trim();
+        const summary = (analysis.text ?? '').trim();
 
         if (!summary || summary === 'NO_SUBSTANTIVE_CHANGE') continue;
 

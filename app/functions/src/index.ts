@@ -1,28 +1,47 @@
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { defineSecret } from 'firebase-functions/params';
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI } from '@google/genai';
 
 export { createCheckoutSession, createPortalSession, stripeWebhook } from './billing';
 export { checkRuleUpdates } from './alerts';
 export { embedCalculate } from './embed';
+export { seedSampleAlerts } from './seed';
 
 /**
  * Horizon — AI assistant backend
  * --------------------------------
- * This is the ONLY place the Anthropic API key ever exists. It lives in
+ * This is the ONLY place the Gemini API key ever exists. It lives in
  * Firebase's secret manager (set via `firebase functions:secrets:set
- * ANTHROPIC_API_KEY`), never in client code, never in an env var shipped to
- * the browser. The client calls this function; this function calls Claude.
+ * GEMINI_API_KEY`), never in client code, never in an env var shipped to
+ * the browser. The client calls this function; this function calls Gemini.
  *
- * Per the PRD's core AI architecture principle: Claude EXPLAINS the user's
- * numbers here, it does not calculate them. Every figure Claude is allowed
- * to reference is passed in explicitly as `context`, computed by the same
+ * SWITCHED FROM CLAUDE TO GEMINI (per product decision to use Gemini's free
+ * tier for now). Two things worth remembering about that choice:
+ *  1. Gemini's free tier allows Google to use prompts/responses to improve
+ *     their models. This app's prompts include real people's birth years,
+ *     benefit amounts, and (for the document reader) uploaded government
+ *     letters - worth disclosing in the privacy policy while on free tier,
+ *     and worth revisiting once there are real paying users.
+ *  2. The free tier's rate limit (roughly 10-15 requests/minute, shared
+ *     across the WHOLE app, not per user) is low enough that a handful of
+ *     simultaneous users could realistically hit 429 errors. Fine for
+ *     testing and early low-volume use; enabling billing before real
+ *     launch is worth planning for.
+ *
+ * Per the PRD's core AI architecture principle: Gemini EXPLAINS the user's
+ * numbers here, it does not calculate them. Every figure it's allowed to
+ * reference is passed in explicitly as `context`, computed by the same
  * deterministic engine (src/lib/socialSecurity.ts) that powers the rest of
- * the app. The system prompt instructs Claude not to invent or recalculate
+ * the app. The system prompt instructs it not to invent or recalculate
  * anything outside that context.
  */
 
-const anthropicApiKey = defineSecret('ANTHROPIC_API_KEY');
+const geminiApiKey = defineSecret('GEMINI_API_KEY');
+
+// Flash-Lite has the most generous free-tier rate limits of the current
+// model lineup - the right default while cost/quota matter most.
+const ASSISTANT_MODEL = 'gemini-2.5-flash-lite';
+const DOCUMENT_MODEL = 'gemini-2.5-flash'; // slightly stronger model for reading documents accurately
 
 interface ComparisonRow {
   age: number;
@@ -45,7 +64,7 @@ interface AskAssistantData {
 const MAX_QUESTION_LENGTH = 2000;
 
 export const askAssistant = onCall(
-  { secrets: [anthropicApiKey], cors: true },
+  { secrets: [geminiApiKey], cors: true },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in to use the assistant.');
@@ -62,7 +81,7 @@ export const askAssistant = onCall(
       throw new HttpsError('invalid-argument', 'Missing claiming-age context.');
     }
 
-    const client = new Anthropic({ apiKey: anthropicApiKey.value() });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey.value() });
 
     const comparisonText = data.context.comparison
       .map((row) => `age ${row.age}: $${row.monthlyBenefit}/mo`)
@@ -83,24 +102,21 @@ User's numbers:
 - Claiming age comparison: ${comparisonText}
 - Breakeven age (62 vs. 70): ${data.context.breakevenAge ?? 'not available'}`;
 
-    let response;
+    let answer: string;
     try {
-      response = await client.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 400,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: data.question }],
+      const response = await ai.models.generateContent({
+        model: ASSISTANT_MODEL,
+        contents: data.question,
+        config: {
+          systemInstruction: systemPrompt,
+          maxOutputTokens: 400,
+        },
       });
+      answer = (response.text ?? '').trim();
     } catch (err) {
-      console.error('Anthropic API error:', err);
+      console.error('Gemini API error:', err);
       throw new HttpsError('internal', 'The assistant is temporarily unavailable. Please try again.');
     }
-
-    const answer = response.content
-      .filter((block): block is Anthropic.TextBlock => block.type === 'text')
-      .map((block) => block.text)
-      .join('\n')
-      .trim();
 
     return { answer: answer || "I wasn't able to generate a response — please try rephrasing." };
   }
@@ -113,11 +129,11 @@ User's numbers:
  *
  * Unlike askAssistant, there's no pre-calculated "context" to ground this
  * one against — the source of truth here IS the document itself. The
- * system prompt instead constrains Claude to only describe what's actually
+ * system prompt instead constrains Gemini to only describe what's actually
  * printed on the page, not infer amounts or dates that aren't there.
  */
 
-const MAX_BASE64_LENGTH = 8_000_000; // ~6MB file, comfortably under Claude's per-file limits
+const MAX_BASE64_LENGTH = 8_000_000; // ~6MB file
 
 interface ReadDocumentData {
   fileBase64: string;
@@ -127,7 +143,7 @@ interface ReadDocumentData {
 const SUPPORTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 
 export const readDocument = onCall(
-  { secrets: [anthropicApiKey], cors: true, timeoutSeconds: 60 },
+  { secrets: [geminiApiKey], cors: true, timeoutSeconds: 60 },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError('unauthenticated', 'Sign in to use the document reader.');
@@ -144,7 +160,7 @@ export const readDocument = onCall(
       throw new HttpsError('invalid-argument', 'Unsupported file type — use a JPEG, PNG, or PDF.');
     }
 
-    const client = new Anthropic({ apiKey: anthropicApiKey.value() });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey.value() });
 
     const systemPrompt = `You are Horizon's document reader. The user has uploaded a letter or notice - likely from the Social Security Administration, the IRS, or Medicare/CMS.
 
@@ -157,44 +173,29 @@ CRITICAL RULES:
   3. Whether the user needs to take action, and by when if a date is given - or state clearly that no action is needed
 - You are informational only, not a financial, legal, or tax advisor. Do not tell the user what decision to make - just explain what the document says.`;
 
-    const documentBlock: Anthropic.Messages.ContentBlockParam =
-      data.mediaType === 'application/pdf'
-        ? {
-            type: 'document',
-            source: { type: 'base64', media_type: 'application/pdf', data: data.fileBase64 },
-          }
-        : {
-            type: 'image',
-            source: {
-              type: 'base64',
-              media_type: data.mediaType as 'image/jpeg' | 'image/png' | 'image/webp' | 'image/gif',
-              data: data.fileBase64,
-            },
-          };
-
-    let response;
+    let summary: string;
     try {
-      response = await client.messages.create({
-        model: 'claude-sonnet-5',
-        max_tokens: 600,
-        system: systemPrompt,
-        messages: [
+      const response = await ai.models.generateContent({
+        model: DOCUMENT_MODEL,
+        contents: [
           {
             role: 'user',
-            content: [documentBlock, { type: 'text', text: 'What does this document say, and do I need to do anything?' }],
+            parts: [
+              { inlineData: { mimeType: data.mediaType, data: data.fileBase64 } },
+              { text: 'What does this document say, and do I need to do anything?' },
+            ],
           },
         ],
+        config: {
+          systemInstruction: systemPrompt,
+          maxOutputTokens: 600,
+        },
       });
+      summary = (response.text ?? '').trim();
     } catch (err) {
-      console.error('Anthropic API error (readDocument):', err);
+      console.error('Gemini API error (readDocument):', err);
       throw new HttpsError('internal', 'The document reader is temporarily unavailable. Please try again.');
     }
-
-    const summary = response.content
-      .filter((block): block is Anthropic.TextBlock => block.type === 'text')
-      .map((block) => block.text)
-      .join('\n')
-      .trim();
 
     return { summary: summary || "I wasn't able to read this document clearly — try a clearer photo or scan." };
   }

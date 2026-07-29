@@ -92,6 +92,16 @@ body {
   100% { background-position: 200% 0; }
 }
 
+@keyframes stepEnterForward {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes stepEnterBack {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* Scroll-reveal utility: starts hidden, .in is toggled on by IntersectionObserver */
 .reveal {
   opacity: 0;

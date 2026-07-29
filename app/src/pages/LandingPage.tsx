@@ -8,12 +8,12 @@ export default function LandingPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    document.title = 'Horizon — Social Security Calculator & Claiming Age Planner'
+    document.title = 'Social Security Calculator — Know the Best Age to Claim | Horizon'
     const meta = document.querySelector('meta[name="description"]') ?? document.createElement('meta')
     meta.setAttribute('name', 'description')
     meta.setAttribute(
       'content',
-      'See exactly what your Social Security benefit is worth at every claiming age from 62 to 70 — personalized to your record, updated for 2026 rules, free to start.'
+      'Free Social Security calculator showing exactly when to claim — compare your benefit at every claiming age from 62 to 70, personalized to your record and updated for 2026 rules.'
     )
     if (!meta.parentElement) document.head.appendChild(meta)
   }, [])
@@ -23,7 +23,7 @@ export default function LandingPage() {
   }
 
   return (
-    <main className="pt-40">
+    <main>
       <Hero onCtaClick={primaryCta} />
       <StatBar />
       <ProblemSection />
@@ -47,145 +47,178 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
   }, [])
 
   return (
-    <section className="max-w-[1280px] mx-auto px-8">
-      <div className="grid lg:grid-cols-2 gap-14 items-center">
-        <div>
-          <div className="flex gap-2 flex-wrap mb-8">
-            {['2026 COLA applied', 'Not affiliated with the SSA', 'Informational only'].map((t) => (
+    <section
+      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="relative overflow-hidden bg-obsidian text-paper pb-24"
+    >
+      {/* "Shiny black" treatment: two blacks blended on a diagonal, plus a
+          slow-moving gold sheen and a soft glow blob for depth. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(135deg, var(--color-obsidian) 0%, var(--color-obsidian-elevated) 55%, var(--color-obsidian) 100%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.6) 45%, transparent 60%)',
+          backgroundSize: '250% 100%',
+          animation: 'shimmer 9s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.16), transparent 70%)' }}
+      />
+      <div
+        className="absolute bottom-0 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%)' }}
+      />
+
+      <div className="relative max-w-[1280px] mx-auto px-8 pt-24">
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <div className="flex gap-2 flex-wrap mb-8">
+              {['2026 COLA applied', 'Not affiliated with the SSA', 'Informational only'].map((t) => (
+                <span
+                  key={t}
+                  className="flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-white/5 border border-obsidian-line text-paper/60"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <h1 className="font-semibold text-[clamp(38px,4.6vw,68px)] leading-[1.03] tracking-tight">
+              {['Know', 'the', 'best'].map((word, i) => (
+                <span
+                  key={word}
+                  className="inline-block mr-3 opacity-0"
+                  style={{ animation: `wordIn 0.9s cubic-bezier(.16,.8,.24,1) ${0.05 + i * 0.07}s forwards` }}
+                >
+                  {word}
+                </span>
+              ))}
+              <br />
               <span
-                key={t}
-                className="flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-chalk-dim border border-graphite/10 text-slate"
+                className="inline-block text-gold italic font-medium opacity-0"
+                style={{ animation: 'wordIn 0.9s cubic-bezier(.16,.8,.24,1) 0.3s forwards' }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber" />
-                {t}
+                age to claim Social Security.
               </span>
-            ))}
-          </div>
+            </h1>
 
-          <h1 className="font-display font-normal text-[clamp(38px,4.6vw,68px)] leading-[1.02] tracking-tight">
-            {['Your', 'Social', 'Security,'].map((word, i) => (
-              <span
-                key={word}
-                className="inline-block mr-3 opacity-0"
-                style={{ animation: `wordIn 0.9s cubic-bezier(.16,.8,.24,1) ${0.05 + i * 0.07}s forwards` }}
-              >
-                {word}
-              </span>
-            ))}
-            <span
-              className="inline-block text-amber-deep italic font-medium opacity-0"
-              style={{ animation: 'wordIn 0.9s cubic-bezier(.16,.8,.24,1) 0.3s forwards' }}
-            >
-              calculated exactly.
-            </span>
-          </h1>
+            <p className="mt-6 text-lg text-paper/60 max-w-lg leading-relaxed">
+              Our free Social Security calculator shows exactly what your benefit is worth at every
+              claiming age from 62 to 70 — personalized to your record, not an average. One
+              decision, made once, that can move your lifetime income by six figures.
+            </p>
 
-          <p className="mt-6 text-lg text-slate max-w-lg leading-relaxed">
-            One decision, made once, that can move your lifetime income by six figures. Horizon
-            shows you the real numbers — yours, not an average — at every claiming age from 62 to
-            70.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-3.5">
-            <button
-              onClick={onCtaClick}
-              className="flex-1 min-w-[220px] text-left bg-graphite border border-graphite rounded-2xl px-6 py-5 shadow-sm hover:shadow-lg transition-shadow"
-            >
-              <div className="font-mono text-[11px] uppercase tracking-wide text-amber font-semibold mb-2">For myself</div>
-              <div className="font-display text-lg font-medium text-chalk mb-1">Plan my own claim</div>
-              <div className="text-xs text-chalk/60">Get your personalized breakdown in 5 minutes.</div>
-              <div className="mt-3.5 text-sm font-semibold text-amber">Start free →</div>
-            </button>
-            <button
-              onClick={onCtaClick}
-              className="flex-1 min-w-[220px] text-left border border-graphite/15 rounded-2xl px-6 py-5 shadow-sm hover:shadow-md hover:border-amber-deep transition-all bg-chalk"
-            >
-              <div className="font-mono text-[11px] uppercase tracking-wide text-amber-deep font-semibold mb-2">For my clients</div>
-              <div className="font-display text-lg font-medium mb-1">I'm a financial advisor</div>
-              <div className="text-xs text-slate">Manage claiming strategy across your book.</div>
-              <div className="mt-3.5 text-sm font-semibold text-graphite">See advisor tools →</div>
-            </button>
-          </div>
-        </div>
-
-        <div className="rounded-[20px] bg-graphite-2 border border-white/10 shadow-lg overflow-hidden">
-          <div className="flex items-center gap-1.5 px-4 py-3 bg-graphite-3 border-b border-white/10">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#E8846B]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#E8C86B]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#7BC29A]" />
-            <span className="ml-3 font-mono text-[11px] text-chalk/50 bg-white/5 px-3 py-1 rounded-md flex-1">
-              app.horizon.com/plan
-            </span>
-          </div>
-          <div className="relative h-[400px] p-8">
-            {screens[screen] === 'comparison' && (
-              <div>
-                <div className="font-mono text-[11px] uppercase tracking-wide text-amber mb-5">Claiming comparison</div>
-                <div className="flex items-end gap-4 h-[190px] mt-6">
-                  {[
-                    { age: 62, val: 1890, h: 52 },
-                    { age: 64, val: 2340, h: 68 },
-                    { age: 67, val: 2690, h: 82, peak: true },
-                    { age: 68, val: 2910, h: 90 },
-                    { age: 70, val: 3320, h: 100 },
-                  ].map((b) => (
-                    <div key={b.age} className="flex-1 relative" style={{ height: `${b.h}%` }}>
-                      <div
-                        className={`w-full h-full rounded-t-md ${b.peak ? 'bg-gradient-to-b from-amber to-amber-deep' : 'bg-white/15'}`}
-                      />
-                      <span className="absolute -top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-chalk whitespace-nowrap">
-                        ${b.val.toLocaleString()}
-                      </span>
-                      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-mono text-[11px] text-chalk/40">
-                        {b.age}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {screens[screen] === 'chat' && (
-              <div>
-                <div className="font-mono text-[11px] uppercase tracking-wide text-amber mb-5">Ask Horizon</div>
-                <div className="bg-amber text-graphite ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium mb-2.5">
-                  Should I claim now or wait 2 years?
-                </div>
-                <div className="bg-white/5 text-chalk max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed mb-2.5">
-                  Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that,
-                  waiting wins.
-                </div>
-                <div className="bg-amber text-graphite ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium">
-                  What if I keep working part-time?
-                </div>
-              </div>
-            )}
-            {screens[screen] === 'alerts' && (
-              <div>
-                <div className="font-mono text-[11px] uppercase tracking-wide text-amber mb-5">Rule-change alerts</div>
-                <div className="flex gap-3 bg-white/5 rounded-xl px-4 py-3.5 mb-2.5">
-                  <span className="w-2 h-2 rounded-full bg-amber mt-1.5 flex-shrink-0" />
-                  <p className="text-sm text-chalk leading-relaxed">
-                    Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.
-                  </p>
-                </div>
-                <div className="flex gap-3 bg-white/5 rounded-xl px-4 py-3.5">
-                  <span className="w-2 h-2 rounded-full bg-amber mt-1.5 flex-shrink-0" />
-                  <p className="text-sm text-chalk leading-relaxed">
-                    The Fairness Act repeal added an estimated $340/mo to your benefit.
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="flex justify-center gap-2 pb-5">
-            {screens.map((s, i) => (
+            <div className="mt-9 flex flex-wrap gap-3.5">
               <button
-                key={s}
-                onClick={() => setScreen(i)}
-                aria-label={`Show ${s} screen`}
-                className={`h-1.5 rounded-full transition-all ${i === screen ? 'w-5 bg-amber' : 'w-1.5 bg-white/15'}`}
-              />
-            ))}
+                onClick={onCtaClick}
+                className="flex-1 min-w-[220px] text-left bg-paper rounded-2xl px-6 py-5 shadow-glow-white hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
+              >
+                <div className="font-mono text-[11px] uppercase tracking-wide text-muted font-semibold mb-2">For myself</div>
+                <div className="text-lg font-semibold text-ink mb-1">Plan my own claim</div>
+                <div className="text-xs text-muted">Get your personalized breakdown in 5 minutes.</div>
+                <div className="mt-3.5 text-sm font-semibold text-ink">Start free →</div>
+              </button>
+              <button
+                onClick={onCtaClick}
+                className="flex-1 min-w-[220px] text-left border border-obsidian-line rounded-2xl px-6 py-5 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all"
+              >
+                <div className="font-mono text-[11px] uppercase tracking-wide text-azure font-semibold mb-2">For my clients</div>
+                <div className="text-lg font-semibold text-paper mb-1">I'm a financial advisor</div>
+                <div className="text-xs text-paper/50">Manage claiming strategy across your book.</div>
+                <div className="mt-3.5 text-sm font-semibold text-paper">See advisor tools →</div>
+              </button>
+            </div>
+          </div>
+
+          <div className="rounded-[20px] bg-obsidian-elevated border border-obsidian-line shadow-card-dark overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-3 bg-black/30 border-b border-obsidian-line">
+              <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+              <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+              <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+              <span className="ml-3 font-mono text-[11px] text-paper/40 bg-white/5 px-3 py-1 rounded-md flex-1">
+                app.horizon.com/plan
+              </span>
+            </div>
+            <div className="relative h-[400px] p-8">
+              {screens[screen] === 'comparison' && (
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-5">Claiming comparison</div>
+                  <div className="flex items-end gap-4 h-[190px] mt-6">
+                    {[
+                      { age: 62, val: 1890, h: 52 },
+                      { age: 64, val: 2340, h: 68 },
+                      { age: 67, val: 2690, h: 82, peak: true },
+                      { age: 68, val: 2910, h: 90 },
+                      { age: 70, val: 3320, h: 100 },
+                    ].map((b) => (
+                      <div key={b.age} className="flex-1 relative" style={{ height: `${b.h}%` }}>
+                        <div
+                          className={`w-full h-full rounded-t-md ${b.peak ? 'bg-gradient-to-b from-gold to-yellow-600' : 'bg-white/15'}`}
+                        />
+                        <span className="absolute -top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-paper whitespace-nowrap">
+                          ${b.val.toLocaleString()}
+                        </span>
+                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-mono text-[11px] text-paper/40">
+                          {b.age}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {screens[screen] === 'chat' && (
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-azure mb-5">Ask Horizon</div>
+                  <div className="bg-paper text-ink ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium mb-2.5">
+                    Should I claim now or wait 2 years?
+                  </div>
+                  <div className="bg-azure/15 border border-azure/20 text-paper max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed mb-2.5">
+                    Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that,
+                    waiting wins.
+                  </div>
+                  <div className="bg-paper text-ink ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium">
+                    What if I keep working part-time?
+                  </div>
+                </div>
+              )}
+              {screens[screen] === 'alerts' && (
+                <div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-emerald mb-5">Rule-change alerts</div>
+                  <div className="flex gap-3 bg-emerald/10 border border-emerald/20 rounded-xl px-4 py-3.5 mb-2.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 flex-shrink-0" />
+                    <p className="text-sm text-paper leading-relaxed">
+                      Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.
+                    </p>
+                  </div>
+                  <div className="flex gap-3 bg-emerald/10 border border-emerald/20 rounded-xl px-4 py-3.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 flex-shrink-0" />
+                    <p className="text-sm text-paper leading-relaxed">
+                      The Fairness Act repeal added an estimated $340/mo to your benefit.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="flex justify-center gap-2 pb-5">
+              {screens.map((s, i) => (
+                <button
+                  key={s}
+                  onClick={() => setScreen(i)}
+                  aria-label={`Show ${s} screen`}
+                  className={`h-1.5 rounded-full transition-all ${i === screen ? 'w-5 bg-gold' : 'w-1.5 bg-white/15'}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

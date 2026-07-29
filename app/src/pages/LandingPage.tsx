@@ -23,7 +23,7 @@ export default function LandingPage() {
   }
 
   return (
-    <main>
+    <main className="bg-paper-dim" style={{ fontFamily: 'var(--font-luxe)' }}>
       <Hero onCtaClick={primaryCta} />
       <StatBar />
       <ProblemSection />
@@ -236,11 +236,11 @@ function StatBar() {
     { num: '40', label: 'work credits needed to qualify' },
   ]
   return (
-    <div ref={ref} className="reveal max-w-[1280px] mx-auto px-8 mt-20 grid grid-cols-2 md:grid-cols-4 border-y border-graphite/10">
+    <div ref={ref} className="reveal max-w-[1280px] mx-auto px-8 pt-14 grid grid-cols-2 md:grid-cols-4 border-b border-ink/8">
       {stats.map((s, i) => (
-        <div key={s.label} className={`py-7 pr-6 ${i < stats.length - 1 ? 'md:border-r border-graphite/10' : ''}`}>
-          <div className="font-mono text-[clamp(22px,2.6vw,32px)] font-semibold text-amber-deep">{s.num}</div>
-          <div className="text-xs text-slate mt-1.5">{s.label}</div>
+        <div key={s.label} className={`py-7 pr-6 ${i < stats.length - 1 ? 'md:border-r border-ink/8' : ''}`}>
+          <div className="font-mono text-[clamp(22px,2.6vw,32px)] font-semibold text-ink">{s.num}</div>
+          <div className="text-xs text-muted mt-1.5">{s.label}</div>
         </div>
       ))}
     </div>
@@ -257,18 +257,21 @@ function ProblemSection() {
   ]
   return (
     <section id="how" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-amber-deep" />The problem
+      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
+        <span className="w-4 h-[1.5px] bg-gold" />The problem
       </div>
-      <h2 className="font-display text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl">
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl text-ink">
         Every free Social Security calculator gives you a number. Nothing gives you a plan that keeps up.
       </h2>
-      <div ref={ref} className="reveal grid md:grid-cols-3 gap-px bg-graphite/15 border border-graphite/15 rounded-[20px] overflow-hidden mt-12">
+      <div ref={ref} className="reveal grid md:grid-cols-3 gap-4 mt-12">
         {cards.map((c) => (
-          <div key={c.n} className="bg-chalk p-9 hover:bg-chalk-dim transition-colors">
-            <div className="font-mono text-xs text-amber-deep mb-4">{c.n}</div>
-            <h3 className="font-display text-[21px] font-medium mb-2.5">{c.title}</h3>
-            <p className="text-sm text-slate leading-relaxed">{c.body}</p>
+          <div
+            key={c.n}
+            className="bg-obsidian-elevated text-paper rounded-[20px] p-9 shadow-card-dark hover:-translate-y-1 transition-transform"
+          >
+            <div className="font-mono text-xs text-gold mb-4">{c.n}</div>
+            <h3 className="text-[21px] font-semibold mb-2.5">{c.title}</h3>
+            <p className="text-sm text-paper/60 leading-relaxed">{c.body}</p>
           </div>
         ))}
       </div>
@@ -281,29 +284,29 @@ function ProductSection() {
   const ref = useReveal<HTMLDivElement>()
   return (
     <div ref={ref} className="reveal mx-8">
-      <div className="max-w-[1280px] mx-auto bg-graphite text-chalk rounded-[32px] px-10 md:px-14 py-16 relative overflow-hidden">
-        <div className="font-mono text-xs uppercase tracking-wider text-amber font-semibold mb-5 flex items-center gap-2">
-          <span className="w-4 h-[1.5px] bg-amber" />Your actual numbers
+      <div className="max-w-[1280px] mx-auto bg-obsidian-elevated text-paper rounded-[32px] px-10 md:px-14 py-16 relative overflow-hidden shadow-card-dark border border-obsidian-line">
+        <div className="font-mono text-xs uppercase tracking-wider text-gold font-semibold mb-5 flex items-center gap-2">
+          <span className="w-4 h-[1.5px] bg-gold" />Your actual numbers
         </div>
-        <h2 className="font-display text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-2xl">
+        <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-2xl">
           Not an estimate. Your record, run against every claiming age.
         </h2>
-        <p className="mt-4 text-chalk/60 max-w-lg leading-relaxed">
+        <p className="mt-4 text-paper/60 max-w-lg leading-relaxed">
           Enter your earnings history — or photograph your SSA statement — and Horizon models
           exactly what changes at 62, at full retirement age, and at 70.
         </p>
         <div className="flex gap-10 mt-10 flex-wrap">
           <div>
-            <div className="font-mono text-2xl font-semibold text-amber">+$612</div>
-            <div className="text-xs text-chalk/50 mt-1">monthly gain, 62 → 67</div>
+            <div className="font-mono text-2xl font-semibold text-gold">+$612</div>
+            <div className="text-xs text-paper/50 mt-1">monthly gain, 62 → 67</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold text-amber">+$1,430</div>
-            <div className="text-xs text-chalk/50 mt-1">monthly gain, 62 → 70</div>
+            <div className="font-mono text-2xl font-semibold text-gold">+$1,430</div>
+            <div className="text-xs text-paper/50 mt-1">monthly gain, 62 → 70</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold text-amber">10.5 yrs</div>
-            <div className="text-xs text-chalk/50 mt-1">breakeven vs. claiming early</div>
+            <div className="font-mono text-2xl font-semibold text-gold">10.5 yrs</div>
+            <div className="text-xs text-paper/50 mt-1">breakeven vs. claiming early</div>
           </div>
         </div>
       </div>
@@ -316,42 +319,42 @@ function FeaturesSection() {
   const ref = useReveal<HTMLDivElement>()
   return (
     <section id="features" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-amber-deep" />What's inside
+      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
+        <span className="w-4 h-[1.5px] bg-gold" />What's inside
       </div>
-      <h2 className="font-display text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl mb-12">
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl mb-12 text-ink">
         A plan that talks back, reads your mail, and tells you when something changes.
       </h2>
       <div ref={ref} className="reveal grid grid-cols-2 md:grid-cols-4 auto-rows-[130px] gap-4">
-        <div className="col-span-2 row-span-2 rounded-[22px] bg-graphite text-chalk p-7">
-          <div className="font-mono text-[11px] uppercase tracking-wide opacity-60 mb-3.5">Ask, in plain english</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">"Should I claim now, or wait two years?"</h3>
-          <p className="text-sm opacity-75">Horizon's assistant answers using your actual saved numbers.</p>
+        <div className="col-span-2 row-span-2 rounded-[22px] bg-obsidian-elevated text-paper p-7 shadow-card-dark hover:-translate-y-1 transition-transform">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-azure mb-3.5">AI assistant · Ask, in plain english</div>
+          <h3 className="text-xl font-semibold mb-2.5">"Should I claim now, or wait two years?"</h3>
+          <p className="text-sm text-paper/60">Horizon's assistant answers using your actual saved numbers.</p>
         </div>
-        <div className="rounded-[22px] bg-amber text-graphite p-7">
+        <div className="rounded-[22px] bg-emerald text-obsidian p-7 shadow-glow-emerald hover:-translate-y-1 transition-transform">
           <div className="font-mono text-[11px] uppercase tracking-wide opacity-70 mb-3.5">Coordination</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">Spousal &amp; survivor</h3>
+          <h3 className="text-xl font-semibold mb-2.5">Spousal &amp; survivor</h3>
           <p className="text-sm opacity-80">Maximize household lifetime benefit.</p>
         </div>
-        <div className="rounded-[22px] bg-chalk-dim border border-graphite/10 p-7">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-slate mb-3.5">Mail, decoded</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">Upload the letter</h3>
-          <p className="text-sm text-slate">Get a plain-English answer instantly.</p>
+        <div className="rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-muted mb-3.5">Mail, decoded</div>
+          <h3 className="text-xl font-semibold mb-2.5 text-ink">Upload the letter</h3>
+          <p className="text-sm text-muted">Get a plain-English answer instantly.</p>
         </div>
-        <div className="col-span-2 rounded-[22px] bg-chalk-dim border border-graphite/10 p-7">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-slate mb-3.5">Stay current</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">Rule-change alerts, personalized</h3>
-          <p className="text-sm text-slate">"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
+        <div className="col-span-2 rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-3.5">Stay current · Alerts</div>
+          <h3 className="text-xl font-semibold mb-2.5 text-ink">Rule-change alerts, personalized</h3>
+          <p className="text-sm text-muted">"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
         </div>
-        <div className="col-span-2 row-span-2 rounded-[22px] bg-graphite text-chalk p-7">
-          <div className="font-mono text-[11px] uppercase tracking-wide opacity-60 mb-3.5">Scenario modeling</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">"What if benefits get cut?"</h3>
-          <p className="text-sm opacity-75">Model a possible trust-fund-depletion cut against your real numbers.</p>
+        <div className="col-span-2 row-span-2 rounded-[22px] bg-obsidian-elevated text-paper p-7 shadow-card-dark hover:-translate-y-1 transition-transform">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-3.5">Scenario modeling</div>
+          <h3 className="text-xl font-semibold mb-2.5">"What if benefits get cut?"</h3>
+          <p className="text-sm text-paper/60">Model a possible trust-fund-depletion cut against your real numbers.</p>
         </div>
-        <div className="col-span-2 rounded-[22px] bg-chalk-dim border border-graphite/10 p-7">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-slate mb-3.5">WEP / GPO aware</div>
-          <h3 className="font-display text-xl font-medium mb-2.5">Public-service pensions, handled correctly</h3>
-          <p className="text-sm text-slate">Reflects the 2025 Fairness Act repeal automatically.</p>
+        <div className="col-span-2 rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-muted mb-3.5">WEP / GPO aware</div>
+          <h3 className="text-xl font-semibold mb-2.5 text-ink">Public-service pensions, handled correctly</h3>
+          <p className="text-sm text-muted">Reflects the 2025 Fairness Act repeal automatically.</p>
         </div>
       </div>
     </section>
@@ -369,23 +372,23 @@ function FaqSection() {
   ]
   return (
     <section id="faq" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-amber-deep" />Common questions
+      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
+        <span className="w-4 h-[1.5px] bg-gold" />Common questions
       </div>
-      <h2 className="font-display text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl mb-10">
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl mb-10 text-ink">
         Social Security claiming — answered plainly.
       </h2>
       <div className="max-w-2xl">
         {faqs.map((f, i) => (
-          <div key={f.q} className="border-b border-graphite/10">
+          <div key={f.q} className="border-b border-ink/8">
             <button
               onClick={() => setOpen(open === i ? -1 : i)}
-              className="w-full text-left py-5 flex items-center justify-between gap-5 font-semibold"
+              className="w-full text-left py-5 flex items-center justify-between gap-5 font-semibold text-ink"
             >
               {f.q}
-              <span className={`font-mono text-lg text-amber-deep transition-transform flex-shrink-0 ${open === i ? 'rotate-45' : ''}`}>+</span>
+              <span className={`font-mono text-lg text-gold transition-transform flex-shrink-0 ${open === i ? 'rotate-45' : ''}`}>+</span>
             </button>
-            {open === i && <p className="text-sm text-slate leading-relaxed pb-5 max-w-xl">{f.a}</p>}
+            {open === i && <p className="text-sm text-muted leading-relaxed pb-5 max-w-xl">{f.a}</p>}
           </div>
         ))}
       </div>
@@ -396,13 +399,13 @@ function FaqSection() {
 /* ---------------- Final CTA ---------------- */
 function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
   return (
-    <section className="text-center px-8 py-32">
-      <h2 className="font-display text-[clamp(30px,4.6vw,56px)] font-normal leading-tight max-w-2xl mx-auto mb-8">
-        Your number is waiting. <span className="text-amber-deep italic">It takes five minutes to see it.</span>
+    <section className="text-center px-8 py-32 bg-obsidian text-paper">
+      <h2 className="text-[clamp(30px,4.6vw,56px)] font-semibold leading-tight max-w-2xl mx-auto mb-8">
+        Your number is waiting. <span className="text-gold italic">It takes five minutes to see it.</span>
       </h2>
       <button
         onClick={onCtaClick}
-        className="bg-amber text-graphite font-bold px-8 py-4 rounded-full shadow-sm hover:shadow-amber hover:-translate-y-0.5 transition-all"
+        className="bg-paper text-ink font-bold px-8 py-4 rounded-full shadow-glow-white hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
       >
         Calculate my benefit — free
       </button>
@@ -412,7 +415,7 @@ function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-graphite/10 px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate">
+    <footer className="bg-obsidian text-paper/50 border-t border-obsidian-line px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm">
       <div>© 2026 Horizon Financial Technologies</div>
       <p className="max-w-xl text-xs leading-relaxed">
         Horizon provides informational estimates only and is not a substitute for financial,

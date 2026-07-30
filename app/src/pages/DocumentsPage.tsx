@@ -55,16 +55,19 @@ export default function DocumentsPage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-8 pt-32 pb-24">
+    <main
+      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-paper-dim min-h-screen"
+    >
       <div className="mb-10">
-        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5">
-          <span className="w-4 h-[1.5px] bg-amber-deep" />
+        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-azure font-semibold mb-5">
+          <span className="w-4 h-[1.5px] bg-azure" />
           Document reader
         </div>
-        <h1 className="font-display text-4xl font-normal tracking-tight leading-tight">
+        <h1 className="text-4xl font-semibold tracking-tight leading-tight text-ink">
           Upload the letter. Get the plain-English version.
         </h1>
-        <p className="mt-4 text-slate text-lg leading-relaxed">
+        <p className="mt-4 text-muted text-lg leading-relaxed">
           Photograph or scan an SSA, IRS, or Medicare notice — we'll tell you what it says and
           whether you need to do anything about it.
         </p>
@@ -80,13 +83,13 @@ export default function DocumentsPage() {
             onDragLeave={() => setDragOver(false)}
             onDrop={onDrop}
             onClick={() => inputRef.current?.click()}
-            className={`border-2 border-dashed rounded-3xl p-16 text-center cursor-pointer transition-colors ${
-              dragOver ? 'border-amber-deep bg-amber/5' : 'border-graphite/15 bg-chalk-dim hover:border-graphite/30'
+            className={`border-2 border-dashed rounded-3xl p-16 text-center cursor-pointer transition-all ${
+              dragOver ? 'border-azure bg-azure/5 scale-[1.01]' : 'border-ink/15 bg-paper hover:border-ink/30'
             }`}
           >
             <div className="text-4xl mb-4">📄</div>
-            <p className="font-medium text-graphite mb-1">Drop a file here, or click to browse</p>
-            <p className="text-sm text-slate">JPEG, PNG, or PDF — up to 6MB</p>
+            <p className="font-medium text-ink mb-1">Drop a file here, or click to browse</p>
+            <p className="text-sm text-muted">JPEG, PNG, or PDF — up to 6MB</p>
             <input
               ref={inputRef}
               type="file"
@@ -101,20 +104,20 @@ export default function DocumentsPage() {
         )}
 
       {file && (
-        <div className="space-y-6">
-          <div className="bg-chalk border border-graphite/10 rounded-3xl p-6 shadow-sm flex items-center gap-5">
+        <div className="space-y-6" style={{ animation: 'fadeUp 0.4s cubic-bezier(.16,.8,.24,1)' }}>
+          <div className="bg-paper border border-ink/8 rounded-3xl p-6 shadow-card-light flex items-center gap-5">
             {previewUrl ? (
-              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-xl border border-graphite/10" />
+              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-xl border border-ink/8" />
             ) : (
-              <div className="w-20 h-20 rounded-xl bg-graphite text-chalk flex items-center justify-center font-mono text-xs">
+              <div className="w-20 h-20 rounded-xl bg-obsidian text-paper flex items-center justify-center font-mono text-xs">
                 PDF
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <div className="font-medium truncate">{file.name}</div>
-              <div className="text-xs text-slate">{(file.size / 1024).toFixed(0)} KB</div>
+              <div className="font-medium truncate text-ink">{file.name}</div>
+              <div className="text-xs text-muted">{(file.size / 1024).toFixed(0)} KB</div>
             </div>
-            <button onClick={reset} className="text-sm text-slate hover:text-warn transition-colors">
+            <button onClick={reset} className="text-sm text-muted hover:text-red-500 transition-colors">
               Remove
             </button>
           </div>
@@ -123,30 +126,33 @@ export default function DocumentsPage() {
             <button
               onClick={analyze}
               disabled={loading}
-              className="w-full bg-amber text-graphite font-semibold py-3.5 rounded-full shadow-sm hover:shadow-amber hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:bg-gold hover:text-obsidian hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {loading ? 'Reading document…' : 'Analyze this document'}
             </button>
           )}
 
-          {error && <div className="text-sm text-warn bg-warn/10 rounded-xl px-5 py-4">{error}</div>}
+          {error && <div className="text-sm text-red-600 bg-red-50 rounded-xl px-5 py-4">{error}</div>}
 
           {summary && (
-            <div className="bg-chalk border border-graphite/10 rounded-3xl p-8 shadow-sm">
-              <div className="text-xs font-mono uppercase tracking-wide text-amber-deep mb-4">
+            <div
+              className="bg-obsidian-elevated text-paper rounded-3xl p-8 shadow-card-dark"
+              style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
+            >
+              <div className="text-xs font-mono uppercase tracking-wide text-azure mb-4">
                 What this document says
               </div>
-              <div className="text-graphite leading-relaxed whitespace-pre-line">{summary}</div>
+              <div className="leading-relaxed whitespace-pre-line">{summary}</div>
               <button
                 onClick={reset}
-                className="mt-6 text-sm font-semibold text-graphite hover:text-amber-deep transition-colors"
+                className="mt-6 text-sm font-semibold text-paper/70 hover:text-gold transition-colors"
               >
                 ← Analyze another document
               </button>
             </div>
           )}
 
-          <p className="text-xs text-slate leading-relaxed">
+          <p className="text-xs text-muted leading-relaxed">
             Informational only — not financial, legal, or tax advice. If a document requests
             action, confirm directly with SSA.gov, the IRS, or Medicare before responding.
           </p>

@@ -30,25 +30,42 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="w-full max-w-md">
+    <main
+      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="min-h-screen flex items-center justify-center px-6 bg-obsidian relative overflow-hidden"
+    >
+      <div
+        className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.14), transparent 70%)' }}
+      />
+      <div
+        className="absolute bottom-0 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%)' }}
+      />
+
+      <div className="w-full max-w-md relative">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 font-display text-2xl font-semibold mb-2">
-            <span className="w-[18px] h-[18px] bg-amber rounded-[5px_5px_5px_0]" />
+          <div className="inline-flex items-center gap-2 text-2xl font-semibold mb-2 text-paper">
+            <span className="w-[18px] h-[18px] bg-gold rounded-[5px_5px_5px_0]" />
             Horizon
           </div>
-          <p className="text-slate text-sm">
+          <p className="text-paper/50 text-sm">
             {mode === 'signin' ? 'Welcome back.' : 'Create your account to save your numbers.'}
           </p>
         </div>
 
-        <div className="bg-chalk border border-graphite/10 rounded-3xl p-8 shadow-md">
-          <div className="flex gap-2 mb-7 bg-chalk-dim rounded-full p-1">
+        <div className="bg-paper rounded-3xl p-8 shadow-glow-white">
+          {/* Sliding tab toggle */}
+          <div className="relative flex gap-2 mb-7 bg-paper-dim rounded-full p-1">
+            <div
+              className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-obsidian rounded-full transition-transform duration-300 ease-out"
+              style={{ transform: mode === 'signin' ? 'translateX(0%)' : 'translateX(calc(100% + 8px))' }}
+            />
             <button
               type="button"
               onClick={() => setMode('signin')}
-              className={`flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
-                mode === 'signin' ? 'bg-graphite text-chalk' : 'text-slate'
+              className={`relative z-10 flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
+                mode === 'signin' ? 'text-paper' : 'text-muted'
               }`}
             >
               Sign in
@@ -56,8 +73,8 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setMode('signup')}
-              className={`flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
-                mode === 'signup' ? 'bg-graphite text-chalk' : 'text-slate'
+              className={`relative z-10 flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
+                mode === 'signup' ? 'text-paper' : 'text-muted'
               }`}
             >
               Create account
@@ -66,44 +83,44 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <label className="block">
-              <span className="text-sm font-medium text-graphite block mb-2">Email</span>
+              <span className="text-sm font-medium text-ink block mb-2">Email</span>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-chalk-dim border border-graphite/15 rounded-xl px-4 py-3 text-base focus:border-amber-deep outline-none transition-colors"
+                className="w-full bg-paper-dim border border-ink/10 rounded-xl px-4 py-3 text-base focus:border-gold outline-none transition-colors text-ink"
                 autoComplete="email"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-medium text-graphite block mb-2">Password</span>
+              <span className="text-sm font-medium text-ink block mb-2">Password</span>
               <input
                 type="password"
                 required
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-chalk-dim border border-graphite/15 rounded-xl px-4 py-3 text-base focus:border-amber-deep outline-none transition-colors"
+                className="w-full bg-paper-dim border border-ink/10 rounded-xl px-4 py-3 text-base focus:border-gold outline-none transition-colors text-ink"
                 autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
               />
             </label>
 
             {error && (
-              <div className="text-sm text-warn bg-warn/10 rounded-lg px-4 py-3">{error}</div>
+              <div className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3">{error}</div>
             )}
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-amber text-graphite font-semibold py-3.5 rounded-full shadow-sm hover:shadow-amber hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:hover:translate-y-0"
+              className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] transition-all disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Create account'}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs text-slate mt-6 leading-relaxed max-w-sm mx-auto">
+        <p className="text-center text-xs text-paper/40 mt-6 leading-relaxed max-w-sm mx-auto">
           Your Social Security numbers are stored securely and are never shared. Not affiliated
           with the Social Security Administration.
         </p>

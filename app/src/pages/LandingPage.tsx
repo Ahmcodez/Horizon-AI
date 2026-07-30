@@ -51,8 +51,9 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
       style={{ fontFamily: 'var(--font-luxe)' }}
       className="relative overflow-hidden bg-obsidian text-paper pb-24"
     >
-      {/* "Shiny black" treatment: two blacks blended on a diagonal, plus a
-          slow-moving gold sheen and a soft glow blob for depth. */}
+      {/* "Shiny black" treatment: two blacks blended on a diagonal, plus one
+          soft gold glow for depth — kept restrained rather than layering
+          multiple competing effects. */}
       <div
         className="absolute inset-0"
         style={{
@@ -61,81 +62,38 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
         }}
       />
       <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.6) 45%, transparent 60%)',
-          backgroundSize: '250% 100%',
-          animation: 'shimmer 9s ease-in-out infinite',
-        }}
-      />
-      <div
         className="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.16), transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-0 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.14), transparent 70%)' }}
       />
 
-      <div className="relative max-w-[1280px] mx-auto px-8 pt-24">
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+      <div className="relative max-w-[1280px] mx-auto px-8 pt-28 pb-4">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="flex gap-2 flex-wrap mb-8">
-              {['2026 COLA applied', 'Not affiliated with the SSA', 'Informational only'].map((t) => (
-                <span
-                  key={t}
-                  className="flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-white/5 border border-obsidian-line text-paper/60"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-                  {t}
-                </span>
-              ))}
-            </div>
+            <span
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-white/5 border border-obsidian-line text-paper/60 mb-8"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+              Free Social Security calculator, updated for 2026
+            </span>
 
-            <h1 className="font-semibold text-[clamp(38px,4.6vw,68px)] leading-[1.03] tracking-tight">
-              {['Know', 'the', 'best'].map((word, i) => (
-                <span
-                  key={word}
-                  className="inline-block mr-3 opacity-0"
-                  style={{ animation: `wordIn 0.9s cubic-bezier(.16,.8,.24,1) ${0.05 + i * 0.07}s forwards` }}
-                >
-                  {word}
-                </span>
-              ))}
-              <br />
-              <span
-                className="inline-block text-gold italic font-medium opacity-0"
-                style={{ animation: 'wordIn 0.9s cubic-bezier(.16,.8,.24,1) 0.3s forwards' }}
-              >
-                age to claim Social Security.
-              </span>
+            <h1 className="font-semibold text-[clamp(36px,4.2vw,60px)] leading-[1.15] tracking-tight opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.1s forwards' }}>
+              Know the best age to claim <span className="text-gold">Social Security</span>.
             </h1>
 
-            <p className="mt-6 text-lg text-paper/60 max-w-lg leading-relaxed">
-              Our free Social Security calculator shows exactly what your benefit is worth at every
-              claiming age from 62 to 70 — personalized to your record, not an average. One
-              decision, made once, that can move your lifetime income by six figures.
+            <p className="mt-6 text-lg text-paper/55 max-w-md leading-relaxed opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.22s forwards' }}>
+              See what your benefit is worth at every age from 62 to 70 — personalized to your
+              record, not an average.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3.5">
+            <div className="mt-10 flex flex-wrap items-center gap-6 opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.34s forwards' }}>
               <button
                 onClick={onCtaClick}
-                className="flex-1 min-w-[220px] text-left bg-paper rounded-2xl px-6 py-5 shadow-glow-white hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
+                className="bg-paper text-ink font-semibold px-7 py-4 rounded-full shadow-glow-white hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
               >
-                <div className="font-mono text-[11px] uppercase tracking-wide text-muted font-semibold mb-2">For myself</div>
-                <div className="text-lg font-semibold text-ink mb-1">Plan my own claim</div>
-                <div className="text-xs text-muted">Get your personalized breakdown in 5 minutes.</div>
-                <div className="mt-3.5 text-sm font-semibold text-ink">Start free →</div>
+                Calculate my benefit — free
               </button>
-              <button
-                onClick={onCtaClick}
-                className="flex-1 min-w-[220px] text-left border border-obsidian-line rounded-2xl px-6 py-5 bg-white/5 hover:bg-white/10 hover:border-white/25 transition-all"
-              >
-                <div className="font-mono text-[11px] uppercase tracking-wide text-azure font-semibold mb-2">For my clients</div>
-                <div className="text-lg font-semibold text-paper mb-1">I'm a financial advisor</div>
-                <div className="text-xs text-paper/50">Manage claiming strategy across your book.</div>
-                <div className="mt-3.5 text-sm font-semibold text-paper">See advisor tools →</div>
+              <button onClick={onCtaClick} className="text-sm font-medium text-paper/70 hover:text-paper transition-colors">
+                I'm a financial advisor →
               </button>
             </div>
           </div>

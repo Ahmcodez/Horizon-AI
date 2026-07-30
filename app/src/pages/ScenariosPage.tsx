@@ -27,23 +27,26 @@ export default function ScenariosPage() {
   const baseline = useMemo(() => generateClaimingComparison(pia, birthYear), [pia, birthYear])
 
   return (
-    <main className="max-w-5xl mx-auto px-8 pt-32 pb-24">
+    <main
+      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="max-w-5xl mx-auto px-8 pt-32 pb-24 bg-paper-dim min-h-screen"
+    >
       <div className="mb-10">
-        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-amber-deep font-semibold mb-5">
-          <span className="w-4 h-[1.5px] bg-amber-deep" />
+        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-gold font-semibold mb-5">
+          <span className="w-4 h-[1.5px] bg-gold" />
           Scenario modeling
         </div>
-        <h1 className="font-display text-4xl font-normal tracking-tight leading-tight">
+        <h1 className="text-4xl font-semibold tracking-tight leading-tight text-ink">
           What if things don't go exactly as planned?
         </h1>
-        <p className="mt-4 text-slate text-lg leading-relaxed">
+        <p className="mt-4 text-muted text-lg leading-relaxed">
           Two honest what-ifs — a possible future benefit cut, and a longer or shorter life than
           you assumed. Both use your real numbers, not guesses.
         </p>
       </div>
 
       {!loaded ? (
-        <div className="font-mono text-sm text-slate">Loading your numbers…</div>
+        <div className="font-mono text-sm text-muted">Loading your numbers…</div>
       ) : (
         <UpgradeGate feature="Scenario modeling">
           <div className="space-y-8">
@@ -62,9 +65,9 @@ function BenefitCutScenario({ baseline }: { baseline: ReturnType<typeof generate
   const fraRow = baseline[5] // age 67 is index 5 in the 62-70 array — used only for the chart's FRA marker
 
   return (
-    <div className="bg-chalk border border-graphite/10 rounded-3xl p-8 shadow-sm">
-      <h2 className="font-display text-xl font-medium mb-1">If benefits get cut</h2>
-      <p className="text-sm text-slate mb-6 max-w-2xl">
+    <div className="bg-paper border border-ink/8 rounded-3xl p-8 shadow-card-light">
+      <h2 className="text-xl font-semibold mb-1 text-ink">If benefits get cut</h2>
+      <p className="text-sm text-muted mb-6 max-w-2xl">
         Social Security's trust fund is projected to run short around 2032-2033. If Congress
         doesn't act by then, SSA could only pay a percentage of scheduled benefits — commonly
         cited estimates run in the 20-25% range. This isn't a prediction, just a way to see your
@@ -72,8 +75,8 @@ function BenefitCutScenario({ baseline }: { baseline: ReturnType<typeof generate
       </p>
 
       <div className="mb-6">
-        <span className="text-sm font-medium text-graphite block mb-2">
-          Assume a <span className="font-mono text-amber-deep">{cutPercent}%</span> across-the-board cut
+        <span className="text-sm font-medium text-ink block mb-2">
+          Assume a <span className="font-mono text-gold">{cutPercent}%</span> across-the-board cut
         </span>
         <input
           type="range"
@@ -81,17 +84,17 @@ function BenefitCutScenario({ baseline }: { baseline: ReturnType<typeof generate
           max={30}
           value={cutPercent}
           onChange={(e) => setCutPercent(Number(e.target.value))}
-          className="w-full accent-amber"
+          className="w-full accent-gold"
         />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <div className="text-xs font-mono uppercase tracking-wide text-slate mb-3">As scheduled today</div>
+          <div className="text-xs font-mono uppercase tracking-wide text-muted mb-3">As scheduled today</div>
           <BenefitChart data={baseline} highlightAge={67} fraAge={fraRow.age} />
         </div>
         <div>
-          <div className="text-xs font-mono uppercase tracking-wide text-warn mb-3">
+          <div className="text-xs font-mono uppercase tracking-wide text-red-500 mb-3">
             After a {cutPercent}% cut
           </div>
           <BenefitChart data={cutScenarios} highlightAge={67} fraAge={fraRow.age} />
@@ -115,17 +118,17 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
   ]
 
   return (
-    <div className="bg-chalk border border-graphite/10 rounded-3xl p-8 shadow-sm">
-      <h2 className="font-display text-xl font-medium mb-1">If you live longer (or less long) than expected</h2>
-      <p className="text-sm text-slate mb-6 max-w-2xl">
+    <div className="bg-paper border border-ink/8 rounded-3xl p-8 shadow-card-light">
+      <h2 className="text-xl font-semibold mb-1 text-ink">If you live longer (or less long) than expected</h2>
+      <p className="text-sm text-muted mb-6 max-w-2xl">
         Claiming age math changes depending on how long you actually collect. Move the slider to
         see how the lifetime total shifts for each strategy under your own assumption.
       </p>
 
       <div className="mb-6 max-w-sm">
-        <span className="text-sm font-medium text-graphite block mb-2">
+        <span className="text-sm font-medium text-ink block mb-2">
           Assume you collect benefits until age{' '}
-          <span className="font-mono text-amber-deep">{lifeExpectancy}</span>
+          <span className="font-mono text-gold">{lifeExpectancy}</span>
         </span>
         <input
           type="range"
@@ -133,13 +136,13 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
           max={100}
           value={lifeExpectancy}
           onChange={(e) => setLifeExpectancy(Number(e.target.value))}
-          className="w-full accent-amber"
+          className="w-full accent-gold"
         />
       </div>
 
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-slate border-b border-graphite/10">
+          <tr className="text-left text-muted border-b border-ink/8">
             <th className="pb-3 font-medium">Strategy</th>
             <th className="pb-3 font-medium">Annual benefit</th>
             <th className="pb-3 font-medium">Lifetime total to age {lifeExpectancy}</th>
@@ -150,12 +153,19 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
             const total = calculateLifetimeTotal(row.annual, row.age, lifeExpectancy)
             const isBest = total === Math.max(...rows.map((r) => calculateLifetimeTotal(r.annual, r.age, lifeExpectancy)))
             return (
-              <tr key={row.label} className={`border-b border-graphite/5 ${isBest ? 'bg-amber/10' : ''}`}>
-                <td className="py-3 font-sans">{row.label}</td>
+              <tr key={row.label} className={`border-b border-ink/5 text-ink transition-colors ${isBest ? 'bg-gold/10' : ''}`}>
+                <td className="py-3" style={{ fontFamily: 'var(--font-luxe)' }}>{row.label}</td>
                 <td className="py-3">${row.annual.toLocaleString()}</td>
                 <td className="py-3 font-semibold">
                   ${total.toLocaleString()}
-                  {isBest && <span className="ml-2 text-[10px] font-sans bg-amber text-graphite px-1.5 py-0.5 rounded-full">best</span>}
+                  {isBest && (
+                    <span
+                      className="ml-2 text-[10px] bg-gold text-obsidian px-1.5 py-0.5 rounded-full font-semibold"
+                      style={{ fontFamily: 'var(--font-luxe)' }}
+                    >
+                      best
+                    </span>
+                  )}
                 </td>
               </tr>
             )

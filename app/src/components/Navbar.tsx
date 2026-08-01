@@ -3,6 +3,13 @@ import { useAuth } from '../lib/authContext'
 import { useAlerts } from '../lib/alerts'
 import { usePlan } from '../lib/billing'
 
+/**
+ * Per the Vivid+Co brief: no filled buttons, no shadows, no accent colors
+ * outside the (unused-here) prism artifact. The nav uses only bone-white
+ * text on a near-black surface, a 1px ash-border hairline instead of a
+ * shadow for definition, and the brief's single outlined "Contact button"
+ * pattern as the nav's one and only CTA style.
+ */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { user } = useAuth()
@@ -20,63 +27,61 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
       <nav
         aria-label="Primary"
-        style={{ fontFamily: 'var(--font-luxe)' }}
-        className={`w-full max-w-5xl flex items-center justify-between gap-4 px-3 py-2.5 rounded-full border border-obsidian-line bg-obsidian/90 backdrop-blur-xl transition-shadow duration-300 ${
-          scrolled ? 'shadow-card-dark' : 'shadow-[0_8px_24px_rgba(0,0,0,0.25)]'
+        style={{ fontFamily: 'var(--font-vivid)' }}
+        className={`w-full max-w-5xl flex items-center justify-between gap-4 px-5 py-3 rounded-[5px] border-b transition-colors duration-500 ${
+          scrolled ? 'bg-vivid-obsidian/95 border-ash-border' : 'bg-vivid-obsidian/80 border-ash-border/50'
         }`}
       >
-        <a href="/" className="flex items-center gap-2 pl-2 text-[15px] font-semibold tracking-tight text-paper">
-          <span className="w-[16px] h-[16px] rounded-full bg-gold flex-shrink-0" />
+        <a href="/" className="flex items-center gap-2 text-[15px] font-normal tracking-tight text-bone-white uppercase">
           Horizon
         </a>
 
         {user ? (
           <>
-            <ul className="hidden md:flex items-center gap-0.5 text-[13.5px] font-medium">
-              <li><NavLink href="/calculator">Calculator</NavLink></li>
-              <li><NavLink href="/documents">Documents</NavLink></li>
-              <li><NavLink href="/scenarios">Scenarios</NavLink></li>
-              <li><NavLink href="/states">States</NavLink></li>
-              <li><NavLink href="/billing">Billing</NavLink></li>
-              {plan === 'advisor' && <li><NavLink href="/advisor">Advisor</NavLink></li>}
-              {plan === 'advisor' && <li><NavLink href="/embed">Embed</NavLink></li>}
+            <ul className="hidden md:flex items-center gap-6 text-[14px] font-normal uppercase">
+              <li><GhostNavLink href="/calculator">Calculator</GhostNavLink></li>
+              <li><GhostNavLink href="/documents">Documents</GhostNavLink></li>
+              <li><GhostNavLink href="/scenarios">Scenarios</GhostNavLink></li>
+              <li><GhostNavLink href="/states">States</GhostNavLink></li>
+              <li><GhostNavLink href="/billing">Billing</GhostNavLink></li>
+              {plan === 'advisor' && <li><GhostNavLink href="/advisor">Advisor</GhostNavLink></li>}
+              {plan === 'advisor' && <li><GhostNavLink href="/embed">Embed</GhostNavLink></li>}
             </ul>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <a
                 href="/alerts"
-                className="relative w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors text-paper"
+                className="relative text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
                 aria-label={`Alerts${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
               >
                 <BellIcon />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-gold text-obsidian text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-bone-white text-vivid-obsidian text-[9px] font-medium flex items-center justify-center">
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
               </a>
-              <a
-                href="/app"
-                className="bg-paper text-ink px-4 py-2 rounded-full text-[13.5px] font-semibold shadow-glow-white hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] transition-all"
-              >
-                Go to my plan
+              <a href="/app" className="ov-outlined-btn">
+                My plan
               </a>
             </div>
           </>
         ) : (
           <>
-            <ul className="hidden md:flex items-center gap-0.5 text-[13.5px] font-medium">
-              <li><NavLink href="/#how">How it works</NavLink></li>
-              <li><NavLink href="/#features">Features</NavLink></li>
-              <li><NavLink href="/#faq">FAQ</NavLink></li>
+            <ul className="hidden md:flex items-center gap-6 text-[14px] font-normal uppercase">
+              <li><GhostNavLink href="/#how">How it works</GhostNavLink></li>
+              <li><GhostNavLink href="/#features">Features</GhostNavLink></li>
+              <li><GhostNavLink href="/#faq">FAQ</GhostNavLink></li>
             </ul>
-            <div className="flex items-center gap-1">
-              <a href="/login" className="text-[13.5px] font-medium text-paper/70 hover:text-paper transition-colors px-3.5 py-2">
-                Sign in
-              </a>
+            <div className="flex items-center gap-5">
               <a
                 href="/login"
-                className="bg-paper text-ink px-4 py-2 rounded-full text-[13.5px] font-semibold shadow-glow-white hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] transition-all"
+                className="text-[14px] font-normal uppercase text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
+                Sign in
+              </a>
+              <a href="/login" className="ov-outlined-btn">
                 Get started
               </a>
             </div>
@@ -87,11 +92,12 @@ export default function Navbar() {
   )
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function GhostNavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
-      className="px-3.5 py-2 rounded-full text-paper/65 hover:text-paper hover:bg-white/5 transition-colors inline-block"
+      className="text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+      style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
     >
       {children}
     </a>
@@ -100,7 +106,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 
 function BellIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
       <path d="M13.73 21a2 2 0 0 1-3.46 0" />
     </svg>

@@ -24,18 +24,21 @@ export default function UpgradeGate({ children, feature }: Props) {
   }
 
   return (
-    <div className="bg-chalk-dim border border-graphite/10 rounded-3xl p-10 text-center">
-      <div className="text-xs font-mono uppercase tracking-wide text-amber-deep mb-3">
+    <div
+      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="bg-obsidian-elevated text-paper rounded-3xl p-10 text-center shadow-card-dark"
+    >
+      <div className="text-xs font-mono uppercase tracking-wide text-gold mb-3">
         Plan feature
       </div>
-      <h3 className="font-display text-xl font-medium mb-2">{feature} is part of the Plan tier</h3>
-      <p className="text-sm text-slate max-w-md mx-auto mb-6 leading-relaxed">
+      <h3 className="text-xl font-semibold mb-2">{feature} is part of the Plan tier</h3>
+      <p className="text-sm text-paper/60 max-w-md mx-auto mb-6 leading-relaxed">
         Upgrade to unlock this along with the AI assistant, document reader, and annual rule-change
         alerts — $12/month.
       </p>
       <button
         onClick={() => navigate('/billing')}
-        className="bg-amber text-graphite font-semibold px-6 py-3 rounded-full shadow-sm hover:shadow-amber hover:-translate-y-0.5 transition-all"
+        className="bg-gold text-obsidian font-semibold px-6 py-3 rounded-full shadow-glow-gold hover:-translate-y-0.5 transition-all"
       >
         See plans
       </button>

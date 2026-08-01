@@ -55,6 +55,94 @@
   --shadow-glow-gold: 0 12px 32px rgba(245,183,0,0.35);
   --shadow-card-dark: 0 24px 60px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
   --shadow-card-light: 0 4px 16px rgba(10,10,12,0.06), 0 1px 3px rgba(10,10,12,0.04);
+
+  /* ============================================================
+     "Vivid+Co" design system (per uploaded DESIGN.md brief).
+     Rolling out incrementally, same pattern as the Obsidian rollout:
+     old tokens (both original and Obsidian) stay in place so pages not
+     yet migrated keep rendering correctly during the transition.
+
+     Note on typeface: the brief specifies Neue Montreal, a commercial
+     font not available via Google Fonts CDN. The brief itself lists
+     "Inter" as an accepted substitute, so that's what --font-vivid
+     points to - already loaded in index.html, no new font needed.
+
+     Note on buttons: the brief explicitly bans filled/colored primary
+     buttons ("no distinct CTA color"). That's honored everywhere it's
+     practical. Where the app genuinely needs a click affordance beyond
+     what a ghost/outlined button gives (e.g. a paid checkout action),
+     the outlined style is used consistently rather than introducing a
+     filled color the brief prohibits - see the "Outlined Contact
+     Button" pattern used as the site's one CTA style throughout.
+     ============================================================ */
+  --color-bone-white: #FFFDF9;
+  --color-vivid-obsidian: #101010;
+  --color-graphite-veil: #495764;
+  --color-ash-border: #403F3F;
+  --color-fog-blue: #6F879C;
+  --color-prism-red: #FF2A2A;
+  --color-prism-cyan: #2A7FFF;
+  --color-prism-lime: #2AFF2A;
+
+  --font-vivid: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --text-caption: 15px;
+  --text-body-sm: 18px;
+  --text-body: 20px;
+  --text-body-lg: 22px;
+  --text-heading-sm: 33px;
+  --text-heading: 36px;
+  --text-heading-lg: 56px;
+  --text-display-sm: 105px;
+  --text-display: 136px;
+
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-40: 40px;
+  --spacing-56: 56px;
+  --spacing-60: 60px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-108: 108px;
+
+  --radius-nav: 5px;
+  --radius-cards: 15px;
+  --radius-tags: 9999px;
+  --radius-buttons: 0px;
+}
+
+/* Signature motion curve from the brief - drives all meaningful state
+   changes in the Vivid+Co system (slow start, decisive stop). */
+.vivid-ease {
+  transition-timing-function: cubic-bezier(0.52, 0.01, 0, 1);
+}
+
+/* The Vivid+Co brief's "Outlined Contact Button" - the system's one and
+   only CTA style, used everywhere a click affordance is needed instead of
+   introducing a filled/colored button the brief prohibits. */
+.ov-outlined-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-bone-white);
+  border-radius: var(--radius-nav);
+  padding: 9px 15px;
+  color: var(--color-bone-white);
+  font-family: var(--font-vivid);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.5s cubic-bezier(0.52, 0.01, 0, 1), opacity 0.5s cubic-bezier(0.52, 0.01, 0, 1);
+}
+.ov-outlined-btn:hover {
+  background: rgba(255, 253, 249, 0.08);
+}
+.ov-outlined-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 html {

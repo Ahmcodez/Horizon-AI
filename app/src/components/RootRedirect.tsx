@@ -25,8 +25,8 @@ export default function RootRedirect() {
 
   if (!target) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="font-mono text-sm text-slate">Loading…</div>
+      <div className="min-h-screen flex items-center justify-center bg-paper-dim">
+        <div className="font-mono text-sm text-muted" style={{ fontFamily: 'var(--font-luxe-mono)' }}>Loading…</div>
       </div>
     )
   }

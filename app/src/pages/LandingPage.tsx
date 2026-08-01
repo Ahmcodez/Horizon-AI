@@ -37,6 +37,35 @@ export default function LandingPage() {
 }
 
 /* ---------------- Hero ---------------- */
+/**
+ * A simplified nod to the brief's signature "prism artifact" (glass cubes
+ * with RGB-split chromatic edges). The brief describes a photorealistic
+ * 3D render with caustics, which is out of scope to build well without a
+ * real illustration/3D pipeline - this is a small, flat, tasteful
+ * approximation instead: three overlapping squares in red/cyan/lime,
+ * blended with mix-blend-mode so they bleed into each other like the
+ * brief's "chromatic dispersion," kept small since it sits inline next to
+ * the eyebrow label rather than as a full standalone hero illustration.
+ */
+function PrismAccent() {
+  return (
+    <div className="relative w-7 h-7 flex-shrink-0" aria-hidden="true">
+      <div
+        className="absolute inset-0 rounded-[2px]"
+        style={{ background: 'var(--color-prism-red)', mixBlendMode: 'screen', transform: 'translate(-2px,-2px) rotate(6deg)' }}
+      />
+      <div
+        className="absolute inset-0 rounded-[2px]"
+        style={{ background: 'var(--color-prism-cyan)', mixBlendMode: 'screen', transform: 'translate(2px,0) rotate(-4deg)' }}
+      />
+      <div
+        className="absolute inset-0 rounded-[2px]"
+        style={{ background: 'var(--color-prism-lime)', mixBlendMode: 'screen', transform: 'translate(0,2px) rotate(2deg)' }}
+      />
+    </div>
+  )
+}
+
 function Hero({ onCtaClick }: { onCtaClick: () => void }) {
   const [screen, setScreen] = useState(0)
   const screens = ['comparison', 'chat', 'alerts'] as const
@@ -48,58 +77,56 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
 
   return (
     <section
-      style={{ fontFamily: 'var(--font-luxe)' }}
-      className="relative overflow-hidden bg-obsidian text-paper pb-24"
+      style={{ fontFamily: 'var(--font-vivid)' }}
+      className="relative overflow-hidden bg-vivid-obsidian text-bone-white pb-24"
     >
-      {/* "Shiny black" treatment: two blacks blended on a diagonal, plus one
-          soft gold glow for depth — kept restrained rather than layering
-          multiple competing effects. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(135deg, var(--color-obsidian) 0%, var(--color-obsidian-elevated) 55%, var(--color-obsidian) 100%)',
-        }}
-      />
-      <div
-        className="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.14), transparent 70%)' }}
-      />
+      {/* Per the brief: flat by design, zero shadows/glow - the canvas is
+          just the obsidian void, no ambient light effects. */}
 
       <div className="relative max-w-[1280px] mx-auto px-8 pt-28 pb-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-white/5 border border-obsidian-line text-paper/60 mb-8"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-              Free Social Security calculator, updated for 2026
-            </span>
+            <div className="flex items-center gap-4 mb-8">
+              <PrismAccent />
+              <span className="text-[14px] uppercase tracking-[0.02em] text-fog-blue">
+                Free calculator · Updated for 2026
+              </span>
+            </div>
 
-            <h1 className="font-semibold text-[clamp(36px,4.2vw,60px)] leading-[1.15] tracking-tight opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.1s forwards' }}>
-              Know the best age to claim <span className="text-gold">Social Security</span>.
+            <h1
+              className="font-normal text-[clamp(40px,6vw,88px)] opacity-0"
+              style={{ lineHeight: 1.03, letterSpacing: '-0.02em', animation: 'fadeUp 0.8s cubic-bezier(0.52,0.01,0,1) 0.1s forwards' }}
+            >
+              Know the best age to claim Social Security.
             </h1>
 
-            <p className="mt-6 text-lg text-paper/55 max-w-md leading-relaxed opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.22s forwards' }}>
+            <p
+              className="mt-7 text-[20px] text-bone-white/70 max-w-md opacity-0"
+              style={{ lineHeight: 1.5, animation: 'fadeUp 0.8s cubic-bezier(0.52,0.01,0,1) 0.3s forwards' }}
+            >
               See what your benefit is worth at every age from 62 to 70 — personalized to your
               record, not an average.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-6 opacity-0" style={{ animation: 'fadeUp 0.8s cubic-bezier(.16,.8,.24,1) 0.34s forwards' }}>
+            <div
+              className="mt-10 flex flex-wrap items-center gap-7 opacity-0"
+              style={{ animation: 'fadeUp 0.8s cubic-bezier(0.52,0.01,0,1) 0.46s forwards' }}
+            >
+              <button onClick={onCtaClick} className="ov-outlined-btn">
+                Calculate my benefit
+              </button>
               <button
                 onClick={onCtaClick}
-                className="bg-paper text-ink font-semibold px-7 py-4 rounded-full shadow-glow-white hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
+                className="text-[14px] uppercase text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+                style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
-                Calculate my benefit — free
-              </button>
-              <button onClick={onCtaClick} className="text-sm font-medium text-paper/70 hover:text-paper transition-colors">
                 I'm a financial advisor →
               </button>
             </div>
           </div>
 
-          <div className="rounded-[20px] bg-obsidian-elevated border border-obsidian-line shadow-card-dark overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-3 bg-black/30 border-b border-obsidian-line">
+          <div className="rounded-[15px] bg-graphite-veil/30 border border-ash-border overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-3 bg-black/30 border-b border-ash-border">
               <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
               <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
               <span className="w-2.5 h-2.5 rounded-full bg-white/15" />

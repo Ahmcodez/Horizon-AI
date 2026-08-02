@@ -23,7 +23,7 @@ export default function LandingPage() {
   }
 
   return (
-    <main className="bg-paper-dim" style={{ fontFamily: 'var(--font-luxe)' }}>
+    <main className="bg-vivid-obsidian" style={{ fontFamily: 'var(--font-vivid)' }}>
       <Hero onCtaClick={primaryCta} />
       <StatBar />
       <ProblemSection />
@@ -137,7 +137,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
             <div className="relative h-[400px] p-8">
               {screens[screen] === 'comparison' && (
                 <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-5">Claiming comparison</div>
+                  <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-5">Claiming comparison</div>
                   <div className="flex items-end gap-4 h-[190px] mt-6">
                     {[
                       { age: 62, val: 1890, h: 52 },
@@ -147,13 +147,11 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
                       { age: 70, val: 3320, h: 100 },
                     ].map((b) => (
                       <div key={b.age} className="flex-1 relative" style={{ height: `${b.h}%` }}>
-                        <div
-                          className={`w-full h-full rounded-t-md ${b.peak ? 'bg-gradient-to-b from-gold to-yellow-600' : 'bg-white/15'}`}
-                        />
-                        <span className="absolute -top-6 left-1/2 -translate-x-1/2 font-mono text-xs text-paper whitespace-nowrap">
+                        <div className={`w-full h-full ${b.peak ? 'bg-bone-white' : 'bg-white/15'}`} style={{ borderRadius: '2px 2px 0 0' }} />
+                        <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs text-bone-white whitespace-nowrap">
                           ${b.val.toLocaleString()}
                         </span>
-                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-mono text-[11px] text-paper/40">
+                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-bone-white/40">
                           {b.age}
                         </span>
                       </div>
@@ -163,31 +161,31 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
               )}
               {screens[screen] === 'chat' && (
                 <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-azure mb-5">Ask Horizon</div>
-                  <div className="bg-paper text-ink ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium mb-2.5">
+                  <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-5">Ask Horizon</div>
+                  <div className="bg-bone-white text-vivid-obsidian ml-auto max-w-[85%] rounded-[8px] px-4 py-3 text-sm mb-2.5">
                     Should I claim now or wait 2 years?
                   </div>
-                  <div className="bg-azure/15 border border-azure/20 text-paper max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed mb-2.5">
+                  <div className="bg-graphite-veil/40 border border-ash-border text-bone-white max-w-[85%] rounded-[8px] px-4 py-3 text-sm leading-relaxed mb-2.5">
                     Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that,
                     waiting wins.
                   </div>
-                  <div className="bg-paper text-ink ml-auto max-w-[85%] rounded-2xl px-4 py-3 text-sm font-medium">
+                  <div className="bg-bone-white text-vivid-obsidian ml-auto max-w-[85%] rounded-[8px] px-4 py-3 text-sm">
                     What if I keep working part-time?
                   </div>
                 </div>
               )}
               {screens[screen] === 'alerts' && (
                 <div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-emerald mb-5">Rule-change alerts</div>
-                  <div className="flex gap-3 bg-emerald/10 border border-emerald/20 rounded-xl px-4 py-3.5 mb-2.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 flex-shrink-0" />
-                    <p className="text-sm text-paper leading-relaxed">
+                  <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-5">Rule-change alerts</div>
+                  <div className="flex gap-3 bg-graphite-veil/40 border border-ash-border rounded-[8px] px-4 py-3.5 mb-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-bone-white mt-1.5 flex-shrink-0" />
+                    <p className="text-sm text-bone-white leading-relaxed">
                       Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.
                     </p>
                   </div>
-                  <div className="flex gap-3 bg-emerald/10 border border-emerald/20 rounded-xl px-4 py-3.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 flex-shrink-0" />
-                    <p className="text-sm text-paper leading-relaxed">
+                  <div className="flex gap-3 bg-graphite-veil/40 border border-ash-border rounded-[8px] px-4 py-3.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-bone-white mt-1.5 flex-shrink-0" />
+                    <p className="text-sm text-bone-white leading-relaxed">
                       The Fairness Act repeal added an estimated $340/mo to your benefit.
                     </p>
                   </div>
@@ -200,7 +198,8 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
                   key={s}
                   onClick={() => setScreen(i)}
                   aria-label={`Show ${s} screen`}
-                  className={`h-1.5 rounded-full transition-all ${i === screen ? 'w-5 bg-gold' : 'w-1.5 bg-white/15'}`}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${i === screen ? 'w-5 bg-bone-white' : 'w-1.5 bg-white/15'}`}
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
                 />
               ))}
             </div>
@@ -221,11 +220,11 @@ function StatBar() {
     { num: '40', label: 'work credits needed to qualify' },
   ]
   return (
-    <div ref={ref} className="reveal max-w-[1280px] mx-auto px-8 pt-14 grid grid-cols-2 md:grid-cols-4 border-b border-ink/8">
+    <div ref={ref} className="reveal max-w-[1280px] mx-auto px-8 pt-14 grid grid-cols-2 md:grid-cols-4 border-b border-ash-border bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
       {stats.map((s, i) => (
-        <div key={s.label} className={`py-7 pr-6 ${i < stats.length - 1 ? 'md:border-r border-ink/8' : ''}`}>
-          <div className="font-mono text-[clamp(22px,2.6vw,32px)] font-semibold text-ink">{s.num}</div>
-          <div className="text-xs text-muted mt-1.5">{s.label}</div>
+        <div key={s.label} className={`py-7 pr-6 ${i < stats.length - 1 ? 'md:border-r border-ash-border' : ''}`}>
+          <div className="text-[clamp(22px,2.6vw,32px)] font-normal">{s.num}</div>
+          <div className="text-[13px] text-fog-blue mt-1.5">{s.label}</div>
         </div>
       ))}
     </div>
@@ -241,22 +240,20 @@ function ProblemSection() {
     { n: '03', title: "The letters aren't written for you", body: 'SSA and Medicare notices arrive dense and unclear, right when the decision they affect can\'t be undone.' },
   ]
   return (
-    <section id="how" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-gold" />The problem
-      </div>
-      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl text-ink">
+    <section id="how" className="max-w-[1280px] mx-auto px-8 py-28 bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">The problem</div>
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl" style={{ letterSpacing: '-0.01em' }}>
         Every free Social Security calculator gives you a number. Nothing gives you a plan that keeps up.
       </h2>
       <div ref={ref} className="reveal grid md:grid-cols-3 gap-4 mt-12">
         {cards.map((c) => (
           <div
             key={c.n}
-            className="bg-obsidian-elevated text-paper rounded-[20px] p-9 shadow-card-dark hover:-translate-y-1 transition-transform"
+            className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-9"
           >
-            <div className="font-mono text-xs text-gold mb-4">{c.n}</div>
-            <h3 className="text-[21px] font-semibold mb-2.5">{c.title}</h3>
-            <p className="text-sm text-paper/60 leading-relaxed">{c.body}</p>
+            <div className="text-[13px] text-fog-blue mb-4">{c.n}</div>
+            <h3 className="text-[21px] font-normal mb-2.5">{c.title}</h3>
+            <p className="text-sm text-bone-white/60 leading-relaxed">{c.body}</p>
           </div>
         ))}
       </div>
@@ -264,34 +261,35 @@ function ProblemSection() {
   )
 }
 
-/* ---------------- Product (dark) section ---------------- */
+/* ---------------- Product section ---------------- */
 function ProductSection() {
   const ref = useReveal<HTMLDivElement>()
   return (
     <div ref={ref} className="reveal mx-8">
-      <div className="max-w-[1280px] mx-auto bg-obsidian-elevated text-paper rounded-[32px] px-10 md:px-14 py-16 relative overflow-hidden shadow-card-dark border border-obsidian-line">
-        <div className="font-mono text-xs uppercase tracking-wider text-gold font-semibold mb-5 flex items-center gap-2">
-          <span className="w-4 h-[1.5px] bg-gold" />Your actual numbers
-        </div>
-        <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-2xl">
+      <div
+        className="max-w-[1280px] mx-auto bg-graphite-veil/25 text-bone-white rounded-[15px] px-10 md:px-14 py-16 relative overflow-hidden border border-ash-border"
+        style={{ fontFamily: 'var(--font-vivid)' }}
+      >
+        <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">Your actual numbers</div>
+        <h2 className="text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-2xl" style={{ letterSpacing: '-0.01em' }}>
           Not an estimate. Your record, run against every claiming age.
         </h2>
-        <p className="mt-4 text-paper/60 max-w-lg leading-relaxed">
+        <p className="mt-4 text-bone-white/60 max-w-lg leading-relaxed">
           Enter your earnings history — or photograph your SSA statement — and Horizon models
           exactly what changes at 62, at full retirement age, and at 70.
         </p>
         <div className="flex gap-10 mt-10 flex-wrap">
           <div>
-            <div className="font-mono text-2xl font-semibold text-gold">+$612</div>
-            <div className="text-xs text-paper/50 mt-1">monthly gain, 62 → 67</div>
+            <div className="text-2xl font-normal">+$612</div>
+            <div className="text-[13px] text-fog-blue mt-1">monthly gain, 62 → 67</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold text-gold">+$1,430</div>
-            <div className="text-xs text-paper/50 mt-1">monthly gain, 62 → 70</div>
+            <div className="text-2xl font-normal">+$1,430</div>
+            <div className="text-[13px] text-fog-blue mt-1">monthly gain, 62 → 70</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold text-gold">10.5 yrs</div>
-            <div className="text-xs text-paper/50 mt-1">breakeven vs. claiming early</div>
+            <div className="text-2xl font-normal">10.5 yrs</div>
+            <div className="text-[13px] text-fog-blue mt-1">breakeven vs. claiming early</div>
           </div>
         </div>
       </div>
@@ -303,43 +301,41 @@ function ProductSection() {
 function FeaturesSection() {
   const ref = useReveal<HTMLDivElement>()
   return (
-    <section id="features" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-gold" />What's inside
-      </div>
-      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl mb-12 text-ink">
+    <section id="features" className="max-w-[1280px] mx-auto px-8 py-28 bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">What's inside</div>
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl mb-12" style={{ letterSpacing: '-0.01em' }}>
         A plan that talks back, reads your mail, and tells you when something changes.
       </h2>
       <div ref={ref} className="reveal grid grid-cols-2 md:grid-cols-4 auto-rows-[130px] gap-4">
-        <div className="col-span-2 row-span-2 rounded-[22px] bg-obsidian-elevated text-paper p-7 shadow-card-dark hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-azure mb-3.5">AI assistant · Ask, in plain english</div>
-          <h3 className="text-xl font-semibold mb-2.5">"Should I claim now, or wait two years?"</h3>
-          <p className="text-sm text-paper/60">Horizon's assistant answers using your actual saved numbers.</p>
+        <div className="col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">AI assistant · Ask, in plain english</div>
+          <h3 className="text-xl font-normal mb-2.5">"Should I claim now, or wait two years?"</h3>
+          <p className="text-sm text-bone-white/60">Horizon's assistant answers using your actual saved numbers.</p>
         </div>
-        <div className="rounded-[22px] bg-emerald text-obsidian p-7 shadow-glow-emerald hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide opacity-70 mb-3.5">Coordination</div>
-          <h3 className="text-xl font-semibold mb-2.5">Spousal &amp; survivor</h3>
-          <p className="text-sm opacity-80">Maximize household lifetime benefit.</p>
+        <div className="rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Coordination</div>
+          <h3 className="text-xl font-normal mb-2.5">Spousal &amp; survivor</h3>
+          <p className="text-sm text-bone-white/60">Maximize household lifetime benefit.</p>
         </div>
-        <div className="rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-muted mb-3.5">Mail, decoded</div>
-          <h3 className="text-xl font-semibold mb-2.5 text-ink">Upload the letter</h3>
-          <p className="text-sm text-muted">Get a plain-English answer instantly.</p>
+        <div className="rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Mail, decoded</div>
+          <h3 className="text-xl font-normal mb-2.5">Upload the letter</h3>
+          <p className="text-sm text-bone-white/60">Get a plain-English answer instantly.</p>
         </div>
-        <div className="col-span-2 rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-3.5">Stay current · Alerts</div>
-          <h3 className="text-xl font-semibold mb-2.5 text-ink">Rule-change alerts, personalized</h3>
-          <p className="text-sm text-muted">"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
+        <div className="col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Stay current · Alerts</div>
+          <h3 className="text-xl font-normal mb-2.5">Rule-change alerts, personalized</h3>
+          <p className="text-sm text-bone-white/60">"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
         </div>
-        <div className="col-span-2 row-span-2 rounded-[22px] bg-obsidian-elevated text-paper p-7 shadow-card-dark hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-gold mb-3.5">Scenario modeling</div>
-          <h3 className="text-xl font-semibold mb-2.5">"What if benefits get cut?"</h3>
-          <p className="text-sm text-paper/60">Model a possible trust-fund-depletion cut against your real numbers.</p>
+        <div className="col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Scenario modeling</div>
+          <h3 className="text-xl font-normal mb-2.5">"What if benefits get cut?"</h3>
+          <p className="text-sm text-bone-white/60">Model a possible trust-fund-depletion cut against your real numbers.</p>
         </div>
-        <div className="col-span-2 rounded-[22px] bg-paper border border-ink/8 shadow-card-light p-7 hover:-translate-y-1 transition-transform">
-          <div className="font-mono text-[11px] uppercase tracking-wide text-muted mb-3.5">WEP / GPO aware</div>
-          <h3 className="text-xl font-semibold mb-2.5 text-ink">Public-service pensions, handled correctly</h3>
-          <p className="text-sm text-muted">Reflects the 2025 Fairness Act repeal automatically.</p>
+        <div className="col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">WEP / GPO aware</div>
+          <h3 className="text-xl font-normal mb-2.5">Public-service pensions, handled correctly</h3>
+          <p className="text-sm text-bone-white/60">Reflects the 2025 Fairness Act repeal automatically.</p>
         </div>
       </div>
     </section>
@@ -356,24 +352,27 @@ function FaqSection() {
     { q: 'Does working while claiming Social Security reduce my benefit?', a: 'If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. That no longer applies once you reach full retirement age.' },
   ]
   return (
-    <section id="faq" className="max-w-[1280px] mx-auto px-8 py-28">
-      <div className="font-mono text-xs uppercase tracking-wider text-ink/50 font-semibold mb-5 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-gold" />Common questions
-      </div>
-      <h2 className="text-[clamp(28px,3.6vw,46px)] font-semibold leading-tight max-w-3xl mb-10 text-ink">
+    <section id="faq" className="max-w-[1280px] mx-auto px-8 py-28 bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">Common questions</div>
+      <h2 className="text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl mb-10" style={{ letterSpacing: '-0.01em' }}>
         Social Security claiming — answered plainly.
       </h2>
       <div className="max-w-2xl">
         {faqs.map((f, i) => (
-          <div key={f.q} className="border-b border-ink/8">
+          <div key={f.q} className="border-b border-ash-border">
             <button
               onClick={() => setOpen(open === i ? -1 : i)}
-              className="w-full text-left py-5 flex items-center justify-between gap-5 font-semibold text-ink"
+              className="w-full text-left py-5 flex items-center justify-between gap-5 font-normal"
             >
               {f.q}
-              <span className={`font-mono text-lg text-gold transition-transform flex-shrink-0 ${open === i ? 'rotate-45' : ''}`}>+</span>
+              <span
+                className={`text-lg text-fog-blue transition-transform duration-500 flex-shrink-0 ${open === i ? 'rotate-45' : ''}`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
+              >
+                +
+              </span>
             </button>
-            {open === i && <p className="text-sm text-muted leading-relaxed pb-5 max-w-xl">{f.a}</p>}
+            {open === i && <p className="text-sm text-bone-white/60 leading-relaxed pb-5 max-w-xl">{f.a}</p>}
           </div>
         ))}
       </div>
@@ -384,15 +383,12 @@ function FaqSection() {
 /* ---------------- Final CTA ---------------- */
 function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
   return (
-    <section className="text-center px-8 py-32 bg-obsidian text-paper">
-      <h2 className="text-[clamp(30px,4.6vw,56px)] font-semibold leading-tight max-w-2xl mx-auto mb-8">
-        Your number is waiting. <span className="text-gold italic">It takes five minutes to see it.</span>
+    <section className="text-center px-8 py-32 bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <h2 className="text-[clamp(30px,4.6vw,56px)] font-normal leading-tight max-w-2xl mx-auto mb-8" style={{ letterSpacing: '-0.01em' }}>
+        Your number is waiting. It takes five minutes to see it.
       </h2>
-      <button
-        onClick={onCtaClick}
-        className="bg-paper text-ink font-bold px-8 py-4 rounded-full shadow-glow-white hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(255,255,255,0.22)] transition-all"
-      >
-        Calculate my benefit — free
+      <button onClick={onCtaClick} className="ov-outlined-btn">
+        Calculate my benefit
       </button>
     </section>
   )
@@ -400,7 +396,10 @@ function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
 
 function Footer() {
   return (
-    <footer className="bg-obsidian text-paper/50 border-t border-obsidian-line px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm">
+    <footer
+      className="bg-vivid-obsidian text-fog-blue border-t border-ash-border px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm"
+      style={{ fontFamily: 'var(--font-vivid)' }}
+    >
       <div>© 2026 Horizon Financial Technologies</div>
       <p className="max-w-xl text-xs leading-relaxed">
         Horizon provides informational estimates only and is not a substitute for financial,

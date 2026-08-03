@@ -80,8 +80,24 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
       style={{ fontFamily: 'var(--font-vivid)' }}
       className="relative overflow-hidden bg-vivid-obsidian text-bone-white pb-24"
     >
-      {/* Per the brief: flat by design, zero shadows/glow - the canvas is
-          just the obsidian void, no ambient light effects. */}
+      {/* Cinematic dimming treatment (Netflix-style layered gradients),
+          built from our own palette rather than an external photo - keeps
+          the flat, photo-free Vivid+Co brief intact while still giving
+          the hero atmospheric depth instead of a flat single tone. */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 60% at 70% 20%, rgba(73,87,100,0.35), transparent 60%), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(73,87,100,0.2), transparent 60%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to top, var(--color-vivid-obsidian) 0%, rgba(16,16,16,0.4) 45%, rgba(16,16,16,0.75) 100%)',
+        }}
+      />
 
       <div className="relative max-w-[1280px] mx-auto px-8 pt-28 pb-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">

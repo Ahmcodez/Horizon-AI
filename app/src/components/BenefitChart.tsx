@@ -12,14 +12,14 @@ function CustomTooltip({ active, payload }: any) {
   const d: ClaimingScenario = payload[0].payload
   return (
     <div
-      className="bg-obsidian text-paper rounded-xl px-4 py-3 shadow-card-dark border border-obsidian-line"
-      style={{ fontFamily: 'var(--font-luxe)' }}
+      className="bg-vivid-obsidian text-bone-white rounded-[5px] px-4 py-3 border border-ash-border"
+      style={{ fontFamily: 'var(--font-vivid)' }}
     >
-      <div className="font-mono text-xs text-gold mb-1">Age {d.age}</div>
-      <div className="font-mono text-lg font-semibold">
+      <div className="text-xs text-fog-blue mb-1">Age {d.age}</div>
+      <div className="text-lg font-normal">
         ${d.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo
       </div>
-      <div className="text-xs text-paper/60 mt-1">
+      <div className="text-xs text-bone-white/50 mt-1">
         {d.vsFraPct > 0 ? '+' : ''}
         {d.vsFraPct}% vs. full retirement age
       </div>
@@ -36,15 +36,15 @@ export default function BenefitChart({ data, highlightAge, fraAge }: Props) {
             dataKey="age"
             axisLine={false}
             tickLine={false}
-            tick={{ fontFamily: 'Geist Mono', fontSize: 12, fill: '#8A8A93' }}
+            tick={{ fontFamily: 'Inter', fontSize: 12, fill: '#6F879C' }}
           />
           <YAxis hide domain={[0, 'dataMax + 300']} />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(245,183,0,0.08)' }} />
-          <Bar dataKey="monthlyBenefit" radius={[6, 6, 0, 0]} maxBarSize={56}>
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,253,249,0.05)' }} />
+          <Bar dataKey="monthlyBenefit" radius={[2, 2, 0, 0]} maxBarSize={56}>
             {data.map((entry) => {
-              let fill = '#E9E9EC' // neutral default bar
-              if (entry.age === highlightAge) fill = '#F5B700' // gold — user-selected age
-              else if (entry.age === fraAge) fill = '#0A0A0C' // obsidian — FRA reference
+              let fill = 'rgba(255,253,249,0.12)' // neutral default bar
+              if (entry.age === highlightAge) fill = '#FFFDF9' // bone-white — user-selected age
+              else if (entry.age === fraAge) fill = '#6F879C' // fog-blue — FRA reference
               return <Cell key={entry.age} fill={fill} />
             })}
           </Bar>

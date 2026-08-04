@@ -56,33 +56,24 @@ export default function OnboardingPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-luxe)' }}
-      className="min-h-screen flex items-center justify-center px-6 bg-obsidian relative overflow-hidden"
+      style={{ fontFamily: 'var(--font-vivid)' }}
+      className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
     >
-      <div
-        className="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.14), transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-0 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.10), transparent 70%)' }}
-      />
-
       <div className="w-full max-w-lg relative">
         {step !== 'welcome' && step !== 'done' && (
           <div className="flex gap-1.5 mb-8">
             {STEPS.slice(1, -1).map((s, i) => (
               <div
                 key={s}
-                className={`h-1 flex-1 rounded-full transition-all duration-500 ${
-                  i <= stepIndex - 1 ? 'bg-gold' : 'bg-white/10'
+                className={`h-1 flex-1 rounded-[5px] transition-all duration-500 ${
+                  i <= stepIndex - 1 ? 'bg-bone-white' : 'bg-ash-border'
                 }`}
               />
             ))}
           </div>
         )}
 
-        <div className="bg-paper rounded-3xl p-10 shadow-glow-white overflow-hidden">
+        <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-10 overflow-hidden">
           <div
             key={step}
             style={{
@@ -91,20 +82,17 @@ export default function OnboardingPage() {
           >
             {step === 'welcome' && (
               <div className="text-center">
-                <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-gold font-semibold mb-6">
-                  <span className="w-4 h-[1.5px] bg-gold" />5 minutes
+                <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.02em] text-fog-blue mb-6">
+                  <span className="w-4 h-[1.5px] bg-fog-blue" />5 minutes
                 </div>
-                <h1 className="text-3xl font-semibold leading-tight mb-4 text-ink">
+                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-bone-white">
                   Let's find your number.
                 </h1>
-                <p className="text-muted leading-relaxed mb-8">
+                <p className="text-bone-white/60 leading-relaxed mb-8">
                   A few quick questions — the same ones you'd answer once, so every screen after
                   this one already knows your situation.
                 </p>
-                <button
-                  onClick={next}
-                  className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] transition-all"
-                >
+                <button onClick={next} className="ov-outlined-btn w-full py-3.5">
                   Get started
                 </button>
               </div>
@@ -118,7 +106,7 @@ export default function OnboardingPage() {
                   min={1943}
                   max={1970}
                   onChange={(e) => setDraft({ ...draft, birthYear: Number(e.target.value) })}
-                  className="w-full bg-paper-dim border border-ink/10 rounded-xl px-4 py-3.5 font-mono text-lg text-center focus:border-gold outline-none text-ink"
+                  className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3.5 text-lg text-center focus:border-bone-white outline-none transition-colors text-bone-white"
                   autoFocus
                 />
               </StepShell>
@@ -130,14 +118,14 @@ export default function OnboardingPage() {
                 sub="This is your Primary Insurance Amount (PIA) — find it at ssa.gov/myaccount, on your Social Security statement."
               >
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-mono text-lg">$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-fog-blue text-lg">$</span>
                   <input
                     type="number"
                     value={draft.pia}
                     min={0}
                     step={50}
                     onChange={(e) => setDraft({ ...draft, pia: Number(e.target.value) })}
-                    className="w-full bg-paper-dim border border-ink/10 rounded-xl pl-9 pr-4 py-3.5 font-mono text-lg text-center focus:border-gold outline-none text-ink"
+                    className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] pl-9 pr-4 py-3.5 text-lg text-center focus:border-bone-white outline-none transition-colors text-bone-white"
                     autoFocus
                   />
                 </div>
@@ -151,10 +139,10 @@ export default function OnboardingPage() {
                     <button
                       key={option}
                       onClick={() => setDraft({ ...draft, maritalStatus: option })}
-                      className={`w-full text-left px-5 py-3.5 rounded-xl border font-medium capitalize transition-all ${
+                      className={`w-full text-left px-5 py-3.5 rounded-[5px] border capitalize transition-colors duration-500 text-bone-white ${
                         draft.maritalStatus === option
-                          ? 'bg-emerald text-obsidian border-emerald shadow-glow-emerald'
-                          : 'bg-paper-dim border-ink/8 hover:border-emerald/40 text-ink'
+                          ? 'bg-graphite-veil/45 border-bone-white'
+                          : 'border-ash-border hover:border-bone-white/40'
                       }`}
                     >
                       {option}
@@ -172,20 +160,16 @@ export default function OnboardingPage() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: true })}
-                    className={`flex-1 py-3.5 rounded-xl border font-semibold transition-all ${
-                      draft.hasNonCoveredPension
-                        ? 'bg-obsidian text-paper border-obsidian'
-                        : 'bg-paper-dim border-ink/8 text-ink'
+                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
+                      draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-bone-white' : 'border-ash-border'
                     }`}
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: false })}
-                    className={`flex-1 py-3.5 rounded-xl border font-semibold transition-all ${
-                      !draft.hasNonCoveredPension
-                        ? 'bg-obsidian text-paper border-obsidian'
-                        : 'bg-paper-dim border-ink/8 text-ink'
+                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
+                      !draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-bone-white' : 'border-ash-border'
                     }`}
                   >
                     No
@@ -196,19 +180,16 @@ export default function OnboardingPage() {
 
             {step === 'done' && (
               <div className="text-center">
-                <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center mx-auto mb-6 shadow-glow-gold">
-                  <span className="text-obsidian font-bold text-xl">✓</span>
+                <div className="w-14 h-14 rounded-full border border-bone-white flex items-center justify-center mx-auto mb-6">
+                  <span className="text-bone-white text-xl">✓</span>
                 </div>
-                <h1 className="text-3xl font-semibold leading-tight mb-4 text-ink">
+                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-bone-white">
                   You're all set.
                 </h1>
-                <p className="text-muted leading-relaxed mb-8">
+                <p className="text-bone-white/60 leading-relaxed mb-8">
                   Your numbers are saved on this device. See your full claiming-age breakdown now.
                 </p>
-                <button
-                  onClick={finish}
-                  className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] transition-all"
-                >
+                <button onClick={finish} className="ov-outlined-btn w-full py-3.5">
                   See my results
                 </button>
               </div>
@@ -218,17 +199,18 @@ export default function OnboardingPage() {
           {step !== 'welcome' && step !== 'done' && (
             <div className="mt-8">
               {error && (
-                <div className="text-xs text-red-600 bg-red-50 rounded-lg px-4 py-3 mb-4">{error}</div>
+                <div className="text-xs text-prism-red bg-prism-red/10 border border-prism-red/30 rounded-[5px] px-4 py-3 mb-4">
+                  {error}
+                </div>
               )}
-              <div className="flex justify-between">
-                <button onClick={back} className="text-sm font-medium text-muted hover:text-ink transition-colors">
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={back}
+                  className="text-sm text-fog-blue hover:text-bone-white transition-colors duration-500"
+                >
                   ← Back
                 </button>
-                <button
-                  onClick={next}
-                  disabled={saving}
-                  className="bg-obsidian text-paper px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gold hover:text-obsidian transition-colors disabled:opacity-60"
-                >
+                <button onClick={next} disabled={saving} className="ov-outlined-btn">
                   {saving ? 'Saving…' : isLastContentStep ? 'Finish' : 'Continue'}
                 </button>
               </div>
@@ -237,7 +219,7 @@ export default function OnboardingPage() {
         </div>
 
         {step !== 'welcome' && step !== 'done' && (
-          <p className="text-center text-xs text-paper/40 mt-5">
+          <p className="text-center text-xs text-bone-white/40 mt-5">
             Saved securely to your account — available whenever you sign back in.
           </p>
         )}
@@ -249,8 +231,8 @@ export default function OnboardingPage() {
 function StepShell({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-2xl font-semibold leading-tight mb-2 text-ink">{title}</h2>
-      <p className="text-sm text-muted mb-6 leading-relaxed">{sub}</p>
+      <h2 className="text-heading-sm font-normal leading-tight mb-2 text-bone-white">{title}</h2>
+      <p className="text-sm text-fog-blue mb-6 leading-relaxed">{sub}</p>
       {children}
     </div>
   )

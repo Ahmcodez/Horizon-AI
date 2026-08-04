@@ -1,8 +1,12 @@
-import { useRef, useState, type DragEvent } from 'react'
+import { useEffect, useRef, useState, type DragEvent } from 'react'
 import { readDocument, ACCEPTED_TYPES, MAX_FILE_BYTES } from '../lib/documentReader'
 import UpgradeGate from '../components/UpgradeGate'
 
 export default function DocumentsPage() {
+  useEffect(() => {
+    document.title = 'Document Reader — Understand SSA, IRS & Medicare Letters | Horizon'
+  }, [])
+
   const [file, setFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [summary, setSummary] = useState<string | null>(null)
@@ -56,18 +60,18 @@ export default function DocumentsPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-luxe)' }}
-      className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-paper-dim min-h-screen"
+      style={{ fontFamily: 'var(--font-vivid)' }}
+      className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
-        <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-azure font-semibold mb-5">
-          <span className="w-4 h-[1.5px] bg-azure" />
+        <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5 flex items-center gap-2">
+          <span className="w-4 h-[1.5px] bg-fog-blue" />
           Document reader
         </div>
-        <h1 className="text-4xl font-semibold tracking-tight leading-tight text-ink">
+        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-bone-white">
           Upload the letter. Get the plain-English version.
         </h1>
-        <p className="mt-4 text-muted text-lg leading-relaxed">
+        <p className="mt-4 text-fog-blue text-lg leading-relaxed">
           Photograph or scan an SSA, IRS, or Medicare notice — we'll tell you what it says and
           whether you need to do anything about it.
         </p>
@@ -83,13 +87,13 @@ export default function DocumentsPage() {
             onDragLeave={() => setDragOver(false)}
             onDrop={onDrop}
             onClick={() => inputRef.current?.click()}
-            className={`border-2 border-dashed rounded-3xl p-16 text-center cursor-pointer transition-all ${
-              dragOver ? 'border-azure bg-azure/5 scale-[1.01]' : 'border-ink/15 bg-paper hover:border-ink/30'
+            className={`border-2 border-dashed rounded-[15px] p-16 text-center cursor-pointer transition-all vivid-ease ${
+              dragOver ? 'border-bone-white bg-graphite-veil/20 scale-[1.01]' : 'border-ash-border bg-graphite-veil/10 hover:border-bone-white/40'
             }`}
           >
             <div className="text-4xl mb-4">📄</div>
-            <p className="font-medium text-ink mb-1">Drop a file here, or click to browse</p>
-            <p className="text-sm text-muted">JPEG, PNG, or PDF — up to 6MB</p>
+            <p className="font-normal text-bone-white mb-1">Drop a file here, or click to browse</p>
+            <p className="text-sm text-fog-blue">JPEG, PNG, or PDF — up to 6MB</p>
             <input
               ref={inputRef}
               type="file"
@@ -105,19 +109,19 @@ export default function DocumentsPage() {
 
       {file && (
         <div className="space-y-6" style={{ animation: 'fadeUp 0.4s cubic-bezier(.16,.8,.24,1)' }}>
-          <div className="bg-paper border border-ink/8 rounded-3xl p-6 shadow-card-light flex items-center gap-5">
+          <div className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-6 flex items-center gap-5">
             {previewUrl ? (
-              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-xl border border-ink/8" />
+              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-[5px] border border-ash-border" />
             ) : (
-              <div className="w-20 h-20 rounded-xl bg-obsidian text-paper flex items-center justify-center font-mono text-xs">
+              <div className="w-20 h-20 rounded-[5px] bg-vivid-obsidian border border-ash-border text-bone-white flex items-center justify-center font-mono text-xs">
                 PDF
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <div className="font-medium truncate text-ink">{file.name}</div>
-              <div className="text-xs text-muted">{(file.size / 1024).toFixed(0)} KB</div>
+              <div className="font-normal truncate text-bone-white">{file.name}</div>
+              <div className="text-xs text-fog-blue">{(file.size / 1024).toFixed(0)} KB</div>
             </div>
-            <button onClick={reset} className="text-sm text-muted hover:text-red-500 transition-colors">
+            <button onClick={reset} className="text-sm text-fog-blue hover:text-bone-white transition-colors">
               Remove
             </button>
           </div>
@@ -126,33 +130,33 @@ export default function DocumentsPage() {
             <button
               onClick={analyze}
               disabled={loading}
-              className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:bg-gold hover:text-obsidian hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:hover:translate-y-0"
+              className="ov-outlined-btn w-full py-3.5"
             >
               {loading ? 'Reading document…' : 'Analyze this document'}
             </button>
           )}
 
-          {error && <div className="text-sm text-red-600 bg-red-50 rounded-xl px-5 py-4">{error}</div>}
+          {error && <div className="text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-5 py-4">{error}</div>}
 
           {summary && (
             <div
-              className="bg-obsidian-elevated text-paper rounded-3xl p-8 shadow-card-dark"
+              className="bg-graphite-veil/30 border border-ash-border text-bone-white rounded-[15px] p-8"
               style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
             >
-              <div className="text-xs font-mono uppercase tracking-wide text-azure mb-4">
+              <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-4">
                 What this document says
               </div>
               <div className="leading-relaxed whitespace-pre-line">{summary}</div>
               <button
                 onClick={reset}
-                className="mt-6 text-sm font-semibold text-paper/70 hover:text-gold transition-colors"
+                className="mt-6 text-sm font-normal text-fog-blue hover:text-bone-white transition-colors"
               >
                 ← Analyze another document
               </button>
             </div>
           )}
 
-          <p className="text-xs text-muted leading-relaxed">
+          <p className="text-xs text-fog-blue leading-relaxed">
             Informational only — not financial, legal, or tax advice. If a document requests
             action, confirm directly with SSA.gov, the IRS, or Medicare before responding.
           </p>

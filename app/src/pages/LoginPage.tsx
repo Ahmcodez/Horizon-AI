@@ -31,41 +31,40 @@ export default function LoginPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-luxe)' }}
-      className="min-h-screen flex items-center justify-center px-6 bg-obsidian relative overflow-hidden"
+      style={{ fontFamily: 'var(--font-vivid)' }}
+      className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
     >
       <div
         className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(245,183,0,0.14), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(73,87,100,0.30), transparent 70%)' }}
       />
       <div
         className="absolute bottom-0 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(73,87,100,0.18), transparent 70%)' }}
       />
 
       <div className="w-full max-w-md relative">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 text-2xl font-semibold mb-2 text-paper">
-            <span className="w-[18px] h-[18px] bg-gold rounded-[5px_5px_5px_0]" />
+          <div className="inline-flex items-center gap-2 text-[15px] font-normal tracking-tight mb-2 text-bone-white uppercase">
             Horizon
           </div>
-          <p className="text-paper/50 text-sm">
+          <p className="text-fog-blue text-sm">
             {mode === 'signin' ? 'Welcome back.' : 'Create your account to save your numbers.'}
           </p>
         </div>
 
-        <div className="bg-paper rounded-3xl p-8 shadow-glow-white">
+        <div className="bg-graphite-veil/30 border border-ash-border rounded-[15px] p-8">
           {/* Sliding tab toggle */}
-          <div className="relative flex gap-2 mb-7 bg-paper-dim rounded-full p-1">
+          <div className="relative flex gap-2 mb-7 bg-vivid-obsidian border border-ash-border rounded-[5px] p-1">
             <div
-              className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-obsidian rounded-full transition-transform duration-300 ease-out"
+              className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-graphite-veil/60 rounded-[3px] transition-transform duration-300 vivid-ease"
               style={{ transform: mode === 'signin' ? 'translateX(0%)' : 'translateX(calc(100% + 8px))' }}
             />
             <button
               type="button"
               onClick={() => setMode('signin')}
-              className={`relative z-10 flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
-                mode === 'signin' ? 'text-paper' : 'text-muted'
+              className={`relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors ${
+                mode === 'signin' ? 'text-bone-white' : 'text-fog-blue'
               }`}
             >
               Sign in
@@ -73,8 +72,8 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setMode('signup')}
-              className={`relative z-10 flex-1 py-2 rounded-full text-sm font-semibold transition-colors ${
-                mode === 'signup' ? 'text-paper' : 'text-muted'
+              className={`relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors ${
+                mode === 'signup' ? 'text-bone-white' : 'text-fog-blue'
               }`}
             >
               Create account
@@ -83,44 +82,44 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <label className="block">
-              <span className="text-sm font-medium text-ink block mb-2">Email</span>
+              <span className="text-sm font-normal text-bone-white/80 block mb-2">Email</span>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-paper-dim border border-ink/10 rounded-xl px-4 py-3 text-base focus:border-gold outline-none transition-colors text-ink"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
                 autoComplete="email"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-medium text-ink block mb-2">Password</span>
+              <span className="text-sm font-normal text-bone-white/80 block mb-2">Password</span>
               <input
                 type="password"
                 required
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-paper-dim border border-ink/10 rounded-xl px-4 py-3 text-base focus:border-gold outline-none transition-colors text-ink"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
                 autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
               />
             </label>
 
             {error && (
-              <div className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3">{error}</div>
+              <div className="text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-4 py-3">{error}</div>
             )}
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-obsidian text-paper font-semibold py-3.5 rounded-full shadow-card-dark hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(0,0,0,0.4)] transition-all disabled:opacity-60 disabled:hover:translate-y-0"
+              className="ov-outlined-btn w-full py-3.5"
             >
               {submitting ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Create account'}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs text-paper/40 mt-6 leading-relaxed max-w-sm mx-auto">
+        <p className="text-center text-xs text-fog-blue mt-6 leading-relaxed max-w-sm mx-auto">
           Your Social Security numbers are stored securely and are never shared. Not affiliated
           with the Social Security Administration.
         </p>

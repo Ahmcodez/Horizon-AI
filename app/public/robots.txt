@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /$
+Allow: /login$
+Disallow: /app
+Disallow: /onboarding
+Disallow: /calculator
+Disallow: /documents
+Disallow: /billing
+Disallow: /scenarios
+Disallow: /alerts
+Disallow: /advisor
+Disallow: /states
+Disallow: /embed
+
+# TODO: replace with your production domain once deployed
+Sitemap: https://REPLACE_WITH_YOUR_DOMAIN/sitemap.xml

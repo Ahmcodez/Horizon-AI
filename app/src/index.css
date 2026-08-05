@@ -74,12 +74,23 @@
      the outlined style is used consistently rather than introducing a
      filled color the brief prohibits - see the "Outlined Contact
      Button" pattern used as the site's one CTA style throughout.
+
+     Palette refinement (deeper grey/black tones): --color-vivid-obsidian
+     deepened from #101010 to #0A0A0B (dark charcoal / off-black) for a
+     truer near-black base. --color-muted-grey (#554E47, warm dark neutral
+     grey) is an alternate background for specific pages/sections that want
+     tonal variety without breaking from the dark canvas - not a universal
+     replacement for vivid-obsidian or graphite-veil. --color-grey-text
+     (#D7D7D8, light grey) is for secondary/de-emphasized text in contexts
+     that want something between bone-white and fog-blue.
      ============================================================ */
   --color-bone-white: #FFFDF9;
-  --color-vivid-obsidian: #101010;
+  --color-vivid-obsidian: #0A0A0B;
   --color-graphite-veil: #495764;
   --color-ash-border: #403F3F;
   --color-fog-blue: #6F879C;
+  --color-muted-grey: #554E47;
+  --color-grey-text: #D7D7D8;
   --color-prism-red: #FF2A2A;
   --color-prism-cyan: #2A7FFF;
   --color-prism-lime: #2AFF2A;

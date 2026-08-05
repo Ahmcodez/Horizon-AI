@@ -102,4 +102,34 @@ export const POLICY_NEWS: PolicyNewsItem[] = [
     source: 'SSA Office of the Chief Actuary',
     sourceUrl: 'https://www.ssa.gov/oact/trsum/',
   },
+  {
+    id: 'obbba-senior-deduction',
+    date: 'Jul 2025 – TY 2028',
+    category: 'recent',
+    title: 'New $6,000 federal senior deduction (OBBBA), 2025-2028',
+    description:
+      'The One Big Beautiful Bill Act added a temporary $6,000-per-person deduction (up to $12,000/couple) for filers 65+, phasing out above $75,000 MAGI single / $150,000 joint. It reduces taxable income for many retirees, but it does NOT reduce provisional income — so it doesn\'t directly lower how much of your Social Security benefit gets taxed. Expires after tax year 2028 unless extended.',
+    source: 'IRS / OBBBA §70103',
+    sourceUrl: 'https://www.irs.gov',
+  },
+  {
+    id: 'federal-ss-tax-thresholds-frozen',
+    date: 'Unchanged since 1983 / 1993',
+    category: 'recent',
+    title: 'Federal Social Security tax thresholds remain frozen for 2026',
+    description:
+      'Up to 85% of benefits can be federally taxable once "provisional income" (AGI + tax-exempt interest + half of benefits) passes $25,000/$34,000 (single) or $32,000/$44,000 (joint). These thresholds have never been indexed for inflation, so every COLA increase quietly pulls more retirees into taxable territory.',
+    source: 'IRS / Congressional Research Service',
+    sourceUrl: 'https://www.congress.gov/crs-product/IF11397',
+  },
+  {
+    id: 'ss-2100-act-proposal',
+    date: 'Proposed — not enacted',
+    category: 'upcoming',
+    title: 'Proposal to raise federal SS tax thresholds (Social Security 2100 Act)',
+    description:
+      'A pending bill (H.R. 4583 / S. 2280) would replace today\'s thresholds with a single higher set — $35,000 single / $50,000 joint — for 2025-2034. This is a proposal only, not current law; worth tracking but not something to plan around yet.',
+    source: 'Congress.gov (proposed legislation)',
+    sourceUrl: 'https://www.congress.gov/crs-product/IF11397',
+  },
 ]

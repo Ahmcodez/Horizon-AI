@@ -283,7 +283,7 @@ function ProductSection() {
   return (
     <div ref={ref} className="reveal mx-8">
       <div
-        className="max-w-[1280px] mx-auto bg-graphite-veil/25 text-bone-white rounded-[15px] px-10 md:px-14 py-16 relative overflow-hidden border border-ash-border"
+        className="max-w-[1280px] mx-auto bg-muted-grey/25 text-bone-white rounded-[15px] px-10 md:px-14 py-16 relative overflow-hidden border border-ash-border"
         style={{ fontFamily: 'var(--font-vivid)' }}
       >
         <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">Your actual numbers</div>

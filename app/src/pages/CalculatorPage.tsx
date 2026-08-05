@@ -250,7 +250,7 @@ export default function CalculatorPage() {
           </div>
 
           {/* Chart */}
-          <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8">
+          <div className="bg-muted-grey/25 border border-ash-border rounded-[15px] p-8">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-normal">Benefit by claiming age</h2>
               <div className="flex gap-4 text-xs text-fog-blue">

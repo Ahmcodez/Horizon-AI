@@ -14,8 +14,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { user } = useAuth()
   const alerts = useAlerts(user?.uid)
-  const { plan } = usePlan(user?.uid)
+  const { plan, status } = usePlan(user?.uid)
   const unreadCount = alerts.filter((a) => !a.read).length
+  const devUnlocked = status === 'dev-unlocked'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -34,6 +35,11 @@ export default function Navbar() {
       >
         <a href="/" className="flex items-center gap-2 text-[15px] font-normal tracking-tight text-bone-white uppercase">
           Horizon
+          {devUnlocked && (
+            <span className="text-[10px] normal-case tracking-normal font-mono border border-bone-white/40 text-fog-blue px-1.5 py-0.5 rounded-[3px]">
+              dev-unlocked
+            </span>
+          )}
         </a>
 
         {user ? (

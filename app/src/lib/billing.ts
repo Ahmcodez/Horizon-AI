@@ -13,6 +13,18 @@ export interface CustomerStatus {
 }
 
 /**
+ * Local-testing-only override. When VITE_DEV_UNLOCK_ALL=true is set in
+ * .env.local (never committed — see .env.example), usePlan() reports
+ * 'advisor' for every signed-in user regardless of their real Stripe
+ * subscription, so every gated feature (household panel, state comparison,
+ * document reader, scenarios, advisor dashboard, embed widget) renders
+ * unlocked for testing. This never touches Firestore or Stripe — it's a
+ * pure client-side read override. Remove the env var (or leave it unset,
+ * the default) to go back to real plan enforcement.
+ */
+const DEV_UNLOCK_ALL = import.meta.env.VITE_DEV_UNLOCK_ALL === 'true'
+
+/**
  * Real-time subscription to the user's plan. Reads only - the client never
  * writes its own plan; that only happens server-side once Stripe confirms
  * payment via the webhook. Starting state is 'free' until (or unless) a
@@ -32,6 +44,10 @@ export function usePlan(uid: string | undefined): CustomerStatus {
     })
     return unsubscribe
   }, [uid])
+
+  if (DEV_UNLOCK_ALL) {
+    return { plan: 'advisor', status: 'dev-unlocked' }
+  }
 
   return state
 }

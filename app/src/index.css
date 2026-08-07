@@ -161,13 +161,13 @@ html {
 }
 
 body {
-  background: var(--color-chalk);
-  color: var(--color-graphite);
-  font-family: var(--font-sans);
+  background: var(--color-vivid-obsidian);
+  color: var(--color-bone-white);
+  font-family: var(--font-vivid);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-bone-white);
   outline-offset: 3px;
 }
 

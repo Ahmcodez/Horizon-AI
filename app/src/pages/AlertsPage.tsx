@@ -45,7 +45,7 @@ export default function AlertsPage() {
         </p>
       </div>
 
-      <section className="bg-graphite-veil/15 border border-ash-border rounded-[15px] p-8">
+      <section className="bg-graphite-veil/15 border-2 border-bone-white/30 rounded-[15px] p-8 shadow-[0_0_35px_rgba(255,255,255,0.10)]">
         {alerts.length === 0 && (
           <div className="text-center text-fog-blue text-sm py-6">
             <p className="mb-5">
@@ -55,7 +55,7 @@ export default function AlertsPage() {
             <button
               onClick={seedSamples}
               disabled={seeding}
-              className="font-mono text-xs bg-vivid-obsidian border border-ash-border px-4 py-2 rounded-[5px] hover:border-bone-white transition-colors disabled:opacity-60 text-bone-white"
+              className="font-mono text-xs bg-vivid-obsidian border-2 border-ash-border px-4 py-2 rounded-[5px] hover:border-bone-white transition-colors disabled:opacity-60 text-bone-white"
             >
               {seeding ? 'Loading…' : 'See what this looks like (sample data)'}
             </button>
@@ -72,8 +72,10 @@ export default function AlertsPage() {
             <div
               key={alert.id}
               style={{ animation: `fadeUp 0.4s cubic-bezier(.16,.8,.24,1) ${i * 0.05}s both` }}
-              className={`rounded-[10px] border p-5 flex items-start gap-4 transition-colors ${
-                alert.read ? 'bg-vivid-obsidian border-ash-border' : 'bg-muted-grey/25 border-bone-white/40'
+              className={`rounded-[10px] border-2 p-5 flex items-start gap-4 transition-all duration-300 ${
+                alert.read
+                  ? 'bg-vivid-obsidian border-ash-border'
+                  : 'bg-muted-grey/25 border-bone-white/50 shadow-[0_0_20px_rgba(255,255,255,0.10)]'
               }`}
             >
               {!alert.read && <div className="w-2 h-2 rounded-full bg-bone-white mt-1.5 flex-shrink-0" />}
@@ -120,7 +122,7 @@ function PolicyNewsSection() {
   const upcoming = POLICY_NEWS.filter((n) => n.category === 'upcoming')
 
   return (
-    <section className="mt-10 bg-muted-grey/10 border border-ash-border rounded-[15px] p-8">
+    <section className="mt-10 bg-muted-grey/10 border-2 border-cyan-600/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(8,145,178,0.18)]">
       <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-2 flex items-center gap-2">
         <span className="w-4 h-[1.5px] bg-fog-blue" />
         General policy news
@@ -158,7 +160,7 @@ function PolicyNewsCard({ item, index }: { item: (typeof POLICY_NEWS)[number]; i
       target="_blank"
       rel="noopener noreferrer"
       style={{ animation: `fadeUp 0.45s cubic-bezier(.16,.8,.24,1) ${index * 0.07}s both` }}
-      className="block bg-graphite-veil/20 border border-ash-border rounded-[10px] p-5 hover:border-bone-white/50 hover:-translate-y-1 transition-all duration-300"
+      className="block bg-graphite-veil/20 border-2 border-ash-border rounded-[10px] p-5 hover:border-cyan-600 hover:-translate-y-1 hover:shadow-[0_0_28px_rgba(8,145,178,0.4)] transition-all duration-300"
     >
       <div className="text-[11px] font-mono text-fog-blue mb-2">{item.date} · {item.source}</div>
       <div className="text-sm text-bone-white font-normal mb-2 leading-snug">{item.title}</div>

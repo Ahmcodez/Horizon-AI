@@ -7,6 +7,7 @@ import {
   addAdvisorClient,
   removeAdvisorClient,
   type NewAdvisorClient,
+  type AdvisorClient,
 } from '../lib/advisorClients'
 import {
   generateClaimingComparison,
@@ -22,6 +23,14 @@ const EMPTY_FORM: NewAdvisorClient = {
   maritalStatus: 'single',
   hasNonCoveredPension: false,
   notes: '',
+}
+
+function describeFirestoreError(err: unknown): string {
+  const code = (err as { code?: string })?.code
+  if (code === 'permission-denied') {
+    return "Firestore rejected this — your account's real customers/{uid} document doesn't have plan: 'advisor' yet. The dev-unlock flag only affects what the UI shows you; it can't write that document (client writes to it are always blocked, by design). Set it manually once in the Firebase Console → Firestore → customers → your uid → plan: \"advisor\", and this will start working."
+  }
+  return err instanceof Error ? err.message : 'Something went wrong — please try again.'
 }
 
 export default function AdvisorDashboardPage() {
@@ -64,21 +73,40 @@ export default function AdvisorDashboardPage() {
 }
 
 function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
-  const clients = useAdvisorClients(advisorUid)
+  const { clients, error: readError } = useAdvisorClients(advisorUid)
   const [showAddForm, setShowAddForm] = useState(false)
   const [form, setForm] = useState<NewAdvisorClient>(EMPTY_FORM)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const [writeError, setWriteError] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const error = writeError ?? readError
 
   async function handleAdd(e: FormEvent) {
     e.preventDefault()
     setSaving(true)
+    setWriteError(null)
     try {
       await addAdvisorClient(advisorUid, form)
       setForm(EMPTY_FORM)
       setShowAddForm(false)
+    } catch (err) {
+      setWriteError(describeFirestoreError(err))
     } finally {
       setSaving(false)
+    }
+  }
+
+  async function handleDelete(clientId: string) {
+    setDeletingId(clientId)
+    setWriteError(null)
+    try {
+      await removeAdvisorClient(advisorUid, clientId)
+      if (selectedId === clientId) setSelectedId(null)
+    } catch (err) {
+      setWriteError(describeFirestoreError(err))
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -109,6 +137,12 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
           {showAddForm ? 'Cancel' : '+ Add client'}
         </button>
       </div>
+
+      {error && (
+        <div className="bg-vivid-obsidian border border-bone-white/40 text-bone-white text-sm rounded-[10px] px-5 py-4 mb-8 leading-relaxed">
+          {error}
+        </div>
+      )}
 
       {showAddForm && (
         <form
@@ -217,10 +251,11 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
                 {selectedId === client.id ? 'Hide' : 'View analysis'}
               </button>
               <button
-                onClick={() => removeAdvisorClient(advisorUid, client.id)}
-                className="text-sm text-fog-blue hover:text-bone-white transition-colors"
+                onClick={() => handleDelete(client.id)}
+                disabled={deletingId === client.id}
+                className="text-sm text-fog-blue hover:text-bone-white transition-colors disabled:opacity-40"
               >
-                Delete
+                {deletingId === client.id ? 'Deleting…' : 'Delete'}
               </button>
             </div>
             {selectedId === client.id && <ClientAnalysis client={client} />}
@@ -235,7 +270,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
   )
 }
 
-function ClientAnalysis({ client }: { client: ReturnType<typeof useAdvisorClients>[number] }) {
+function ClientAnalysis({ client }: { client: AdvisorClient }) {
   const fra = getFullRetirementAge(client.birthYear)
   const comparison = generateClaimingComparison(client.pia, client.birthYear)
   const breakeven = calculateBreakevenAge(client.pia, client.birthYear, 62, 70)

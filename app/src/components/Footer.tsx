@@ -6,27 +6,32 @@ export default function Footer() {
 
   return (
     <footer
-      style={{ fontFamily: 'var(--font-vivid)' }}
-      className="bg-vivid-obsidian border-t border-ash-border"
+      style={{
+        fontFamily: 'var(--font-vivid)',
+        background:
+          'linear-gradient(135deg, #0A0A0B 0%, #1D1D20 38%, #0A0A0B 68%, #131315 100%)',
+      }}
     >
       <div className="max-w-6xl mx-auto px-8 py-12">
-        <p className="text-xs text-grey-text leading-relaxed max-w-2xl mb-8">
-          Horizon provides informational estimates only and is not a substitute for financial,
-          legal, or tax advice. Not affiliated with or endorsed by the Social Security
-          Administration.
-        </p>
+        <div className="mb-8">
+          <div className="text-[13px] uppercase tracking-[0.02em] text-bone-white mb-3">Horizon</div>
+          <p className="text-xs text-grey-text leading-relaxed max-w-2xl">
+            Horizon provides informational estimates only and is not a substitute for financial,
+            legal, or tax advice. Not affiliated with or endorsed by the Social Security
+            Administration.
+          </p>
+        </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-6 pt-6 border-t border-ash-border">
-          <div className="text-[13px] uppercase tracking-[0.02em] text-bone-white">Horizon</div>
+        <div className="border-t border-ash-border pt-6 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-xs">
+          <span className="text-fog-blue">© {year} Horizon. All rights reserved.</span>
 
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-fog-blue">
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-fog-blue">
             <a href="/privacy" className="hover:text-bone-white transition-colors">
               Privacy Policy
             </a>
             <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-bone-white transition-colors">
               {SUPPORT_EMAIL}
             </a>
-            <span>© {year} Horizon</span>
           </nav>
         </div>
       </div>

@@ -43,7 +43,7 @@ export default function EmbedPage() {
         style={{ fontFamily: 'var(--font-vivid)' }}
         className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center bg-vivid-obsidian min-h-screen"
       >
-        <div className="bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
+        <div className="hover-glow-white bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
           <div className="text-xs uppercase tracking-[0.02em] text-fog-blue mb-3">Advisor tier</div>
           <h1 className="text-2xl font-normal mb-3">The embeddable widget is part of the Advisor plan</h1>
           <p className="text-sm text-bone-white/60 mb-6 max-w-md mx-auto leading-relaxed">
@@ -79,7 +79,7 @@ export default function EmbedPage() {
         </p>
       </div>
 
-      <div className="bg-graphite-veil/20 border border-ash-border text-bone-white rounded-[15px] p-6 mb-4 relative">
+      <div className="hover-glow-white bg-graphite-veil/20 border border-ash-border text-bone-white rounded-[15px] p-6 mb-4 relative">
         <pre className="text-xs font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto">{snippet}</pre>
         <button
           onClick={copySnippet}

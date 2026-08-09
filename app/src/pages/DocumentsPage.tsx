@@ -109,7 +109,7 @@ export default function DocumentsPage() {
 
       {file && (
         <div className="space-y-6" style={{ animation: 'fadeUp 0.4s cubic-bezier(.16,.8,.24,1)' }}>
-          <div className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-6 flex items-center gap-5">
+          <div className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] p-6 flex items-center gap-5">
             {previewUrl ? (
               <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-[5px] border border-ash-border" />
             ) : (
@@ -140,7 +140,7 @@ export default function DocumentsPage() {
 
           {summary && (
             <div
-              className="bg-graphite-veil/30 border border-ash-border text-bone-white rounded-[15px] p-8"
+              className="hover-glow-white bg-graphite-veil/30 border border-ash-border text-bone-white rounded-[15px] p-8"
               style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
             >
               <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-4">

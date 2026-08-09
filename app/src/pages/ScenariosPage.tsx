@@ -8,6 +8,7 @@ import {
 } from '../lib/socialSecurity'
 import BenefitChart from '../components/BenefitChart'
 import UpgradeGate from '../components/UpgradeGate'
+import { useReveal } from '../lib/useReveal'
 
 export default function ScenariosPage() {
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function ScenariosPage() {
   }, [])
 
   const { user } = useAuth()
+  const reveal = useReveal<HTMLDivElement>()
   const [birthYear, setBirthYear] = useState(DEFAULT_PROFILE.birthYear)
   const [pia, setPia] = useState(DEFAULT_PROFILE.pia)
   const [loaded, setLoaded] = useState(false)
@@ -53,7 +55,7 @@ export default function ScenariosPage() {
         <div className="font-mono text-sm text-fog-blue">Loading your numbers…</div>
       ) : (
         <UpgradeGate feature="Scenario modeling">
-          <div className="space-y-8">
+          <div ref={reveal} className="reveal space-y-8">
             <BenefitCutScenario baseline={baseline} />
             <LongevityScenario baseline={baseline} />
           </div>
@@ -69,7 +71,7 @@ function BenefitCutScenario({ baseline }: { baseline: ReturnType<typeof generate
   const fraRow = baseline[5] // age 67 is index 5 in the 62-70 array — used only for the chart's FRA marker
 
   return (
-    <div className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-8">
+    <div className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] p-8">
       <h2 className="text-xl font-normal mb-1 text-bone-white">If benefits get cut</h2>
       <p className="text-sm text-fog-blue mb-6 max-w-2xl">
         Social Security's trust fund is projected to run short around 2032-2033. If Congress
@@ -122,7 +124,7 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
   ]
 
   return (
-    <div className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-8">
+    <div className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] p-8">
       <h2 className="text-xl font-normal mb-1 text-bone-white">If you live longer (or less long) than expected</h2>
       <p className="text-sm text-fog-blue mb-6 max-w-2xl">
         Claiming age math changes depending on how long you actually collect. Move the slider to

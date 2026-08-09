@@ -31,7 +31,6 @@ export default function LandingPage() {
       <FeaturesSection />
       <FaqSection />
       <FinalCta onCtaClick={primaryCta} />
-      <Footer />
     </main>
   )
 }
@@ -410,18 +409,4 @@ function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
   )
 }
 
-function Footer() {
-  return (
-    <footer
-      className="bg-vivid-obsidian text-fog-blue border-t border-ash-border px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm"
-      style={{ fontFamily: 'var(--font-vivid)' }}
-    >
-      <div>© 2026 Horizon Financial Technologies</div>
-      <p className="max-w-xl text-xs leading-relaxed">
-        Horizon provides informational estimates only and is not a substitute for financial,
-        legal, or tax advice. Not affiliated with or endorsed by the Social Security
-        Administration.
-      </p>
-    </footer>
-  )
-}
+/* ---------------- /Landing sections ---------------- */

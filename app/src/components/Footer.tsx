@@ -1,3 +1,5 @@
+import horizonIcon from '../assets/horizon-icon.png'
+
 // TODO: replace with your real support inbox before launch
 const SUPPORT_EMAIL = 'support@REPLACE_WITH_YOUR_DOMAIN'
 
@@ -14,7 +16,10 @@ export default function Footer() {
     >
       <div className="max-w-6xl mx-auto px-8 py-12">
         <div className="mb-8">
-          <div className="text-[13px] uppercase tracking-[0.02em] text-bone-white mb-3">Horizon</div>
+          <div className="flex items-center gap-2 text-[13px] uppercase tracking-[0.02em] text-bone-white mb-3">
+            <img src={horizonIcon} alt="" className="h-5 w-5 object-contain" />
+            Horizon
+          </div>
           <p className="text-xs text-grey-text leading-relaxed max-w-2xl">
             Horizon provides informational estimates only and is not a substitute for financial,
             legal, or tax advice. Not affiliated with or endorsed by the Social Security

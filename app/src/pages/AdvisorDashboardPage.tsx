@@ -48,7 +48,7 @@ export default function AdvisorDashboardPage() {
         style={{ fontFamily: 'var(--font-vivid)' }}
         className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center bg-vivid-obsidian min-h-screen"
       >
-        <div className="bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
+        <div className="hover-glow-white bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
           <div className="text-xs uppercase tracking-[0.02em] text-fog-blue mb-3">
             Advisor tier
           </div>
@@ -234,7 +234,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
           <div
             key={client.id}
             style={{ animation: `fadeUp 0.35s cubic-bezier(.16,.8,.24,1) ${i * 0.04}s both` }}
-            className="bg-graphite-veil/20 border border-ash-border rounded-[15px] overflow-hidden"
+            className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] overflow-hidden"
           >
             <div className="flex items-center gap-4 p-5">
               <div className="flex-1 min-w-0">
@@ -283,17 +283,17 @@ function ClientAnalysis({ client }: { client: AdvisorClient }) {
       className="border-t border-ash-border bg-vivid-obsidian text-bone-white p-6"
     >
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
+        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
           <div className="font-mono text-lg font-normal text-bone-white">
             ${age62.monthlyBenefit.toLocaleString()} → ${age70.monthlyBenefit.toLocaleString()}
           </div>
           <div className="text-xs text-fog-blue mt-1">monthly, 62 vs. 70</div>
         </div>
-        <div className="bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
+        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
           <div className="font-mono text-lg font-normal text-bone-white">{fra.years}{fra.months > 0 ? `y ${fra.months}m` : ''}</div>
           <div className="text-xs text-fog-blue mt-1">full retirement age</div>
         </div>
-        <div className="bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
+        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
           <div className="font-mono text-lg font-normal text-bone-white">{breakeven ? breakeven.toFixed(1) : '—'}</div>
           <div className="text-xs text-fog-blue mt-1">breakeven age</div>
         </div>

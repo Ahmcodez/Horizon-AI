@@ -17,7 +17,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-8 py-12">
         <div className="mb-8">
           <div className="flex items-center gap-2 text-[13px] uppercase tracking-[0.02em] text-bone-white mb-3">
-            <img src={horizonIcon} alt="" className="h-5 w-5 object-contain" />
+            <img src={horizonIcon} alt="" className="h-[22px] w-[22px] object-contain" />
             Horizon
           </div>
           <p className="text-xs text-grey-text leading-relaxed max-w-2xl">

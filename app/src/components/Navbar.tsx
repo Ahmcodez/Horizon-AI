@@ -35,7 +35,7 @@ export default function Navbar() {
         }`}
       >
         <a href="/" className="flex items-center gap-2 text-[15px] font-normal tracking-tight text-bone-white uppercase">
-          <img src={horizonIcon} alt="" className="h-7 w-7 object-contain" />
+          <img src={horizonIcon} alt="" className="h-[30px] w-[30px] object-contain" />
           Horizon
           {devUnlocked && (
             <span className="text-[10px] normal-case tracking-normal font-mono border border-bone-white/40 text-fog-blue px-1.5 py-0.5 rounded-[3px]">

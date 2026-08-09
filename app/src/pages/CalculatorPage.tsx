@@ -208,7 +208,7 @@ export default function CalculatorPage() {
         <div id="results" className="space-y-6">
           {/* Key stat row */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 ${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </div>
@@ -221,7 +221,7 @@ export default function CalculatorPage() {
                 explain
               </button>
             </div>
-            <div className="bg-graphite-veil/45 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-white bg-graphite-veil/45 border border-ash-border rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 +${lifetimeDiff.toLocaleString()}
               </div>
@@ -234,7 +234,7 @@ export default function CalculatorPage() {
                 explain
               </button>
             </div>
-            <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 {breakeven ? breakeven.toFixed(1) : '—'}
               </div>
@@ -250,7 +250,7 @@ export default function CalculatorPage() {
           </div>
 
           {/* Chart */}
-          <div className="bg-muted-grey/25 border border-ash-border rounded-[15px] p-8">
+          <div className="hover-glow-white bg-muted-grey/25 border border-ash-border rounded-[15px] p-8">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-normal">Benefit by claiming age</h2>
               <div className="flex gap-4 text-xs text-fog-blue">
@@ -266,7 +266,7 @@ export default function CalculatorPage() {
           </div>
 
           {/* Table */}
-          <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8 overflow-x-auto">
+          <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8 overflow-x-auto">
             <h2 className="text-xl font-normal mb-5">Full comparison</h2>
             <table className="w-full text-sm">
               <thead>

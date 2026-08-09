@@ -3,7 +3,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions'
 import { app } from '../lib/firebase'
 import { useAuth } from '../lib/authContext'
 import { useAlerts, markAlertRead, dismissAlert } from '../lib/alerts'
-import { POLICY_NEWS } from '../lib/policyNews'
+import { POLICY_NEWS, useDailyDigest } from '../lib/policyNews'
 
 const functions = getFunctions(app)
 
@@ -120,6 +120,7 @@ export default function AlertsPage() {
 function PolicyNewsSection() {
   const recent = POLICY_NEWS.filter((n) => n.category === 'recent')
   const upcoming = POLICY_NEWS.filter((n) => n.category === 'upcoming')
+  const live = useDailyDigest()
 
   return (
     <section className="mt-10 bg-muted-grey/10 border-2 border-cyan-600/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(8,145,178,0.18)]">
@@ -131,6 +132,35 @@ function PolicyNewsSection() {
         These aren't personalized to your record — they're the broader SSA, CMS, and Trustees
         Report changes everyone planning around Social Security should know about.
       </p>
+
+      {live.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-normal text-bone-white mb-1 flex items-center gap-3">
+            Today
+            <span className="text-[10px] font-mono uppercase tracking-wide border border-cyan-600 text-cyan-600 px-2 py-0.5 rounded-[3px]">
+              live
+            </span>
+          </h2>
+          <p className="text-xs text-fog-blue mb-6">Pulled automatically from SSA, IRS, and CMS.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {live.map((item, i) => (
+              <PolicyNewsCard
+                key={item.id}
+                index={i}
+                item={{
+                  id: item.id,
+                  date: item.date,
+                  category: 'recent',
+                  title: item.sourceLabel,
+                  description: item.summary,
+                  source: item.sourceLabel,
+                  sourceUrl: item.sourceUrl,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mb-4">
         <h2 className="text-2xl font-normal text-bone-white mb-6">Recent</h2>

@@ -1,0 +1,29 @@
+name: Daily SSA/IRS/CMS monitor
+
+on:
+  schedule:
+    # 12:00 UTC daily — adjust if you want a different time.
+    - cron: '0 12 * * *'
+  workflow_dispatch: {} # lets you trigger a run manually from the Actions tab, for testing
+
+jobs:
+  daily-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install script dependencies
+        working-directory: scripts/daily-news
+        run: npm install
+
+      - name: Run daily-news monitor
+        working-directory: scripts/daily-news
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm start

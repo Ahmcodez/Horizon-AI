@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore'
+import { db } from './firebase'
+
 /**
  * Curated general-interest SSA / CMS / Medicare policy news.
  *
@@ -133,3 +137,46 @@ export const POLICY_NEWS: PolicyNewsItem[] = [
     sourceUrl: 'https://www.congress.gov/crs-product/IF11397',
   },
 ]
+
+/**
+ * Live entries written daily by scripts/daily-news (via a GitHub Actions
+ * cron, see .github/workflows/daily-news.yml) — real, current content
+ * generated from the actual SSA/IRS/CMS pages, refreshed automatically.
+ * Falls back to nothing (empty array) until that workflow has run at least
+ * once; the static POLICY_NEWS list above always renders regardless, so the
+ * page is never empty even before live data exists.
+ */
+export interface LiveDigestItem {
+  id: string
+  date: string
+  sourceLabel: string
+  sourceUrl: string
+  summary: string
+}
+
+/** Real-time subscription to the most recent live daily-digest entries. */
+export function useDailyDigest(count: number = 6): LiveDigestItem[] {
+  const [items, setItems] = useState<LiveDigestItem[]>([])
+
+  useEffect(() => {
+    const q = query(collection(db, 'dailyDigest'), orderBy('generatedAt', 'desc'), limit(count))
+    const unsubscribe = onSnapshot(
+      q,
+      (snap) => {
+        setItems(
+          snap.docs.map((d) => ({
+            id: d.id,
+            date: d.data().date,
+            sourceLabel: d.data().sourceLabel,
+            sourceUrl: d.data().sourceUrl,
+            summary: d.data().summary,
+          }))
+        )
+      },
+      () => setItems([]) // e.g. not signed in yet, or collection empty — fail quietly, static list still covers the page
+    )
+    return unsubscribe
+  }, [count])
+
+  return items
+}

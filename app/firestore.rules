@@ -36,6 +36,14 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // General daily news digest (see scripts/daily-news) - readable by any
+    // signed-in user, written only by the Admin SDK script (which bypasses
+    // these rules entirely), never by a client.
+    match /dailyDigest/{digestId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
     // Advisor multi-client dashboard. Only the advisor themselves can
     // access their own client list, and only if they actually hold an
     // 'advisor' plan right now - checked server-side via a get() against

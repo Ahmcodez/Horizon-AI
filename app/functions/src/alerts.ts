@@ -18,6 +18,15 @@ import { db } from './admin';
  * verified against the real pages after deploy, since government sites
  * occasionally restructure their markup in ways a crude text-extraction
  * approach may need adjusting for.
+ *
+ * CURRENTLY DORMANT: this project runs on the free Spark plan, which cannot
+ * deploy ANY Cloud Function (a project-level Firebase restriction, not
+ * usage-based) - so this file cannot run at all right now. The actively
+ * running equivalent is scripts/daily-news/index.mjs, triggered by a free
+ * GitHub Actions cron (.github/workflows/daily-news.yml) instead of Cloud
+ * Scheduler. Redeploy this file instead of the script if this project ever
+ * moves to Blaze - the two share the same ruleSources/ruleUpdates Firestore
+ * shape, but aren't meant to run simultaneously against the same state.
  */
 
 const geminiApiKey = defineSecret('GEMINI_API_KEY');

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/authContext'
 import { usePlan, startCheckout, openBillingPortal } from '../lib/billing'
+import { useReveal } from '../lib/useReveal'
 
 export default function BillingPage() {
   const { user } = useAuth()
@@ -9,6 +10,7 @@ export default function BillingPage() {
   const [searchParams] = useSearchParams()
   const [loadingPlan, setLoadingPlan] = useState<'plan' | 'advisor' | 'portal' | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const reveal = useReveal<HTMLDivElement>()
 
   const checkoutResult = searchParams.get('checkout')
 
@@ -89,8 +91,8 @@ export default function BillingPage() {
         </div>
       )}
 
-      <div className="grid md:grid-cols-3 gap-5">
-        <div className="border border-ash-border rounded-[15px] p-8 bg-graphite-veil/20">
+      <div ref={reveal} className="reveal grid md:grid-cols-3 gap-5">
+        <div className="hover-glow-white border border-ash-border rounded-[15px] p-8 bg-graphite-veil/20">
           <div className="text-xs uppercase tracking-[0.02em] text-fog-blue font-normal mb-4">Free</div>
           <div className="text-3xl font-normal mb-1 text-bone-white">$0</div>
           <p className="text-sm text-fog-blue mb-6">A real first look at your options.</p>
@@ -101,7 +103,7 @@ export default function BillingPage() {
           {plan === 'free' && <div className="mt-6 text-xs font-mono text-fog-blue">Your current plan</div>}
         </div>
 
-        <div className="rounded-[15px] p-8 bg-graphite-veil/40 text-bone-white relative border-2 border-bone-white">
+        <div className="hover-glow-white rounded-[15px] p-8 bg-graphite-veil/40 text-bone-white relative border-2 border-bone-white">
           <div className="absolute -top-3 right-7 bg-vivid-obsidian border border-bone-white text-bone-white text-[11px] font-normal uppercase px-3 py-1.5 rounded-[5px]">
             Most chosen
           </div>
@@ -130,7 +132,7 @@ export default function BillingPage() {
           )}
         </div>
 
-        <div className="border border-ash-border rounded-[15px] p-8 bg-graphite-veil/20">
+        <div className="hover-glow-white border border-ash-border rounded-[15px] p-8 bg-graphite-veil/20">
           <div className="text-xs uppercase tracking-[0.02em] text-fog-blue font-normal mb-4">Advisor</div>
           <div className="text-3xl font-normal mb-1 text-bone-white">
             $149<span className="text-sm font-normal text-fog-blue">/mo</span>

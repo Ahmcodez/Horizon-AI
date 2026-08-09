@@ -87,7 +87,7 @@ function StateCard({ info }: { info: StateTaxInfo }) {
   return (
     <div
       style={{ animation: 'fadeUp 0.35s cubic-bezier(.16,.8,.24,1)' }}
-      className={`rounded-[15px] p-7 border ${
+      className={`hover-glow-white rounded-[15px] p-7 border ${
         info.taxesSocialSecurity
           ? 'bg-graphite-veil/20 border-prism-red/40'
           : 'bg-graphite-veil/20 border-ash-border'

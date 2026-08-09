@@ -212,10 +212,25 @@ body {
   transform: translateY(0);
 }
 
+/* Reusable hover treatment for static cards: white glow + lift, no color */
+.hover-glow-white {
+  transition: border-color 0.4s cubic-bezier(0.16, 0.8, 0.24, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 0.8, 0.24, 1),
+    transform 0.4s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.hover-glow-white:hover {
+  border-color: var(--color-bone-white);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.in {
     transition-duration: 0.01ms !important;
     opacity: 1 !important;
+    transform: none !important;
+  }
+  .hover-glow-white:hover {
     transform: none !important;
   }
 }

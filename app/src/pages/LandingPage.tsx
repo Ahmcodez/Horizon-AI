@@ -140,7 +140,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
             </div>
           </div>
 
-          <div className="rounded-[15px] bg-graphite-veil/30 border border-ash-border overflow-hidden">
+          <div className="hover-glow-white rounded-[15px] bg-graphite-veil/30 border border-ash-border overflow-hidden">
             <div className="flex items-center gap-1.5 px-4 py-3 bg-black/30 border-b border-ash-border">
               <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
               <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
@@ -264,7 +264,7 @@ function ProblemSection() {
         {cards.map((c) => (
           <div
             key={c.n}
-            className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-9"
+            className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-9"
           >
             <div className="text-[13px] text-fog-blue mb-4">{c.n}</div>
             <h3 className="text-[21px] font-normal mb-2.5">{c.title}</h3>
@@ -282,7 +282,7 @@ function ProductSection() {
   return (
     <div ref={ref} className="reveal mx-8">
       <div
-        className="max-w-[1280px] mx-auto bg-muted-grey/25 text-bone-white rounded-[15px] px-10 md:px-14 py-16 relative overflow-hidden border border-ash-border"
+        className="hover-glow-white max-w-[1280px] mx-auto bg-muted-grey/25 text-bone-white rounded-[15px] px-10 md:px-14 py-16 relative overflow-hidden border border-ash-border"
         style={{ fontFamily: 'var(--font-vivid)' }}
       >
         <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5">Your actual numbers</div>
@@ -322,32 +322,32 @@ function FeaturesSection() {
         A plan that talks back, reads your mail, and tells you when something changes.
       </h2>
       <div ref={ref} className="reveal grid grid-cols-2 md:grid-cols-4 auto-rows-[130px] gap-4">
-        <div className="col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
+        <div className="hover-glow-white col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">AI assistant · Ask, in plain english</div>
           <h3 className="text-xl font-normal mb-2.5">"Should I claim now, or wait two years?"</h3>
           <p className="text-sm text-bone-white/60">Horizon's assistant answers using your actual saved numbers.</p>
         </div>
-        <div className="rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+        <div className="hover-glow-white rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Coordination</div>
           <h3 className="text-xl font-normal mb-2.5">Spousal &amp; survivor</h3>
           <p className="text-sm text-bone-white/60">Maximize household lifetime benefit.</p>
         </div>
-        <div className="rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+        <div className="hover-glow-white rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Mail, decoded</div>
           <h3 className="text-xl font-normal mb-2.5">Upload the letter</h3>
           <p className="text-sm text-bone-white/60">Get a plain-English answer instantly.</p>
         </div>
-        <div className="col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+        <div className="hover-glow-white col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Stay current · Alerts</div>
           <h3 className="text-xl font-normal mb-2.5">Rule-change alerts, personalized</h3>
           <p className="text-sm text-bone-white/60">"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
         </div>
-        <div className="col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
+        <div className="hover-glow-white col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Scenario modeling</div>
           <h3 className="text-xl font-normal mb-2.5">"What if benefits get cut?"</h3>
           <p className="text-sm text-bone-white/60">Model a possible trust-fund-depletion cut against your real numbers.</p>
         </div>
-        <div className="col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
+        <div className="hover-glow-white col-span-2 rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">WEP / GPO aware</div>
           <h3 className="text-xl font-normal mb-2.5">Public-service pensions, handled correctly</h3>
           <p className="text-sm text-bone-white/60">Reflects the 2025 Fairness Act repeal automatically.</p>
@@ -360,6 +360,7 @@ function FeaturesSection() {
 /* ---------------- FAQ ---------------- */
 function FaqSection() {
   const [open, setOpen] = useState(0)
+  const ref = useReveal<HTMLDivElement>()
   const faqs = [
     { q: 'What is the best age to claim Social Security?', a: 'There is no single best age for everyone — it depends on your health, other income, and household situation. Claiming at 62 reduces your monthly benefit permanently, while waiting until 70 increases it.' },
     { q: 'How much does Social Security increase if I wait to claim?', a: 'Delaying benefits past full retirement age adds delayed retirement credits worth roughly 8% per year, up until age 70. Claiming before full retirement age instead reduces your benefit, by as much as 30% at age 62.' },
@@ -372,12 +373,12 @@ function FaqSection() {
       <h2 className="text-[clamp(28px,3.6vw,46px)] font-normal leading-tight max-w-3xl mb-10" style={{ letterSpacing: '-0.01em' }}>
         Social Security claiming — answered plainly.
       </h2>
-      <div className="max-w-2xl">
+      <div ref={ref} className="reveal max-w-2xl">
         {faqs.map((f, i) => (
-          <div key={f.q} className="border-b border-ash-border">
+          <div key={f.q} className="border-b border-ash-border transition-colors duration-300 hover:bg-graphite-veil/10 rounded-[5px]">
             <button
               onClick={() => setOpen(open === i ? -1 : i)}
-              className="w-full text-left py-5 flex items-center justify-between gap-5 font-normal"
+              className="w-full text-left py-5 px-3 flex items-center justify-between gap-5 font-normal"
             >
               {f.q}
               <span
@@ -387,7 +388,7 @@ function FaqSection() {
                 +
               </span>
             </button>
-            {open === i && <p className="text-sm text-bone-white/60 leading-relaxed pb-5 max-w-xl">{f.a}</p>}
+            {open === i && <p className="text-sm text-bone-white/60 leading-relaxed pb-5 px-3 max-w-xl">{f.a}</p>}
           </div>
         ))}
       </div>
@@ -397,14 +398,17 @@ function FaqSection() {
 
 /* ---------------- Final CTA ---------------- */
 function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
+  const ref = useReveal<HTMLDivElement>()
   return (
     <section className="text-center px-8 py-32 bg-vivid-obsidian text-bone-white" style={{ fontFamily: 'var(--font-vivid)' }}>
-      <h2 className="text-[clamp(30px,4.6vw,56px)] font-normal leading-tight max-w-2xl mx-auto mb-8" style={{ letterSpacing: '-0.01em' }}>
-        Your number is waiting. It takes five minutes to see it.
-      </h2>
-      <button onClick={onCtaClick} className="ov-outlined-btn">
-        Calculate my benefit
-      </button>
+      <div ref={ref} className="reveal">
+        <h2 className="text-[clamp(30px,4.6vw,56px)] font-normal leading-tight max-w-2xl mx-auto mb-8" style={{ letterSpacing: '-0.01em' }}>
+          Your number is waiting. It takes five minutes to see it.
+        </h2>
+        <button onClick={onCtaClick} className="ov-outlined-btn">
+          Calculate my benefit
+        </button>
+      </div>
     </section>
   )
 }

@@ -43,7 +43,7 @@ const db = getFirestore();
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const SOURCES = [
-  { id: 'ssa-news', url: 'https://www.ssa.gov/news/press/releases/', label: 'Social Security Administration press releases' },
+  { id: 'ssa-news', url: 'https://www.ssa.gov/news/en/press/releases/index.html', label: 'Social Security Administration press releases' },
   { id: 'irs-newsroom', url: 'https://www.irs.gov/newsroom', label: 'IRS newsroom' },
   { id: 'cms-newsroom', url: 'https://www.cms.gov/newsroom', label: 'CMS (Medicare) newsroom' },
 ];
@@ -55,7 +55,12 @@ async function fetchPage(url) {
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
     const res = await fetch(url, {
-      headers: { 'User-Agent': 'HorizonRuleMonitor/1.0 (+daily digest bot)' },
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (compatible; HorizonRuleMonitor/1.0; +https://github.com/Ahmcodez/Horizon-AI)',
+        Accept: 'text/html,application/xhtml+xml',
+        'Accept-Language': 'en-US,en;q=0.9',
+      },
       signal: controller.signal,
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -100,6 +105,19 @@ function extractContent(html) {
   return text;
 }
 
+// Model choice: gemini-2.5-flash was deprecated for new API keys ahead of
+// its Oct 2026 shutdown (returns 404 NOT_FOUND). gemini-3.5-flash-lite is
+// the current GA, stable, cost-effective model recommended for exactly this
+// kind of high-volume, low-latency automation task. Avoid the 'latest'
+// aliases (e.g. gemini-flash-latest) here - they can point at experimental
+// models with tighter rate limits, which is the opposite of what a daily
+// unattended job wants.
+const MODEL = 'gemini-3.5-flash-lite';
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function hashText(text) {
   return createHash('sha256').update(text).digest('hex');
 }
@@ -110,7 +128,7 @@ function todayId() {
 
 async function writeDailyDigest(source, excerpt) {
   const digest = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: MODEL,
     contents: excerpt,
     config: {
       systemInstruction: `Summarize what's currently on ${source.label} in 2-3 plain-English sentences, written like a short news blurb for someone tracking Social Security, Medicare, and retirement-related tax topics. Focus on anything about benefits, premiums, taxes, deadlines, or rule changes. If the page has nothing topical right now, say so plainly in one short sentence rather than inventing content.`,
@@ -154,7 +172,7 @@ async function checkForImportantChange(source, excerpt) {
   if (isFirstRun) return; // establishes baseline only, nothing to compare against yet
 
   const analysis = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: MODEL,
     contents: `PREVIOUS:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT:\n${excerpt}`,
     config: {
       systemInstruction: `You monitor ${source.label} for changes relevant to Social Security, Medicare, or retirement-related tax rules. Compare the previous and current page text. If there's a genuine new policy, rule, COLA, premium, or benefit-relevant announcement, summarize it in 2-3 plain-English sentences. If the difference is just incidental page churn (navigation, unrelated news, formatting) with nothing retirement-relevant, respond with exactly: NO_SUBSTANTIVE_CHANGE`,
@@ -217,6 +235,7 @@ async function main() {
       failed++;
       console.error(`  ✗ ${source.id} failed:`, err.message);
     }
+    await sleep(1500); // small gap between sources — avoids bursting the Gemini API
   }
 
   console.log(`Done — ${succeeded} succeeded, ${failed} failed.`);

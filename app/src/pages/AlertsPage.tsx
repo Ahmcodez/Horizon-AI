@@ -3,7 +3,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions'
 import { app } from '../lib/firebase'
 import { useAuth } from '../lib/authContext'
 import { useAlerts, markAlertRead, dismissAlert } from '../lib/alerts'
-import { POLICY_NEWS, useDailyDigest } from '../lib/policyNews'
+import { POLICY_NEWS, useDailyDigest, useDigestStatus } from '../lib/policyNews'
 
 const functions = getFunctions(app)
 
@@ -121,6 +121,7 @@ function PolicyNewsSection() {
   const recent = POLICY_NEWS.filter((n) => n.category === 'recent')
   const upcoming = POLICY_NEWS.filter((n) => n.category === 'upcoming')
   const live = useDailyDigest()
+  const status = useDigestStatus()
 
   return (
     <section className="mt-10 bg-muted-grey/10 border-2 border-cyan-600/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(8,145,178,0.18)]">
@@ -141,7 +142,15 @@ function PolicyNewsSection() {
               live
             </span>
           </h2>
-          <p className="text-xs text-fog-blue mb-6">Pulled automatically from SSA, IRS, and CMS.</p>
+          <p className="text-xs text-fog-blue mb-6">
+            Pulled automatically from SSA, IRS, and CMS.
+            {status && (
+              <span className="text-fog-blue/70">
+                {' '}
+                · Last checked {formatRelativeTime(status.lastRunAt)} ({status.succeeded}/{status.sourcesChecked} sources)
+              </span>
+            )}
+          </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {live.map((item, i) => (
               <PolicyNewsCard
@@ -181,6 +190,15 @@ function PolicyNewsSection() {
       </div>
     </section>
   )
+}
+
+function formatRelativeTime(timestamp: number): string {
+  const diffMs = Date.now() - timestamp
+  const hours = Math.floor(diffMs / (1000 * 60 * 60))
+  if (hours < 1) return 'less than an hour ago'
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.floor(hours / 24)
+  return `${days}d ago`
 }
 
 function PolicyNewsCard({ item, index }: { item: (typeof POLICY_NEWS)[number]; index: number }) {

@@ -257,6 +257,14 @@ async function main() {
   }
 
   console.log(`Done — ${succeeded} succeeded, ${failed} failed.`);
+
+  await db.collection('dailyDigest').doc('_status').set({
+    lastRunAt: Date.now(),
+    succeeded,
+    failed,
+    sourcesChecked: SOURCES.length,
+  });
+
   if (succeeded === 0) {
     console.error('All sources failed — treating this as a job failure.');
     process.exit(1);

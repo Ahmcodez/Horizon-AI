@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore'
+import { collection, query, orderBy, limit, onSnapshot, doc } from 'firebase/firestore'
 import { db } from './firebase'
 
 /**
@@ -179,4 +179,27 @@ export function useDailyDigest(count: number = 6): LiveDigestItem[] {
   }, [count])
 
   return items
+}
+
+export interface DigestStatus {
+  lastRunAt: number
+  succeeded: number
+  failed: number
+  sourcesChecked: number
+}
+
+/** Real-time subscription to the daily-news script's most recent run status. */
+export function useDigestStatus(): DigestStatus | null {
+  const [status, setStatus] = useState<DigestStatus | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      doc(db, 'dailyDigest', '_status'),
+      (snap) => setStatus(snap.exists() ? (snap.data() as DigestStatus) : null),
+      () => setStatus(null)
+    )
+    return unsubscribe
+  }, [])
+
+  return status
 }

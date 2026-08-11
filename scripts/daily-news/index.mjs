@@ -42,67 +42,56 @@ initializeApp({ credential: cert(serviceAccount) });
 const db = getFirestore();
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+// Sources: instead of scraping ssa.gov/irs.gov/cms.gov's own HTML (which
+// blocks automated requests even with browser-like headers — confirmed via
+// a live test run), this uses the official FederalRegister.gov REST API.
+// It's built by the National Archives specifically for automated access to
+// exactly this kind of data: no API key, CORS-enabled, structured JSON
+// (title/abstract/date/link) instead of fragile HTML scraping. Every real
+// SSA/IRS/CMS regulatory notice, rule, and proposed rule gets published
+// there as a matter of law, so this is a more complete and more reliable
+// source than each agency's own newsroom page, not just a workaround.
 const SOURCES = [
-  { id: 'ssa-news', url: 'https://www.ssa.gov/news/en/press/releases/index.html', label: 'Social Security Administration press releases' },
-  { id: 'irs-newsroom', url: 'https://www.irs.gov/newsroom', label: 'IRS newsroom' },
-  { id: 'cms-newsroom', url: 'https://www.cms.gov/newsroom', label: 'CMS (Medicare) newsroom' },
+  { id: 'ssa-news', agencySlug: 'social-security-administration', label: 'Social Security Administration' },
+  { id: 'irs-newsroom', agencySlug: 'internal-revenue-service', label: 'IRS' },
+  { id: 'cms-newsroom', agencySlug: 'centers-for-medicare-medicaid-services', label: 'CMS (Medicare)' },
 ];
 
 const FETCH_TIMEOUT_MS = 20_000;
 
-async function fetchPage(url) {
+async function fetchAgencyDocs(agencySlug) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
+    const params = new URLSearchParams();
+    params.append('conditions[agencies][]', agencySlug);
+    params.append('order', 'newest');
+    params.append('per_page', '10');
+    for (const field of ['title', 'abstract', 'publication_date', 'html_url', 'type']) {
+      params.append('fields[]', field);
+    }
+    const url = `https://www.federalregister.gov/api/v1/documents.json?${params.toString()}`;
     const res = await fetch(url, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; HorizonRuleMonitor/1.0; +https://github.com/Ahmcodez/Horizon-AI)',
-        Accept: 'text/html,application/xhtml+xml',
-        'Accept-Language': 'en-US,en;q=0.9',
-      },
+      headers: { Accept: 'application/json' },
       signal: controller.signal,
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.text();
+    const data = await res.json();
+    return data.results ?? [];
   } finally {
     clearTimeout(timeout);
   }
 }
 
 /**
- * Extracts visible text, preferring an actual content region over the raw
- * full page (nav/footer/ads otherwise dominate the character budget and
- * drown out the real headlines). Falls back to full-body text if no
- * recognizable content wrapper is found — logs a warning either way so a
- * real page-structure break is visible in the Actions log, not silent.
+ * Turns the last 10 documents into a compact text block for Gemini to
+ * summarize/compare — one line per document, newest first.
  */
-function extractContent(html) {
-  const contentMatch =
-    html.match(/<main[\s\S]*?<\/main>/i) ||
-    html.match(/<article[\s\S]*?<\/article>/i) ||
-    html.match(/<div[^>]*id=["'][^"']*content[^"']*["'][\s\S]*?<\/div>/i);
-
-  const region = contentMatch ? contentMatch[0] : html;
-
-  const text = region
-    .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '')
-    .replace(/<nav[\s\S]*?<\/nav>/gi, '')
-    .replace(/<footer[\s\S]*?<\/footer>/gi, '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/\s+/g, ' ')
-    .trim()
+function docsToExcerpt(docs) {
+  return docs
+    .map((d) => `${d.publication_date} [${d.type}] ${d.title} — ${d.abstract ?? '(no abstract)'}`)
+    .join('\n')
     .slice(0, 6000);
-
-  if (text.length < 200) {
-    console.warn(
-      `  ⚠ extracted only ${text.length} chars — this source's page structure may need a custom selector`
-    );
-  }
-  return text;
 }
 
 // Model choice: gemini-2.5-flash was deprecated for new API keys ahead of
@@ -131,7 +120,7 @@ async function writeDailyDigest(source, excerpt) {
     model: MODEL,
     contents: excerpt,
     config: {
-      systemInstruction: `Summarize what's currently on ${source.label} in 2-3 plain-English sentences, written like a short news blurb for someone tracking Social Security, Medicare, and retirement-related tax topics. Focus on anything about benefits, premiums, taxes, deadlines, or rule changes. If the page has nothing topical right now, say so plainly in one short sentence rather than inventing content.`,
+      systemInstruction: `Below is a list of the most recent Federal Register filings from ${source.label}. Summarize what's notable in 2-3 plain-English sentences, written like a short news blurb for someone tracking Social Security, Medicare, and retirement-related tax topics. Focus on anything about benefits, premiums, taxes, deadlines, or rule changes. If nothing in the list is topical, say so plainly in one short sentence rather than inventing content.`,
       maxOutputTokens: 220,
     },
   });
@@ -173,9 +162,9 @@ async function checkForImportantChange(source, excerpt) {
 
   const analysis = await ai.models.generateContent({
     model: MODEL,
-    contents: `PREVIOUS:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT:\n${excerpt}`,
+    contents: `PREVIOUS LIST:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT LIST:\n${excerpt}`,
     config: {
-      systemInstruction: `You monitor ${source.label} for changes relevant to Social Security, Medicare, or retirement-related tax rules. Compare the previous and current page text. If there's a genuine new policy, rule, COLA, premium, or benefit-relevant announcement, summarize it in 2-3 plain-English sentences. If the difference is just incidental page churn (navigation, unrelated news, formatting) with nothing retirement-relevant, respond with exactly: NO_SUBSTANTIVE_CHANGE`,
+      systemInstruction: `You monitor ${source.label}'s recent Federal Register filings for changes relevant to Social Security, Medicare, or retirement-related tax rules. Compare the previous and current lists. If a genuinely new filing represents a policy, rule, COLA, premium, or benefit-relevant announcement, summarize it in 2-3 plain-English sentences. If the difference is just older items rolling off the list with nothing new and retirement-relevant, respond with exactly: NO_SUBSTANTIVE_CHANGE`,
       maxOutputTokens: 300,
     },
   });
@@ -224,11 +213,15 @@ async function main() {
   for (const source of SOURCES) {
     console.log(`Checking ${source.id}…`);
     try {
-      const html = await fetchPage(source.url);
-      const excerpt = extractContent(html);
+      const docs = await fetchAgencyDocs(source.agencySlug);
+      const excerpt = docsToExcerpt(docs);
+      const sourceWithUrl = {
+        ...source,
+        url: `https://www.federalregister.gov/agencies/${source.agencySlug}`,
+      };
 
-      await writeDailyDigest(source, excerpt);
-      await checkForImportantChange(source, excerpt);
+      await writeDailyDigest(sourceWithUrl, excerpt);
+      await checkForImportantChange(sourceWithUrl, excerpt);
 
       succeeded++;
     } catch (err) {

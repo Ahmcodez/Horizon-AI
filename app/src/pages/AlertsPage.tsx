@@ -134,7 +134,7 @@ function PolicyNewsSection() {
         Report changes everyone planning around Social Security should know about.
       </p>
 
-      {live.length > 0 && (
+      {live.length > 0 ? (
         <div className="mb-12">
           <h2 className="text-2xl font-normal text-bone-white mb-1 flex items-center gap-3">
             Today
@@ -168,6 +168,21 @@ function PolicyNewsSection() {
               />
             ))}
           </div>
+        </div>
+      ) : (
+        <div className="mb-12 border border-ash-border rounded-[10px] px-5 py-4 text-xs text-fog-blue leading-relaxed">
+          {status && status.succeeded === 0 ? (
+            <>
+              The live monitor ran but every source failed ({status.failed}/{status.sourcesChecked}) —{' '}
+              {formatRelativeTime(status.lastRunAt)}. Check the GitHub Actions logs for this repo's
+              "Daily SSA/IRS/CMS monitor" workflow for details.
+            </>
+          ) : (
+            <>
+              Live daily monitoring hasn't run yet, or hasn't reached this app instance. The curated
+              list below still reflects real, verified changes in the meantime.
+            </>
+          )}
         </div>
       )}
 

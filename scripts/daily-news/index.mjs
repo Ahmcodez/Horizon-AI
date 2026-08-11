@@ -107,6 +107,31 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ * Retries transient failures (network hiccups, 429s, 5xx, and the
+ * occasionally-intermittent PERMISSION_DENIED seen on brand-new API keys —
+ * see README) with exponential backoff. Does NOT mask a genuinely broken
+ * key/model — after MAX_ATTEMPTS it still throws, so main()'s per-source
+ * error handling and the job's final success/failure count stay honest.
+ */
+const MAX_ATTEMPTS = 3;
+async function callGeminiWithRetry(request) {
+  let lastErr;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      return await ai.models.generateContent(request);
+    } catch (err) {
+      lastErr = err;
+      if (attempt < MAX_ATTEMPTS) {
+        const backoffMs = 2000 * attempt;
+        console.warn(`  ⚠ Gemini call failed (attempt ${attempt}/${MAX_ATTEMPTS}), retrying in ${backoffMs}ms: ${err.message}`);
+        await sleep(backoffMs);
+      }
+    }
+  }
+  throw lastErr;
+}
+
 function hashText(text) {
   return createHash('sha256').update(text).digest('hex');
 }
@@ -116,7 +141,7 @@ function todayId() {
 }
 
 async function writeDailyDigest(source, excerpt) {
-  const digest = await ai.models.generateContent({
+  const digest = await callGeminiWithRetry({
     model: MODEL,
     contents: excerpt,
     config: {
@@ -160,7 +185,7 @@ async function checkForImportantChange(source, excerpt) {
 
   if (isFirstRun) return; // establishes baseline only, nothing to compare against yet
 
-  const analysis = await ai.models.generateContent({
+  const analysis = await callGeminiWithRetry({
     model: MODEL,
     contents: `PREVIOUS LIST:\n${previous?.lastExcerpt ?? '(none)'}\n\nCURRENT LIST:\n${excerpt}`,
     config: {

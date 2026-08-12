@@ -10,6 +10,7 @@ Disallow: /scenarios
 Disallow: /alerts
 Disallow: /advisor
 Disallow: /states
+Disallow: /tax-medicare
 Disallow: /embed
 
 # TODO: replace with your production domain once deployed

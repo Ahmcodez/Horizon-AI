@@ -51,6 +51,7 @@ export default function Navbar() {
               <li><GhostNavLink href="/documents">Documents</GhostNavLink></li>
               <li><GhostNavLink href="/scenarios">Scenarios</GhostNavLink></li>
               <li><GhostNavLink href="/states">States</GhostNavLink></li>
+              <li><GhostNavLink href="/tax-medicare">Tax &amp; Medicare</GhostNavLink></li>
               <li><GhostNavLink href="/billing">Billing</GhostNavLink></li>
               {plan === 'advisor' && <li><GhostNavLink href="/advisor">Advisor</GhostNavLink></li>}
               {plan === 'advisor' && <li><GhostNavLink href="/embed">Embed</GhostNavLink></li>}

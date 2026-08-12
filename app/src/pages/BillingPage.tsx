@@ -115,6 +115,7 @@ export default function BillingPage() {
           <ul className="text-sm space-y-2.5">
             <li className="flex gap-2"><span className="text-bone-white font-normal">✓</span> Spousal &amp; survivor coordination</li>
             <li className="flex gap-2"><span className="text-bone-white font-normal">✓</span> WEP/GPO-aware calculations</li>
+            <li className="flex gap-2"><span className="text-bone-white font-normal">✓</span> RMD, SS taxation &amp; Medicare IRMAA calculators</li>
             <li className="flex gap-2"><span className="text-bone-white font-normal">✓</span> AI assistant &amp; document reader</li>
           </ul>
           {plan === 'free' ? (

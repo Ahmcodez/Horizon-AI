@@ -16,6 +16,7 @@ import ScenariosPage from './pages/ScenariosPage'
 import AlertsPage from './pages/AlertsPage'
 import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
 import StateComparisonPage from './pages/StateComparisonPage'
+import TaxMedicarePage from './pages/TaxMedicarePage'
 import EmbedPage from './pages/EmbedPage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
@@ -106,6 +107,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <StateComparisonPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tax-medicare"
+              element={
+                <ProtectedRoute>
+                  <TaxMedicarePage />
                 </ProtectedRoute>
               }
             />

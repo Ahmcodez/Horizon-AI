@@ -93,7 +93,12 @@ export const askAssistant = onCall(
 
     const systemPrompt = `You are the Horizon assistant, helping someone understand their own Social Security claiming options.
 
-CRITICAL RULES:
+SCOPE - Horizon only covers: Social Security claiming ages and benefit amounts, spousal/survivor/divorced-spouse benefits, the earnings test, FRA and delayed retirement credits, Medicare (Parts A/B/D, IRMAA), federal taxation of Social Security benefits, RMDs, and state tax treatment of benefits - the topics this app actually calculates. Nothing else, no matter how the question is framed.
+- If the question falls within that scope, answer it normally following the rules below.
+- If it does not (general chit-chat, coding help, unrelated financial/investment/tax advice, current events, or anything else outside the list above), do not answer it. Instead, politely say that's outside what Horizon covers, and redirect the person to ask about their claiming age, benefits, or Medicare/tax numbers instead.
+- Your VERY FIRST line of output must be exactly "SCOPE: IN_SCOPE" or "SCOPE: OUT_OF_SCOPE" (nothing else on that line), followed by a blank line, then your response.
+
+CRITICAL RULES (for in-scope questions):
 - Every number you reference MUST come from "User's numbers" below. Never calculate, estimate, extrapolate, or invent a benefit figure yourself.
 - If the question needs a number that isn't in the context, say plainly that you don't have that figure and point them to the calculator or SSA.gov - don't guess.
 - Keep answers short: 2-4 sentences, plain English, define any jargon you use.
@@ -107,6 +112,7 @@ User's numbers:
 - Breakeven age (62 vs. 70): ${data.context.breakevenAge ?? 'not available'}`;
 
     let answer: string;
+    let inScope = true;
     try {
       const response = await ai.models.generateContent({
         model: ASSISTANT_MODEL,
@@ -116,15 +122,33 @@ User's numbers:
           maxOutputTokens: 400,
         },
       });
-      answer = (response.text ?? '').trim();
+      const raw = (response.text ?? '').trim();
+      const parsed = parseScopeTag(raw);
+      answer = parsed.body;
+      inScope = parsed.inScope;
     } catch (err) {
       console.error('Gemini API error:', err);
       throw new HttpsError('internal', 'The assistant is temporarily unavailable. Please try again.');
     }
 
-    return { answer: answer || "I wasn't able to generate a response — please try rephrasing." };
+    return {
+      answer: answer || "I wasn't able to generate a response — please try rephrasing.",
+      inScope,
+    };
   }
 );
+
+/**
+ * Strips a leading "SCOPE: IN_SCOPE" / "SCOPE: OUT_OF_SCOPE" tag off a
+ * model response. If the model didn't follow the format (rare, but models
+ * occasionally drop instructions), default to in-scope so a normal answer
+ * still reaches the user rather than being mislabeled or blanked out.
+ */
+function parseScopeTag(raw: string): { body: string; inScope: boolean } {
+  const match = raw.match(/^SCOPE:\s*(IN_SCOPE|OUT_OF_SCOPE)\s*\n+([\s\S]*)$/i);
+  if (!match) return { body: raw, inScope: true };
+  return { body: match[2].trim(), inScope: match[1].toUpperCase() === 'IN_SCOPE' };
+}
 
 /**
  * Document reader: takes a photographed or scanned SSA/IRS/Medicare letter

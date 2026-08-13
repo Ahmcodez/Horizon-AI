@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type DragEvent } from 'react'
-import { readDocument, ACCEPTED_TYPES, MAX_FILE_BYTES } from '../lib/documentReader'
+import { readDocument, ACCEPTED_TYPES, MAX_FILE_BYTES, type DocumentReading } from '../lib/documentReader'
 import UpgradeGate from '../components/UpgradeGate'
 
 export default function DocumentsPage() {
@@ -9,7 +9,7 @@ export default function DocumentsPage() {
 
   const [file, setFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-  const [summary, setSummary] = useState<string | null>(null)
+  const [reading, setReading] = useState<DocumentReading | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [dragOver, setDragOver] = useState(false)
@@ -17,7 +17,7 @@ export default function DocumentsPage() {
 
   function handleFile(f: File) {
     setError(null)
-    setSummary(null)
+    setReading(null)
     if (!ACCEPTED_TYPES.includes(f.type)) {
       setError('Unsupported file type — please upload a JPEG, PNG, or PDF.')
       return
@@ -43,7 +43,7 @@ export default function DocumentsPage() {
     setError(null)
     try {
       const result = await readDocument(file)
-      setSummary(result)
+      setReading(result)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong — please try again.')
     } finally {
@@ -54,7 +54,7 @@ export default function DocumentsPage() {
   function reset() {
     setFile(null)
     setPreviewUrl(null)
-    setSummary(null)
+    setReading(null)
     setError(null)
   }
 
@@ -73,7 +73,8 @@ export default function DocumentsPage() {
         </h1>
         <p className="mt-4 text-fog-blue text-lg leading-relaxed">
           Photograph or scan an SSA, IRS, or Medicare notice — we'll tell you what it says and
-          whether you need to do anything about it.
+          whether you need to do anything about it. This reader only handles Social
+          Security/benefits-related documents; it won't summarize unrelated files.
         </p>
       </div>
 
@@ -126,7 +127,7 @@ export default function DocumentsPage() {
             </button>
           </div>
 
-          {!summary && (
+          {!reading && (
             <button
               onClick={analyze}
               disabled={loading}
@@ -138,7 +139,7 @@ export default function DocumentsPage() {
 
           {error && <div className="text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-5 py-4">{error}</div>}
 
-          {summary && (
+          {reading && reading.isRelevant && (
             <div
               className="hover-glow-white bg-graphite-veil/30 border border-ash-border text-bone-white rounded-[15px] p-8"
               style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
@@ -146,12 +147,28 @@ export default function DocumentsPage() {
               <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-4">
                 What this document says
               </div>
-              <div className="leading-relaxed whitespace-pre-line">{summary}</div>
+              <div className="leading-relaxed whitespace-pre-line">{reading.summary}</div>
               <button
                 onClick={reset}
                 className="mt-6 text-sm font-normal text-fog-blue hover:text-bone-white transition-colors"
               >
                 ← Analyze another document
+              </button>
+            </div>
+          )}
+
+          {reading && !reading.isRelevant && (
+            <div
+              className="bg-vivid-obsidian border border-dashed border-ash-border text-fog-blue rounded-[15px] p-8"
+              style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
+            >
+              <div className="text-[13px] uppercase tracking-[0.02em] mb-4">Not a supported document</div>
+              <div className="leading-relaxed whitespace-pre-line">{reading.summary}</div>
+              <button
+                onClick={reset}
+                className="mt-6 text-sm font-normal text-fog-blue hover:text-bone-white transition-colors"
+              >
+                ← Try a different document
               </button>
             </div>
           )}

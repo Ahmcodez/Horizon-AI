@@ -11,12 +11,22 @@ const functions = getFunctions(app)
 export const MAX_FILE_BYTES = 6 * 1024 * 1024 // 6MB
 export const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf']
 
+export type DocumentType = 'SSA' | 'MEDICARE' | 'IRS_BENEFITS' | 'UNRELATED'
+
 interface ReadDocumentRequest {
   fileBase64: string
   mediaType: string
 }
 interface ReadDocumentResponse {
   summary: string
+  documentType: DocumentType
+  isRelevant: boolean
+}
+
+export interface DocumentReading {
+  summary: string
+  documentType: DocumentType
+  isRelevant: boolean
 }
 
 export function fileToBase64(file: File): Promise<string> {
@@ -33,7 +43,7 @@ export function fileToBase64(file: File): Promise<string> {
   })
 }
 
-export async function readDocument(file: File): Promise<string> {
+export async function readDocument(file: File): Promise<DocumentReading> {
   if (file.size > MAX_FILE_BYTES) {
     throw new Error('File is too large — please use a file under 6MB.')
   }
@@ -44,5 +54,5 @@ export async function readDocument(file: File): Promise<string> {
   const fileBase64 = await fileToBase64(file)
   const callable = httpsCallable<ReadDocumentRequest, ReadDocumentResponse>(functions, 'readDocument')
   const result = await callable({ fileBase64, mediaType: file.type })
-  return result.data.summary
+  return result.data
 }

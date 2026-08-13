@@ -210,6 +210,7 @@ IF SSA, MEDICARE, OR IRS_BENEFITS: after the blank line, follow these rules:
 - You are informational only, not a financial, legal, or tax advisor. Do not tell the user what decision to make - just explain what the document says.`;
 
     let summary: string;
+    let documentType: DocumentType = 'UNRELATED';
     try {
       const response = await ai.models.generateContent({
         model: DOCUMENT_MODEL,
@@ -227,12 +228,33 @@ IF SSA, MEDICARE, OR IRS_BENEFITS: after the blank line, follow these rules:
           maxOutputTokens: 600,
         },
       });
-      summary = (response.text ?? '').trim();
+      const raw = (response.text ?? '').trim();
+      const parsed = parseDocumentTypeTag(raw);
+      summary = parsed.body;
+      documentType = parsed.documentType;
     } catch (err) {
       console.error('Gemini API error (readDocument):', err);
       throw new HttpsError('internal', 'The document reader is temporarily unavailable. Please try again.');
     }
 
-    return { summary: summary || "I wasn't able to read this document clearly — try a clearer photo or scan." };
+    return {
+      summary: summary || "I wasn't able to read this document clearly — try a clearer photo or scan.",
+      documentType,
+      isRelevant: documentType !== 'UNRELATED',
+    };
   }
 );
+
+type DocumentType = 'SSA' | 'MEDICARE' | 'IRS_BENEFITS' | 'UNRELATED';
+
+/**
+ * Strips the leading "DOCUMENT_TYPE: X" classification tag off a model
+ * response. Falls back to UNRELATED (safest default - it just means the
+ * client shows the "not a supported document" state) if the model didn't
+ * follow the format.
+ */
+function parseDocumentTypeTag(raw: string): { body: string; documentType: DocumentType } {
+  const match = raw.match(/^DOCUMENT_TYPE:\s*(SSA|MEDICARE|IRS_BENEFITS|UNRELATED)\s*\n+([\s\S]*)$/i);
+  if (!match) return { body: raw, documentType: 'UNRELATED' };
+  return { body: match[2].trim(), documentType: match[1].toUpperCase() as DocumentType };
+}

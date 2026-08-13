@@ -38,10 +38,14 @@ export { seedSampleAlerts } from './seed';
 
 const geminiApiKey = defineSecret('GEMINI_API_KEY');
 
-// Flash-Lite has the most generous free-tier rate limits of the current
-// model lineup - the right default while cost/quota matter most.
-const ASSISTANT_MODEL = 'gemini-2.5-flash-lite';
-const DOCUMENT_MODEL = 'gemini-2.5-flash'; // slightly stronger model for reading documents accurately
+// gemini-2.5-flash and gemini-2.5-flash-lite are deprecated for new API
+// keys ahead of their Oct 2026 shutdown (return 404 NOT_FOUND) - same issue
+// hit and fixed in scripts/daily-news/index.mjs. gemini-3.5-flash-lite is
+// the current GA replacement: low-latency, generous free-tier limits, and
+// (per Google's docs) explicitly designed for document parsing too, so one
+// model now covers both the chat assistant and the document reader.
+const ASSISTANT_MODEL = 'gemini-3.5-flash-lite';
+const DOCUMENT_MODEL = 'gemini-3.5-flash-lite';
 
 interface ComparisonRow {
   age: number;

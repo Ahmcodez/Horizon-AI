@@ -34,6 +34,20 @@ export { seedSampleAlerts } from './seed';
  * deterministic engine (src/lib/socialSecurity.ts) that powers the rest of
  * the app. The system prompt instructs it not to invent or recalculate
  * anything outside that context.
+ *
+ * SCOPE ENFORCEMENT: both askAssistant and readDocument are restricted to
+ * Horizon's actual subject matter (Social Security, Medicare, and related
+ * benefits/tax topics) via their system prompts, not via keyword filtering
+ * or a separate moderation call. Each prompt requires the model's first
+ * line of output to be a structured tag - "SCOPE: IN_SCOPE/OUT_OF_SCOPE"
+ * for the assistant, "DOCUMENT_TYPE: SSA/MEDICARE/IRS_BENEFITS/UNRELATED"
+ * for the document reader - which the parseScopeTag/parseDocumentTypeTag
+ * helpers below strip out and return as a typed field (`inScope`,
+ * `isRelevant`) rather than leaving embedded in the answer text. Both
+ * helpers default to the permissive outcome (in-scope / unrelated→false
+ * relevance is the one exception, see its comment) if the model doesn't
+ * follow the format, so a parsing miss degrades to "answer normally"
+ * rather than silently blocking a legitimate question.
  */
 
 const geminiApiKey = defineSecret('GEMINI_API_KEY');

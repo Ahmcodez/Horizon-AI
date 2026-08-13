@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useAssistant } from '../lib/assistantContext'
+import { looksOffTopic } from '../lib/scopeGuard'
 import {
   useSpeechRecognition,
   isSpeechSynthesisSupported,
@@ -42,6 +43,8 @@ export default function AssistantWidget() {
     e.preventDefault()
     send(draftQuestion)
   }
+
+  const offTopicHint = !sending && looksOffTopic(draftQuestion)
 
   return (
     <div style={{ fontFamily: 'var(--font-vivid)' }}>
@@ -106,6 +109,12 @@ export default function AssistantWidget() {
             )}
             {error && <div className="text-xs text-bone-white text-center">{error}</div>}
           </div>
+
+          {offTopicHint && (
+            <div className="px-4 pt-2 text-[11px] text-fog-blue text-center">
+              Heads up — Horizon only covers Social Security, Medicare, and benefits questions.
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="border-t border-ash-border p-3 flex gap-2">
             {micSupported && (

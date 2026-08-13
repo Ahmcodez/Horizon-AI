@@ -78,21 +78,25 @@ export default function AssistantWidget() {
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 max-h-[360px] min-h-[200px]">
             {messages.length === 0 && (
               <div className="text-sm text-fog-blue text-center py-8 px-4">
-                Ask anything about your claiming options — e.g. "Should I claim now or wait two
+                Ask anything about your Social Security claiming options, spousal/survivor
+                benefits, or Medicare and tax numbers — e.g. "Should I claim now or wait two
                 years?"{micSupported ? ' Tap the mic to speak instead of typing.' : ''}
               </div>
             )}
             {messages.map((m, i) => (
-              <div
-                key={i}
-                style={{ animation: 'fadeUp 0.25s cubic-bezier(.16,.8,.24,1)' }}
-                className={`text-sm px-4 py-2.5 rounded-[10px] max-w-[85%] leading-relaxed border ${
-                  m.role === 'user'
-                    ? 'bg-muted-grey/40 border-ash-border text-bone-white ml-auto'
-                    : 'bg-graphite-veil/25 border-ash-border text-bone-white'
-                }`}
-              >
-                {m.text}
+              <div key={i}>
+                <div
+                  style={{ animation: 'fadeUp 0.25s cubic-bezier(.16,.8,.24,1)' }}
+                  className={`text-sm px-4 py-2.5 rounded-[10px] max-w-[85%] leading-relaxed border ${
+                    m.role === 'user'
+                      ? 'bg-muted-grey/40 border-ash-border text-bone-white ml-auto'
+                      : m.inScope === false
+                        ? 'bg-vivid-obsidian border-ash-border border-dashed text-fog-blue'
+                        : 'bg-graphite-veil/25 border-ash-border text-bone-white'
+                  }`}
+                >
+                  {m.text}
+                </div>
               </div>
             ))}
             {sending && (

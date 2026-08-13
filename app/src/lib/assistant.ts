@@ -26,12 +26,18 @@ interface AskAssistantRequest {
 
 interface AskAssistantResponse {
   answer: string
+  inScope: boolean
+}
+
+export interface AssistantAnswer {
+  answer: string
+  inScope: boolean
 }
 
 const functions = getFunctions(app)
 
-export async function askAssistant(question: string, context: AssistantContext): Promise<string> {
+export async function askAssistant(question: string, context: AssistantContext): Promise<AssistantAnswer> {
   const callable = httpsCallable<AskAssistantRequest, AskAssistantResponse>(functions, 'askAssistant')
   const result = await callable({ question, context })
-  return result.data.answer
+  return { answer: result.data.answer, inScope: result.data.inScope }
 }

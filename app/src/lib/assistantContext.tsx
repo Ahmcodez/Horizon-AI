@@ -4,6 +4,7 @@ import { askAssistant, type AssistantContext as GroundingContext } from './assis
 export interface ChatMessage {
   role: 'user' | 'assistant'
   text: string
+  inScope?: boolean
 }
 
 interface AssistantState {
@@ -40,8 +41,8 @@ export function AssistantProvider({ children }: { children: ReactNode }) {
     setError(null)
 
     try {
-      const answer = await askAssistant(trimmed, groundingContext)
-      setMessages((prev) => [...prev, { role: 'assistant', text: answer }])
+      const { answer, inScope } = await askAssistant(trimmed, groundingContext)
+      setMessages((prev) => [...prev, { role: 'assistant', text: answer, inScope }])
     } catch (err) {
       setError('The assistant is temporarily unavailable — please try again.')
     } finally {

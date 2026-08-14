@@ -25,6 +25,9 @@ credentials/
 *.credentials.json
 service-account*.json
 
+# Cloudflare Workers local dev cache
+.wrangler/
+
 # Editor / IDE
 .vscode/*
 !.vscode/extensions.json

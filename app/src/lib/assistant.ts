@@ -1,10 +1,19 @@
 /**
- * Thin client for the askAssistant Cloud Function. No API key lives here or
- * anywhere in the frontend bundle — that only exists server-side in
- * functions/src/index.ts, held in Firebase's secret manager.
+ * Thin client for the askAssistant endpoint. No API key lives here or
+ * anywhere in the frontend bundle — that only exists server-side in the
+ * Cloudflare Worker (cf-worker/), held in Wrangler's secret store.
+ *
+ * This calls a plain HTTP Worker rather than a Firebase Cloud Function,
+ * because Cloud Functions require the Blaze (pay-as-you-go) plan for any
+ * outbound network call, including calling Gemini. The Worker verifies the
+ * same Firebase ID token manually (see cf-worker/src/verifyFirebaseToken.ts)
+ * since it doesn't get Firebase's request.auth for free the way an onCall
+ * function does.
  */
-import { getFunctions, httpsCallable } from 'firebase/functions'
+import { getAuth } from 'firebase/auth'
 import { app } from './firebase'
+
+const WORKER_URL = import.meta.env.VITE_AI_WORKER_URL as string | undefined
 
 export interface ComparisonRow {
   age: number
@@ -34,10 +43,24 @@ export interface AssistantAnswer {
   inScope: boolean
 }
 
-const functions = getFunctions(app)
-
 export async function askAssistant(question: string, context: AssistantContext): Promise<AssistantAnswer> {
-  const callable = httpsCallable<AskAssistantRequest, AskAssistantResponse>(functions, 'askAssistant')
-  const result = await callable({ question, context })
-  return { answer: result.data.answer, inScope: result.data.inScope }
+  if (!WORKER_URL) {
+    throw new Error('The assistant is not configured — missing VITE_AI_WORKER_URL.')
+  }
+  const user = getAuth(app).currentUser
+  if (!user) {
+    throw new Error('Sign in to use the assistant.')
+  }
+  const idToken = await user.getIdToken()
+
+  const res = await fetch(`${WORKER_URL}/ask-assistant`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${idToken}` },
+    body: JSON.stringify({ question, context } satisfies AskAssistantRequest),
+  })
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as { error?: string } | null
+    throw new Error(body?.error || 'The assistant is temporarily unavailable. Please try again.')
+  }
+  return (await res.json()) as AskAssistantResponse
 }

@@ -10,8 +10,20 @@ export { seedSampleAlerts } from './seed';
 /**
  * Horizon — AI assistant backend
  * --------------------------------
- * This is the ONLY place the Gemini API key ever exists. It lives in
- * Firebase's secret manager (set via `firebase functions:secrets:set
+ * SUPERSEDED BY cf-worker/ — these two functions (askAssistant,
+ * readDocument) require the Blaze plan to deploy at all (any outbound
+ * network call from a 2nd-gen Cloud Function does), so the client no
+ * longer calls them. The live implementation is the Cloudflare Worker in
+ * cf-worker/, which is functionally identical (same system prompts, same
+ * SCOPE/DOCUMENT_TYPE tagging) but runs on Cloudflare's free tier instead.
+ * Kept here for reference / as a drop-in if this project ever moves to
+ * Blaze - re-point app/src/lib/assistant.ts and documentReader.ts back to
+ * httpsCallable if so. Everything below this comment still type-checks and
+ * would deploy fine once Blaze is enabled; it's just not what's live.
+ *
+ * This is the ONLY place the Gemini API key ever exists (aside from the
+ * Worker's own copy in Wrangler's secret store). It lives in Firebase's
+ * secret manager (set via `firebase functions:secrets:set
  * GEMINI_API_KEY`), never in client code, never in an env var shipped to
  * the browser. The client calls this function; this function calls Gemini.
  *

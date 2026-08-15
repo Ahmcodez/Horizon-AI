@@ -20,14 +20,24 @@ export default function ScenariosPage() {
   const [birthYear, setBirthYear] = useState(DEFAULT_PROFILE.birthYear)
   const [pia, setPia] = useState(DEFAULT_PROFILE.pia)
   const [loaded, setLoaded] = useState(false)
+  const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
-    getProfile(user.uid).then((p) => {
-      setBirthYear(p.birthYear)
-      setPia(p.pia)
-      setLoaded(true)
-    })
+    getProfile(user.uid)
+      .then((p) => {
+        setBirthYear(p.birthYear)
+        setPia(p.pia)
+        setLoaded(true)
+      })
+      .catch((err) => {
+        console.error('Failed to load profile from Firestore:', err)
+        setLoadError(
+          err?.code === 'permission-denied'
+            ? "Firestore denied this read — your security rules likely haven't been deployed/published yet. See docs/SECURITY.md and firestore.rules in the repo."
+            : 'Could not load your saved numbers. Check your Firebase config in .env.local and that Firestore is enabled for this project.'
+        )
+      })
   }, [user])
 
   const baseline = useMemo(() => generateClaimingComparison(pia, birthYear), [pia, birthYear])
@@ -51,7 +61,11 @@ export default function ScenariosPage() {
         </p>
       </div>
 
-      {!loaded ? (
+      {loadError ? (
+        <div className="font-mono text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-5 py-4 max-w-2xl">
+          {loadError}
+        </div>
+      ) : !loaded ? (
         <div className="font-mono text-sm text-fog-blue">Loading your numbers…</div>
       ) : (
         <UpgradeGate feature="Scenario modeling">

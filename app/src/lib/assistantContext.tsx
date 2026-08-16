@@ -74,7 +74,11 @@ export function AssistantProvider({ children }: { children: ReactNode }) {
 
   async function send(question: string) {
     const trimmed = question.trim()
-    if (!trimmed || !groundingContext || sending) return
+    if (!trimmed || sending) return
+    if (!groundingContext) {
+      setError('Still loading your numbers — give it a moment and try again.')
+      return
+    }
 
     setMessages((prev) => [...prev, { role: 'user', text: trimmed }])
     setDraftQuestion('')

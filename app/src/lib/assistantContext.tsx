@@ -35,6 +35,43 @@ export function AssistantProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
   const [groundingContext, setGroundingContext] = useState<GroundingContext | null>(null)
 
+  // The assistant widget is mounted globally (App.tsx), but grounding
+  // numbers were previously only ever pushed in by CalculatorPage - so
+  // opening the assistant from any other page (Scenarios, Documents,
+  // Billing, ...) left groundingContext permanently null and every send()
+  // silently no-op'd (the Send button appeared to do nothing). Loading a
+  // default straight from the saved profile here means the assistant
+  // works from any page. CalculatorPage still calls setGroundingContext
+  // itself to override this with live, unsaved edits while the user is
+  // actively adjusting numbers there.
+  useEffect(() => {
+    if (!user) {
+      setGroundingContext(null)
+      return
+    }
+    let cancelled = false
+    getProfile(user.uid)
+      .then((profile) => {
+        if (cancelled) return
+        const fra = getFullRetirementAge(profile.birthYear)
+        const comparison = generateClaimingComparison(profile.pia, profile.birthYear)
+        const breakeven = calculateBreakevenAge(profile.pia, profile.birthYear, 62, 70)
+        setGroundingContext({
+          birthYear: profile.birthYear,
+          pia: profile.pia,
+          fullRetirementAge: fra.months > 0 ? `${fra.years} years, ${fra.months} months` : `${fra.years}`,
+          comparison: comparison.map((c) => ({ age: c.age, monthlyBenefit: c.monthlyBenefit })),
+          breakevenAge: breakeven,
+        })
+      })
+      .catch((err) => {
+        console.error('AssistantProvider: failed to load a default grounding context:', err)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [user])
+
   async function send(question: string) {
     const trimmed = question.trim()
     if (!trimmed || !groundingContext || sending) return

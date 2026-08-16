@@ -8,7 +8,7 @@ compatibility_date = "2026-08-01"
 [vars]
 # Your Firebase project ID (Firebase Console > Project Settings > General).
 # Same value as VITE_FIREBASE_PROJECT_ID in app/.env.local.
-FIREBASE_PROJECT_ID = "your-firebase-project-id"
+FIREBASE_PROJECT_ID = "horizon-4dbf1"
 
 # Comma-separated list of origins allowed to call this Worker. Include your
 # production domain and http://localhost:5173 (Vite's default dev port) for

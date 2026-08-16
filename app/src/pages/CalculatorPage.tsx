@@ -70,6 +70,9 @@ export default function CalculatorPage() {
     return Math.round(total70 - total62)
   }, [age62, age70])
 
+  // Overrides the default grounding context AssistantProvider loads from
+  // the saved profile - this keeps the assistant grounded in live, unsaved
+  // edits while the user is actively adjusting numbers on this page.
   useEffect(() => {
     if (!profileLoaded) return
     setGroundingContext({

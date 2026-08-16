@@ -50,10 +50,10 @@ export default function AssistantWidget() {
     <div style={{ fontFamily: 'var(--font-vivid)' }}>
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] bg-graphite-veil/20 border border-ash-border rounded-[15px] overflow-hidden flex flex-col"
+          className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] bg-bone-white/92 backdrop-blur-md border border-ash-border/30 rounded-[15px] overflow-hidden flex flex-col shadow-2xl shadow-black/40"
           style={{ animation: 'fadeUp 0.3s cubic-bezier(.16,.8,.24,1)' }}
         >
-          <div className="bg-vivid-obsidian text-bone-white px-5 py-4 flex items-center justify-between border-b border-ash-border">
+          <div className="bg-bone-white/95 text-vivid-obsidian px-5 py-4 flex items-center justify-between border-b border-ash-border/20">
             <div>
               <div className="text-base font-normal">Ask Horizon</div>
               <div className="text-xs text-fog-blue font-mono">Grounded in your saved numbers</div>
@@ -72,7 +72,7 @@ export default function AssistantWidget() {
                   {autoSpeak ? '🔊' : '🔈'}
                 </button>
               )}
-              <button onClick={close} className="text-bone-white/60 hover:text-bone-white transition-colors text-xl leading-none">
+              <button onClick={close} className="text-vivid-obsidian/50 hover:text-vivid-obsidian transition-colors text-xl leading-none">
                 ×
               </button>
             </div>
@@ -80,7 +80,7 @@ export default function AssistantWidget() {
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 max-h-[360px] min-h-[200px]">
             {messages.length === 0 && (
-              <div className="text-sm text-fog-blue text-center py-8 px-4">
+              <div className="text-sm text-muted-grey text-center py-8 px-4">
                 Ask anything about your Social Security claiming options, spousal/survivor
                 benefits, or Medicare and tax numbers — e.g. "Should I claim now or wait two
                 years?"{micSupported ? ' Tap the mic to speak instead of typing.' : ''}
@@ -92,10 +92,10 @@ export default function AssistantWidget() {
                   style={{ animation: 'fadeUp 0.25s cubic-bezier(.16,.8,.24,1)' }}
                   className={`text-sm px-4 py-2.5 rounded-[10px] max-w-[85%] leading-relaxed border ${
                     m.role === 'user'
-                      ? 'bg-muted-grey/40 border-ash-border text-bone-white ml-auto'
+                      ? 'bg-vivid-obsidian/5 border-ash-border/30 text-vivid-obsidian ml-auto'
                       : m.inScope === false
                         ? 'bg-vivid-obsidian border-ash-border border-dashed text-fog-blue'
-                        : 'bg-graphite-veil/25 border-ash-border text-bone-white'
+                        : 'bg-graphite-veil/10 border-ash-border/30 text-vivid-obsidian'
                   }`}
                 >
                   {m.text}
@@ -103,11 +103,15 @@ export default function AssistantWidget() {
               </div>
             ))}
             {sending && (
-              <div className="bg-graphite-veil/20 border border-ash-border text-fog-blue text-sm px-4 py-2.5 rounded-[10px] max-w-[70%] font-mono">
+              <div className="bg-graphite-veil/10 border border-ash-border/30 text-muted-grey text-sm px-4 py-2.5 rounded-[10px] max-w-[70%] font-mono">
                 Thinking…
               </div>
             )}
-            {error && <div className="text-xs text-bone-white text-center">{error}</div>}
+            {error && (
+              <div className="text-xs text-prism-red bg-prism-red/10 border border-prism-red/30 rounded-[5px] px-4 py-3 text-center">
+                {error}
+              </div>
+            )}
           </div>
 
           {offTopicHint && (
@@ -116,7 +120,7 @@ export default function AssistantWidget() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="border-t border-ash-border p-3 flex gap-2">
+          <form onSubmit={handleSubmit} className="border-t border-ash-border/20 p-3 flex gap-2">
             {micSupported && (
               <button
                 type="button"
@@ -124,7 +128,7 @@ export default function AssistantWidget() {
                 aria-label={listening ? 'Stop voice input' : 'Ask by voice'}
                 aria-pressed={listening}
                 className={`w-9 h-9 rounded-[5px] flex items-center justify-center flex-shrink-0 transition-colors border ${
-                  listening ? 'bg-bone-white text-vivid-obsidian border-bone-white animate-pulse' : 'bg-vivid-obsidian border-ash-border text-bone-white hover:border-bone-white'
+                  listening ? 'bg-vivid-obsidian text-bone-white border-vivid-obsidian animate-pulse' : 'bg-bone-white border-ash-border/40 text-vivid-obsidian hover:border-vivid-obsidian'
                 }`}
               >
                 🎙️
@@ -136,12 +140,12 @@ export default function AssistantWidget() {
               onChange={(e) => setDraftQuestion(e.target.value)}
               placeholder={listening ? 'Listening…' : 'Ask a question…'}
               disabled={listening}
-              className="flex-1 bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-2.5 text-sm outline-none focus:border-bone-white disabled:opacity-60 text-bone-white"
+              className="flex-1 bg-bone-white border border-ash-border/40 rounded-[5px] px-4 py-2.5 text-sm outline-none focus:border-vivid-obsidian disabled:opacity-60 text-vivid-obsidian placeholder:text-muted-grey/60"
             />
             <button
               type="submit"
               disabled={sending || !draftQuestion.trim()}
-              className="ov-outlined-btn"
+              className="ov-outlined-btn !border-vivid-obsidian !text-vivid-obsidian hover:!bg-vivid-obsidian/5"
             >
               Send
             </button>

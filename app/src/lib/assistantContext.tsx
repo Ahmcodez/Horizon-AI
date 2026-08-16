@@ -1,5 +1,8 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { askAssistant, type AssistantContext as GroundingContext } from './assistant'
+import { useAuth } from './authContext'
+import { getProfile } from './profileStore'
+import { generateClaimingComparison, getFullRetirementAge, calculateBreakevenAge } from './socialSecurity'
 
 export interface ChatMessage {
   role: 'user' | 'assistant'
@@ -24,6 +27,7 @@ interface AssistantState {
 const AssistantStateContext = createContext<AssistantState | undefined>(undefined)
 
 export function AssistantProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [draftQuestion, setDraftQuestion] = useState('')

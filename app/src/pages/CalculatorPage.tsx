@@ -122,12 +122,11 @@ export default function CalculatorPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate('/onboarding')}
-              className="text-xs text-fog-blue hover:text-bone-white transition-colors duration-500 whitespace-nowrap"
+              className="text-xs text-fog-blue hover:text-bone-white hover:border-bone-white transition-colors duration-500 whitespace-nowrap border border-ash-border rounded-[5px] px-3 py-1.5 uppercase tracking-[0.02em]"
               style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
             >
               Redo the 5-minute setup →
             </button>
-            <span className="text-ash-border">|</span>
             <button
               onClick={() => signOut()}
               className="text-xs text-fog-blue hover:text-prism-red transition-colors duration-500 whitespace-nowrap"

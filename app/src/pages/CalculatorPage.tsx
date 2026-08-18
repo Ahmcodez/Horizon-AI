@@ -217,7 +217,7 @@ export default function CalculatorPage() {
               <div className="text-xs text-fog-blue mt-1">monthly at age {selectedAge}</div>
               <button
                 onClick={() => explain(`Why is my benefit $${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo at age ${selectedAge}?`)}
-                className="absolute top-3 right-3 text-[10px] text-fog-blue hover:text-bone-white transition-colors duration-500"
+                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain
@@ -230,7 +230,7 @@ export default function CalculatorPage() {
               <div className="text-xs text-fog-blue mt-1">lifetime gain, 70 vs. 62 (to age 85)</div>
               <button
                 onClick={() => explain(`Why does waiting until 70 instead of 62 add $${lifetimeDiff.toLocaleString()} over my lifetime?`)}
-                className="absolute top-3 right-3 text-[10px] text-fog-blue hover:text-bone-white transition-colors duration-500"
+                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain
@@ -243,7 +243,7 @@ export default function CalculatorPage() {
               <div className="text-xs text-fog-blue mt-1">breakeven age, 62 vs. 70</div>
               <button
                 onClick={() => explain(`What does my breakeven age of ${breakeven?.toFixed(1)} actually mean?`)}
-                className="absolute top-3 right-3 text-[10px] text-fog-blue hover:text-bone-white transition-colors duration-500"
+                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain

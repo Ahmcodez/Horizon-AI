@@ -1,4 +1,4 @@
-# Horizon AI Worker
+# MyClaimAge AI Worker
 
 Serves the AI assistant (`/ask-assistant`) and document reader
 (`/read-document`) via Cloudflare Workers instead of Firebase Cloud

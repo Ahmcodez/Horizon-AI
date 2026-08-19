@@ -102,7 +102,7 @@ export const POLICY_NEWS: PolicyNewsItem[] = [
     category: 'upcoming',
     title: 'OASI trust fund reserve depletion, if Congress doesn\'t act',
     description:
-      'This is the date behind Horizon\'s benefit-cut scenario modeling — a real, published projection, not a doomsday prediction. Congress could still change the underlying law before then, as it has multiple times in the program\'s history.',
+      'This is the date behind MyClaimAge\'s benefit-cut scenario modeling — a real, published projection, not a doomsday prediction. Congress could still change the underlying law before then, as it has multiple times in the program\'s history.',
     source: 'SSA Office of the Chief Actuary',
     sourceUrl: 'https://www.ssa.gov/oact/trsum/',
   },

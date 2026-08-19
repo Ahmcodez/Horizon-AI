@@ -15,7 +15,7 @@ export default function BillingPage() {
   const checkoutResult = searchParams.get('checkout')
 
   useEffect(() => {
-    document.title = 'Billing & Plans | Horizon'
+    document.title = 'Billing & Plans | MyClaimAge'
   }, [])
 
   useEffect(() => {

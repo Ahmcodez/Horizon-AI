@@ -35,7 +35,7 @@ function describeFirestoreError(err: unknown): string {
 
 export default function AdvisorDashboardPage() {
   useEffect(() => {
-    document.title = 'Advisor Dashboard — Client Book | Horizon'
+    document.title = 'Advisor Dashboard — Client Book | MyClaimAge'
   }, [])
 
   const { user } = useAuth()

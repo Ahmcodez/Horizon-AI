@@ -12,7 +12,7 @@ import { useReveal } from '../lib/useReveal'
 
 export default function ScenariosPage() {
   useEffect(() => {
-    document.title = 'Scenario Modeling — Benefit Cuts & Longevity What-Ifs | Horizon'
+    document.title = 'Scenario Modeling — Benefit Cuts & Longevity What-Ifs | MyClaimAge'
   }, [])
 
   const { user } = useAuth()

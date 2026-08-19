@@ -8,7 +8,7 @@ export default function LandingPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    document.title = 'Social Security Calculator — Know the Best Age to Claim | Horizon'
+    document.title = 'Social Security Calculator — Know the Best Age to Claim | MyClaimAge'
     const meta = document.querySelector('meta[name="description"]') ?? document.createElement('meta')
     meta.setAttribute('name', 'description')
     meta.setAttribute(
@@ -176,7 +176,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
               )}
               {screens[screen] === 'chat' && (
                 <div>
-                  <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-5">Ask Horizon</div>
+                  <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-5">Ask MyClaimAge</div>
                   <div className="bg-bone-white text-vivid-obsidian ml-auto max-w-[85%] rounded-[8px] px-4 py-3 text-sm mb-2.5">
                     Should I claim now or wait 2 years?
                   </div>
@@ -290,7 +290,7 @@ function ProductSection() {
           Not an estimate. Your record, run against every claiming age.
         </h2>
         <p className="mt-4 text-bone-white/60 max-w-lg leading-relaxed">
-          Enter your earnings history — or photograph your SSA statement — and Horizon models
+          Enter your earnings history — or photograph your SSA statement — and MyClaimAge models
           exactly what changes at 62, at full retirement age, and at 70.
         </p>
         <div className="flex gap-10 mt-10 flex-wrap">
@@ -325,7 +325,7 @@ function FeaturesSection() {
         <div className="hover-glow-white col-span-2 row-span-2 rounded-[15px] bg-graphite-veil/30 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">AI assistant · Ask, in plain english</div>
           <h3 className="text-xl font-normal mb-2.5">"Should I claim now, or wait two years?"</h3>
-          <p className="text-sm text-bone-white/60">Horizon's assistant answers using your actual saved numbers.</p>
+          <p className="text-sm text-bone-white/60">MyClaimAge's assistant answers using your actual saved numbers.</p>
         </div>
         <div className="hover-glow-white rounded-[15px] bg-graphite-veil/15 border border-ash-border p-7">
           <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-3.5">Coordination</div>

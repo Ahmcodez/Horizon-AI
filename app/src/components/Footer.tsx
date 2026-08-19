@@ -18,17 +18,17 @@ export default function Footer() {
         <div className="mb-8">
           <div className="flex items-center gap-2 text-[13px] uppercase tracking-[0.02em] text-bone-white mb-3">
             <img src={horizonIcon} alt="" className="h-[22px] w-[22px] object-contain" />
-            Horizon
+            MyClaimAge
           </div>
           <p className="text-xs text-grey-text leading-relaxed max-w-2xl">
-            Horizon provides informational estimates only and is not a substitute for financial,
+            MyClaimAge provides informational estimates only and is not a substitute for financial,
             legal, or tax advice. Not affiliated with or endorsed by the Social Security
             Administration.
           </p>
         </div>
 
         <div className="border-t border-ash-border pt-6 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-xs">
-          <span className="text-fog-blue">© {year} Horizon. All rights reserved.</span>
+          <span className="text-fog-blue">© {year} MyClaimAge. All rights reserved.</span>
 
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-fog-blue">
             <a href="/privacy" className="hover:text-bone-white transition-colors">

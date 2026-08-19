@@ -4,7 +4,7 @@ import UpgradeGate from '../components/UpgradeGate'
 
 export default function StateComparisonPage() {
   useEffect(() => {
-    document.title = 'State Tax Comparison — Does Your State Tax Social Security? | Horizon'
+    document.title = 'State Tax Comparison — Does Your State Tax Social Security? | MyClaimAge'
   }, [])
 
   const [stateA, setStateA] = useState('CA')

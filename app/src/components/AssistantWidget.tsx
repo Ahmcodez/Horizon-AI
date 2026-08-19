@@ -55,7 +55,7 @@ export default function AssistantWidget() {
         >
           <div className="bg-bone-white/95 text-vivid-obsidian px-5 py-4 flex items-center justify-between border-b border-ash-border/20">
             <div>
-              <div className="text-base font-normal">Ask Horizon</div>
+              <div className="text-base font-normal">Ask MyClaimAge</div>
               <div className="text-xs text-fog-blue font-mono">Grounded in your saved numbers</div>
             </div>
             <div className="flex items-center gap-3">
@@ -116,7 +116,7 @@ export default function AssistantWidget() {
 
           {offTopicHint && (
             <div className="px-4 pt-2 text-[11px] text-fog-blue text-center">
-              Heads up — Horizon only covers Social Security, Medicare, and benefits questions.
+              Heads up — MyClaimAge only covers Social Security, Medicare, and benefits questions.
             </div>
           )}
 

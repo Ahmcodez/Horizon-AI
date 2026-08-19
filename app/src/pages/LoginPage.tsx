@@ -46,7 +46,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md relative">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 text-[15px] font-normal tracking-tight mb-2 text-bone-white uppercase">
-            Horizon
+            MyClaimAge
           </div>
           <p className="text-fog-blue text-sm">
             {mode === 'signin' ? 'Welcome back.' : 'Create your account to save your numbers.'}

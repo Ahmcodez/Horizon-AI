@@ -9,7 +9,7 @@ const functions = getFunctions(app)
 
 export default function AlertsPage() {
   useEffect(() => {
-    document.title = 'Rule-Change Alerts — SSA, IRS & Medicare Updates | Horizon'
+    document.title = 'Rule-Change Alerts — SSA, IRS & Medicare Updates | MyClaimAge'
   }, [])
 
   const { user } = useAuth()

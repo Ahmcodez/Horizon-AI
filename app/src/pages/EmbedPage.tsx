@@ -7,7 +7,7 @@ const FUNCTION_URL_PLACEHOLDER = 'https://us-central1-YOUR-PROJECT.cloudfunction
 
 export default function EmbedPage() {
   useEffect(() => {
-    document.title = 'Embeddable Widget — License the Calculator | Horizon'
+    document.title = 'Embeddable Widget — License the Calculator | MyClaimAge'
   }, [])
 
   const { user } = useAuth()
@@ -75,7 +75,7 @@ export default function EmbedPage() {
         </h1>
         <p className="mt-4 text-fog-blue text-lg leading-relaxed">
           A lightweight, no-login widget your visitors can use directly — powered by the same
-          calculation engine as the rest of Horizon.
+          calculation engine as the rest of MyClaimAge.
         </p>
       </div>
 
@@ -103,7 +103,7 @@ export default function EmbedPage() {
       <p className="text-xs text-fog-blue leading-relaxed mt-10">
         The widget calls a public, unauthenticated endpoint that performs the claiming-age
         calculation only — no visitor data is stored, and it never touches your client records or
-        any part of your Horizon account.
+        any part of your MyClaimAge account.
       </p>
     </main>
   )

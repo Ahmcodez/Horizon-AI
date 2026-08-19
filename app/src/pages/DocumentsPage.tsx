@@ -4,7 +4,7 @@ import UpgradeGate from '../components/UpgradeGate'
 
 export default function DocumentsPage() {
   useEffect(() => {
-    document.title = 'Document Reader — Understand SSA, IRS & Medicare Letters | Horizon'
+    document.title = 'Document Reader — Understand SSA, IRS & Medicare Letters | MyClaimAge'
   }, [])
 
   const [file, setFile] = useState<File | null>(null)

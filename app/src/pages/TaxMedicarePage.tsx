@@ -7,7 +7,7 @@ import { calculateIrmaa, type IrmaaFilingStatus, type IrmaaResult } from '../lib
 
 export default function TaxMedicarePage() {
   useEffect(() => {
-    document.title = 'Tax & Medicare — RMDs, SS Taxation & IRMAA | Horizon'
+    document.title = 'Tax & Medicare — RMDs, SS Taxation & IRMAA | MyClaimAge'
   }, [])
 
   const reveal = useReveal<HTMLDivElement>()

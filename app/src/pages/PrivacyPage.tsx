@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 export default function PrivacyPage() {
   useEffect(() => {
-    document.title = 'Privacy Policy | Horizon'
+    document.title = 'Privacy Policy | MyClaimAge'
   }, [])
 
   return (
@@ -44,10 +44,10 @@ export default function PrivacyPage() {
             <li>
               Any document you upload to the document reader (SSA, IRS, or Medicare letters) —
               sent to Google's Gemini API to generate a plain-English summary, not stored by
-              Horizon after processing.
+              MyClaimAge after processing.
             </li>
             <li>
-              Billing information is handled directly by Stripe — Horizon never sees or stores
+              Billing information is handled directly by Stripe — MyClaimAge never sees or stores
               your card details.
             </li>
             <li>

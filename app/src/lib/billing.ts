@@ -1,9 +1,16 @@
-import { getFunctions, httpsCallable } from 'firebase/functions'
+/**
+ * startCheckout/openBillingPortal call the same Cloudflare Worker as
+ * assistant.ts/documentReader.ts (VITE_AI_WORKER_URL), not a Firebase Cloud
+ * Function — Cloud Functions require the Blaze plan to deploy at all, and
+ * this project stays on the free Spark plan. See cf-worker/README.md for
+ * the Stripe-specific setup (price IDs, webhook secret) this needs.
+ */
 import { doc, onSnapshot } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { app, db } from './firebase'
 
-const functions = getFunctions(app)
+const WORKER_URL = import.meta.env.VITE_AI_WORKER_URL as string | undefined
 
 export type PlanId = 'free' | 'plan' | 'advisor'
 
@@ -52,22 +59,40 @@ export function usePlan(uid: string | undefined): CustomerStatus {
   return state
 }
 
-export async function startCheckout(plan: 'plan' | 'advisor'): Promise<void> {
-  const callable = httpsCallable<
-    { plan: 'plan' | 'advisor'; successUrl: string; cancelUrl: string },
-    { url: string }
-  >(functions, 'createCheckoutSession')
+async function callWorker<T>(path: string, body: unknown): Promise<T> {
+  if (!WORKER_URL) {
+    throw new Error('Billing is not configured — missing VITE_AI_WORKER_URL.')
+  }
+  const user = getAuth(app).currentUser
+  if (!user) {
+    throw new Error('Sign in first.')
+  }
+  const idToken = await user.getIdToken()
 
-  const result = await callable({
+  const res = await fetch(`${WORKER_URL}${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${idToken}` },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) {
+    const responseBody = (await res.json().catch(() => null)) as { error?: string } | null
+    throw new Error(responseBody?.error || 'Something went wrong — please try again.')
+  }
+  return (await res.json()) as T
+}
+
+export async function startCheckout(plan: 'plan' | 'advisor'): Promise<void> {
+  const result = await callWorker<{ url: string }>('/create-checkout-session', {
     plan,
     successUrl: `${window.location.origin}/billing?checkout=success`,
     cancelUrl: `${window.location.origin}/billing?checkout=cancelled`,
   })
-  window.location.href = result.data.url
+  window.location.href = result.url
 }
 
 export async function openBillingPortal(): Promise<void> {
-  const callable = httpsCallable<{ returnUrl: string }, { url: string }>(functions, 'createPortalSession')
-  const result = await callable({ returnUrl: `${window.location.origin}/billing` })
-  window.location.href = result.data.url
+  const result = await callWorker<{ url: string }>('/create-portal-session', {
+    returnUrl: `${window.location.origin}/billing`,
+  })
+  window.location.href = result.url
 }

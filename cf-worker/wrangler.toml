@@ -14,3 +14,10 @@ FIREBASE_PROJECT_ID = "horizon-4dbf1"
 # production domain and http://localhost:5173 (Vite's default dev port) for
 # local testing. No trailing slashes.
 ALLOWED_ORIGINS = "http://localhost:5173"
+
+# Stripe Price IDs (not secrets — these are safe to commit, they only
+# identify which product/price, same as the ones already in your Stripe
+# Dashboard). Create the "Plan" ($12/mo) and "Advisor" ($149/mo) recurring
+# Prices in Stripe first, then paste their price_... IDs here.
+STRIPE_PRICE_PLAN_ID = "price_REPLACE_WITH_YOUR_PLAN_PRICE_ID"
+STRIPE_PRICE_ADVISOR_ID = "price_REPLACE_WITH_YOUR_ADVISOR_PRICE_ID"

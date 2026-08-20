@@ -18,6 +18,7 @@ const jwks = createRemoteJWKSet(new URL(JWKS_URL))
 
 export interface VerifiedUser {
   uid: string
+  email: string | undefined
 }
 
 export async function verifyFirebaseToken(authHeader: string | null, projectId: string): Promise<VerifiedUser> {
@@ -39,5 +40,5 @@ export async function verifyFirebaseToken(authHeader: string | null, projectId: 
     throw new Error('Token has no subject (uid).')
   }
 
-  return { uid: payload.sub }
+  return { uid: payload.sub, email: typeof payload.email === 'string' ? payload.email : undefined }
 }

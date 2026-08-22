@@ -61,6 +61,7 @@ function fromFirestoreFields(fields: Record<string, FirestoreValue> | undefined)
 export interface FirestoreClient {
   getDocument(path: string): Promise<Record<string, unknown> | null>
   setDocument(path: string, data: Record<string, unknown>, merge?: boolean): Promise<void>
+  createDocument(collectionPath: string, data: Record<string, unknown>): Promise<void>
 }
 
 export function createFirestoreClient(serviceAccount: ServiceAccount, projectId: string): FirestoreClient {
@@ -96,6 +97,17 @@ export function createFirestoreClient(serviceAccount: ServiceAccount, projectId:
       })
       if (!res.ok) {
         throw new Error(`Firestore setDocument failed (${res.status}): ${await res.text().catch(() => '')}`)
+      }
+    },
+
+    async createDocument(collectionPath: string, data: Record<string, unknown>) {
+      const res = await fetch(`${baseUrl}/${collectionPath}`, {
+        method: 'POST',
+        headers: await authHeaders(),
+        body: JSON.stringify({ fields: toFirestoreFields(data) }),
+      })
+      if (!res.ok) {
+        throw new Error(`Firestore createDocument failed (${res.status}): ${await res.text().catch(() => '')}`)
       }
     },
   }

@@ -50,3 +50,25 @@ export async function markAlertRead(uid: string, alertId: string): Promise<void>
 export async function dismissAlert(uid: string, alertId: string): Promise<void> {
   await deleteDoc(doc(db, 'profiles', uid, 'alerts', alertId))
 }
+
+export async function seedSampleAlerts(): Promise<{ seeded: number }> {
+  if (!WORKER_URL) {
+    throw new Error('Sample alerts are not configured — missing VITE_AI_WORKER_URL.')
+  }
+  const user = getAuth(app).currentUser
+  if (!user) {
+    throw new Error('Sign in to seed sample alerts.')
+  }
+  const idToken = await user.getIdToken()
+
+  const res = await fetch(`${WORKER_URL}/seed-alerts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${idToken}` },
+    body: JSON.stringify({}),
+  })
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as { error?: string } | null
+    throw new Error(body?.error || 'Could not seed sample alerts. Please try again.')
+  }
+  return (await res.json()) as { seeded: number }
+}

@@ -8,7 +8,10 @@ import {
   updateDoc,
   deleteDoc,
 } from 'firebase/firestore'
-import { db } from './firebase'
+import { getAuth } from 'firebase/auth'
+import { db, app } from './firebase'
+
+const WORKER_URL = import.meta.env.VITE_AI_WORKER_URL as string | undefined
 
 export interface AlertItem {
   id: string

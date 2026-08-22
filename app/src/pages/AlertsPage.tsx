@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getFunctions, httpsCallable } from 'firebase/functions'
-import { app } from '../lib/firebase'
 import { useAuth } from '../lib/authContext'
-import { useAlerts, markAlertRead, dismissAlert } from '../lib/alerts'
+import { useAlerts, markAlertRead, dismissAlert, seedSampleAlerts } from '../lib/alerts'
 import { POLICY_NEWS, useDailyDigest, useDigestStatus } from '../lib/policyNews'
-
-const functions = getFunctions(app)
 
 export default function AlertsPage() {
   useEffect(() => {
@@ -19,8 +15,7 @@ export default function AlertsPage() {
   async function seedSamples() {
     setSeeding(true)
     try {
-      const callable = httpsCallable(functions, 'seedSampleAlerts')
-      await callable({})
+      await seedSampleAlerts()
     } finally {
       setSeeding(false)
     }

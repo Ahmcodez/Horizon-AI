@@ -5,6 +5,7 @@ import { handleReadDocument } from './readDocument'
 import { handleCreateCheckoutSession } from './checkout'
 import { handleCreatePortalSession } from './portal'
 import { handleStripeWebhook, InvalidSignature } from './webhook'
+import { handleSeedAlerts } from './seedAlerts'
 import type { ServiceAccount } from './googleAuth'
 
 export interface Env {

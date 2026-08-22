@@ -117,6 +117,13 @@ export default {
         })
         return jsonResponse(result, 200, headers)
       }
+      if (url.pathname === '/seed-alerts') {
+        const result = await handleSeedAlerts(uid, {
+          serviceAccount: parseServiceAccount(env),
+          firebaseProjectId: env.FIREBASE_PROJECT_ID,
+        })
+        return jsonResponse(result, 200, headers)
+      }
       return jsonResponse({ error: 'Not found.' }, 404, headers)
     } catch (err) {
       if (err instanceof BadRequest) {

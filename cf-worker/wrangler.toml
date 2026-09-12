@@ -13,7 +13,7 @@ FIREBASE_PROJECT_ID = "horizon-4dbf1"
 # Comma-separated list of origins allowed to call this Worker. Include your
 # production domain and http://localhost:5173 (Vite's default dev port) for
 # local testing. No trailing slashes.
-ALLOWED_ORIGINS = "http://localhost:5173"
+ALLOWED_ORIGINS = "https://myclaim-age.vercel.app,http://localhost:5173"
 
 # Stripe Price IDs (not secrets — these are safe to commit, they only
 # identify which product/price, same as the ones already in your Stripe

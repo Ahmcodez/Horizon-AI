@@ -81,16 +81,17 @@ export default function AssistantWidget() {
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 max-h-[360px] min-h-[200px]">
             {messages.length === 0 && (
               <div className="text-sm text-muted-grey text-center py-8 px-4">
-                Ask anything about your Social Security claiming options, spousal/survivor
-                benefits, or Medicare and tax numbers — e.g. "Should I claim now or wait two
-                years?"{micSupported ? ' Tap the mic to speak instead of typing.' : ''}
+                Ask about your Social Security claiming options, spousal/survivor benefits,
+                Medicare and tax numbers, recent policy changes, or general retirement and
+                financial planning — e.g. "Should I claim now or wait two years?" or "What's a
+                Roth conversion?"{micSupported ? ' Tap the mic to speak instead of typing.' : ''}
               </div>
             )}
             {messages.map((m, i) => (
               <div key={i}>
                 <div
                   style={{ animation: 'fadeUp 0.25s cubic-bezier(.16,.8,.24,1)' }}
-                  className={`text-sm px-4 py-2.5 rounded-[10px] max-w-[85%] leading-relaxed border ${
+                  className={`text-sm px-4 py-2.5 rounded-[10px] max-w-[90%] leading-relaxed border whitespace-pre-wrap ${
                     m.role === 'user'
                       ? 'bg-vivid-obsidian/5 border-ash-border/30 text-vivid-obsidian ml-auto'
                       : m.inScope === false

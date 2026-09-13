@@ -112,7 +112,7 @@
   .hero-sub { margin-top: 26px; font-size: var(--fs-body-lg); color: var(--slate); max-width: 520px; line-height: 1.6; }
 
   .dual-cta { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .path-card { flex: 1; min-width: 220px; border: 1.5px solid var(--chalk-line-strong); border-radius: 18px; padding: 20px 22px; background: var(--chalk); cursor: pointer; transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease; box-shadow: var(--shadow-sm); }
+  .path-card { flex: 1; min-width: 220px; border: 1.5px solid var(--chalk-line-strong); border-radius: 18px; padding: 20px 22px; background: var(--chalk); cursor: pointer; transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, border-color 0.3s ease; box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; }
   .path-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--amber-deep); }
   .path-card.primary { background: var(--graphite); border-color: var(--graphite); }
   .path-card.primary:hover { box-shadow: var(--shadow-dark); }
@@ -277,7 +277,7 @@
   .final-cta { text-align: center; padding: 130px 48px 100px; }
   .final-cta h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.6vw, 56px); letter-spacing: -0.02em; max-width: 740px; margin: 0 auto 32px; line-height: 1.12; }
   .final-cta .accent-fill { color: var(--amber-deep); font-style: italic; }
-  .btn-primary { background: var(--amber); color: var(--graphite); border: none; padding: 17px 30px; border-radius: 100px; font-size: 15px; font-weight: 700; font-family: var(--body); cursor: pointer; transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease; box-shadow: var(--shadow-sm); }
+  .btn-primary { display: inline-block; text-decoration: none; background: var(--amber); color: var(--graphite); border: none; padding: 17px 30px; border-radius: 100px; font-size: 15px; font-weight: 700; font-family: var(--body); cursor: pointer; transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease; box-shadow: var(--shadow-sm); }
   .btn-primary:hover { transform: translateY(-2px) scale(1.015); box-shadow: var(--shadow-amber); }
 
   footer.site-footer { border-top: 1px solid var(--chalk-line); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--slate); flex-wrap: wrap; gap: 16px; }

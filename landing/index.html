@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MyClaimAge — Social Security Calculator & Claiming Age Planner</title>
-<meta name="description" content="See exactly what your Social Security benefit is worth at every claiming age from 62 to 70 — personalized to your record, updated for 2026 rules, free to start." />
+<title>When to Claim Social Security | MyClaimAge Calculator</title>
+<meta name="description" content="Find out when to claim Social Security based on your own numbers. Compare 62 vs. 67 vs. 70, spousal benefits, Medicare and tax impact — free to start, updated for 2026 rules." />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://www.horizon.com/" />
+<link rel="canonical" href="https://myclaim-age.vercel.app/" />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="MyClaimAge — Social Security Calculator & Claiming Age Planner" />
-<meta property="og:description" content="Personalized Social Security claiming-age analysis, spousal & survivor coordination, and plain-English guidance — updated automatically as the rules change." />
-<meta property="og:url" content="https://www.horizon.com/" />
+<meta property="og:title" content="When to Claim Social Security | MyClaimAge Calculator" />
+<meta property="og:description" content="Personalized Social Security claiming-age analysis, spousal & survivor coordination, Medicare and tax impact, and plain-English guidance — updated automatically as the rules change." />
+<meta property="og:url" content="https://myclaim-age.vercel.app/" />
 <meta property="og:site_name" content="MyClaimAge" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="MyClaimAge — Social Security Calculator & Claiming Age Planner" />
+<meta name="twitter:title" content="When to Claim Social Security | MyClaimAge Calculator" />
 <meta name="twitter:description" content="See exactly what your Social Security benefit is worth at every claiming age — personalized, updated for 2026 rules." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "MyClaimAge",
-  "url": "https://www.horizon.com/",
+  "url": "https://myclaim-age.vercel.app/",
   "description": "Personalized Social Security claiming-age planning and retirement benefit calculator.",
   "sameAs": []
 }
@@ -38,7 +38,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "MyClaimAge",
-  "url": "https://www.horizon.com/"
+  "url": "https://myclaim-age.vercel.app/"
 }
 </script>
 
@@ -53,7 +53,21 @@
     { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
     { "@type": "Offer", "name": "Plan", "price": "12.00", "priceCurrency": "USD" }
   ],
-  "description": "Calculates personalized Social Security claiming-age scenarios, spousal and survivor coordination, and WEP/GPO-aware benefit estimates."
+  "description": "Calculates personalized Social Security claiming-age scenarios, spousal and survivor coordination, Medicare and tax impact, and WEP/GPO-aware benefit estimates."
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to find your best Social Security claiming age with MyClaimAge",
+  "step": [
+    { "@type": "HowToStep", "name": "Enter your earnings history", "text": "Enter your work history yourself, or take a photo of your Social Security statement and let MyClaimAge read it." },
+    { "@type": "HowToStep", "name": "Compare every claiming age", "text": "See your real monthly benefit at every age from 62 to 70, including spousal, survivor, and WEP/GPO adjustments where they apply." },
+    { "@type": "HowToStep", "name": "Ask about your specific plan", "text": "Ask the assistant plan-specific questions in plain English and get answers grounded in your own saved numbers." },
+    { "@type": "HowToStep", "name": "Get alerts when something changes", "text": "MyClaimAge checks SSA, IRS, and CMS filings daily and tells you when a real rule change affects your plan." }
+  ]
 }
 </script>
 
@@ -81,6 +95,21 @@
       "@type": "Question",
       "name": "Does working while claiming Social Security reduce my benefit?",
       "acceptedAnswer": { "@type": "Answer", "text": "If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. The limit and withholding rules change each year and no longer apply once you reach full retirement age." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Social Security taxable?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It can be. Depending on your combined income from all sources, up to 85% of your Social Security benefit may be subject to federal income tax, and a handful of states tax it too. MyClaimAge factors this into the net numbers it shows you, rather than just the gross benefit amount." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Medicare affect my Social Security check?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Once you're enrolled, your Medicare Part B premium is deducted automatically from your Social Security payment, and higher earners pay an additional IRMAA surcharge. MyClaimAge shows your net deposit after Medicare, not just the pre-deduction benefit amount." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if a Social Security rule change affects me?",
+      "acceptedAnswer": { "@type": "Answer", "text": "MyClaimAge checks SSA, IRS, and CMS filings every day and flags genuine benefit-relevant changes — like a COLA update or a change to WEP/GPO rules — against your own saved profile, so you only hear about the changes that actually apply to you." }
     }
   ]
 }
@@ -104,6 +133,7 @@
           <div class="dd-item"><div class="dd-icon">◔</div><div><h3>Rule-change alerts</h3><p>Know the moment something affects your plan</p></div></div>
         </div>
       </li>
+      <li class="nav-item"><a class="nav-link" href="#guides">Guides</a></li>
       <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
       <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
       <li class="nav-item"><a class="nav-link" href="#advisors">For advisors</a></li>
@@ -123,13 +153,13 @@
         </div>
 
         <h1 class="kinetic-h1">
-          <span class="word" style="animation-delay:0.05s">Your</span>
-          <span class="word" style="animation-delay:0.12s">Social</span>
-          <span class="word" style="animation-delay:0.19s">Security,</span>
-          <span class="word accent-fill" style="animation-delay:0.30s">calculated exactly.</span>
+          <span class="word" style="animation-delay:0.05s">When</span>
+          <span class="word" style="animation-delay:0.12s">to</span>
+          <span class="word" style="animation-delay:0.19s">claim</span>
+          <span class="word accent-fill" style="animation-delay:0.30s">Social Security.</span>
         </h1>
 
-        <p class="hero-sub reveal in d3">One decision, made once, that can move your lifetime income by six figures. MyClaimAge shows you the real numbers — yours, not an average — at every claiming age from 62 to 70.</p>
+        <p class="hero-sub reveal in d3">One decision, made once, that can move your lifetime income by six figures. MyClaimAge shows you the real numbers — yours, not an average — at every claiming age from 62 to 70, plus how Medicare and taxes change what actually lands in your account.</p>
 
         <div class="dual-cta reveal in d4">
           <div class="path-card primary">
@@ -152,10 +182,10 @@
       </div>
 
       <div class="reveal in d2">
-        <div class="mockup-frame" role="img" aria-label="Preview of the MyClaimAge app showing a Social Security claiming-age comparison chart">
+        <div class="mockup-frame" role="img" aria-label="Preview of the MyClaimAge app cycling through a claiming-age comparison chart, the AI assistant, a Medicare and tax breakdown, and a rule-change alert">
           <div class="mockup-chrome">
             <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
-            <div class="chrome-url">app.horizon.com/plan</div>
+            <div class="chrome-url">myclaim-age.vercel.app/plan</div>
           </div>
           <div class="mockup-stage" id="mockupStage">
             <div class="mockup-screen active" data-screen="0">
@@ -175,20 +205,30 @@
               <div class="s-chat-bubble user">What if I keep working part-time?</div>
             </div>
             <div class="mockup-screen" data-screen="2">
+              <div class="screen-label">Medicare &amp; taxes</div>
+              <div class="s-chat-bubble">Gross benefit at 67: $2,690/mo</div>
+              <div class="s-chat-bubble">− Medicare Part B: $202.90/mo</div>
+              <div class="s-chat-bubble">− Federal tax withholding: $184/mo</div>
+              <div class="s-chat-bubble user">Net deposit: $2,303.10/mo</div>
+            </div>
+            <div class="mockup-screen" data-screen="3">
               <div class="screen-label">Rule-change alerts</div>
-              <div class="s-alert"><div class="s-alert-dot"></div><div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,041.</p><small>2 days ago</small></div></div>
+              <div class="s-alert"><div class="s-alert-dot"></div><div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,303.</p><small>2 days ago</small></div></div>
               <div class="s-alert"><div class="s-alert-dot"></div><div><p>The Fairness Act repeal added an estimated $340/mo to your benefit.</p><small>Last week</small></div></div>
             </div>
           </div>
           <div class="mockup-dots">
             <button class="m-dot active" data-dot="0" aria-label="Show claiming comparison screen"></button>
             <button class="m-dot" data-dot="1" aria-label="Show AI assistant screen"></button>
-            <button class="m-dot" data-dot="2" aria-label="Show alerts screen"></button>
+            <button class="m-dot" data-dot="2" aria-label="Show Medicare and taxes screen"></button>
+            <button class="m-dot" data-dot="3" aria-label="Show rule-change alerts screen"></button>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
+  <section class="value-strip" aria-label="Key Social Security numbers for 2026">
     <div class="stat-bar reveal">
       <div class="stat-cell"><div class="num"><span class="accent-num">+31%</span></div><div class="lbl">benefit increase, claiming at 70 vs. 62</div></div>
       <div class="stat-cell"><div class="num">$214<span class="accent-num">k</span></div><div class="lbl">average lifetime difference between strategies</div></div>
@@ -199,27 +239,23 @@
 
   <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
 
-  <section class="block" id="how" aria-labelledby="how-heading">
-    <div class="eyebrow-label reveal">The problem</div>
-    <h2 class="section-title reveal d1" id="how-heading">Every free Social Security calculator gives you a number. Nothing gives you a plan that keeps up.</h2>
-    <p class="section-sub reveal d2">Claiming Social Security is permanent, the rules move every year, and the letters that matter arrive impossible to parse — right when the decision they affect can't be undone.</p>
+  <section class="block" id="when-to-claim" aria-labelledby="when-heading">
+    <div class="eyebrow-label reveal">The core decision</div>
+    <h2 class="section-title reveal d1" id="when-heading">When should you claim Social Security?</h2>
+    <p class="section-sub reveal d2">There's no single right age — the SSA lets you claim any time between 62 and 70, and the amount changes permanently depending on when you do. Claiming at 62 locks in a reduced check for life; waiting until 70 locks in the largest one the SSA will pay you. The right age for you depends on a handful of factors most calculators never ask about.</p>
 
-    <div class="problem-grid reveal d3">
-      <article class="problem-card">
-        <div class="problem-num">01</div>
-        <h3>The decision is permanent</h3>
-        <p>Claim early and the reduction follows you for life. Most people file at 62 without ever seeing what waiting would have paid.</p>
-      </article>
-      <article class="problem-card">
-        <div class="problem-num">02</div>
-        <h3>The rules keep moving</h3>
-        <p>COLA, tax law, and provisions like the Social Security Fairness Act change your real numbers every year — nothing tells you when your plan is out of date.</p>
-      </article>
-      <article class="problem-card">
-        <div class="problem-num">03</div>
-        <h3>The letters aren't written for you</h3>
-        <p>SSA and Medicare notices arrive dense and unclear, right when the decision they affect can't be undone.</p>
-      </article>
+    <div class="when-grid reveal d3">
+      <div class="when-copy">
+        <p>Because the decision is permanent, it's worth treating like the six-figure decision it usually is rather than a form to get through quickly. A three-year difference in claiming age can move your lifetime income by well over $100,000 depending on how long you live and what else you have coming in.</p>
+        <p>MyClaimAge runs your actual earnings record — not a national average — against every age from 62 to 70, so you can see your own numbers before you decide. See the <a href="/guides/social-security-62-vs-67.html">full 62 vs. 67 vs. 70 breakdown</a> for the exact math, or <a href="#compare">jump to the comparison below</a>.</p>
+      </div>
+      <ul class="factor-list">
+        <li><strong>Your health and family longevity.</strong> A longer expected lifespan generally favors waiting; a shorter one generally favors claiming earlier.</li>
+        <li><strong>Other income and savings.</strong> If you need the income at 62, waiting may not be realistic regardless of the math.</li>
+        <li><strong>Marital status.</strong> Spousal and survivor benefits depend on both partners' claiming ages, not just your own.</li>
+        <li><strong>Whether you're still working.</strong> Earning above the annual limit before full retirement age temporarily withholds part of your benefit.</li>
+        <li><strong>Your breakeven age.</strong> The age where a later, larger check catches up to an earlier, smaller one that's been paid longer.</li>
+      </ul>
     </div>
   </section>
 
@@ -229,17 +265,47 @@
       <h2 class="section-title" id="product-heading">Not an estimate. Your record, run against every claiming age.</h2>
       <p class="section-sub">Enter your earnings history — or photograph your SSA statement — and MyClaimAge models exactly what changes at 62, at full retirement age, and at 70.</p>
 
-      <figure class="product-image-frame">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=650&fit=crop" alt="Placeholder — replace with a real screenshot of the MyClaimAge claiming-age comparison dashboard" />
-        <figcaption class="visually-hidden">Placeholder product screenshot — to be replaced with an actual dashboard screenshot before launch</figcaption>
+      <figure class="screenshot-placeholder" role="img" aria-label="Space reserved for a screenshot of the MyClaimAge claiming-age comparison dashboard">
+        <div class="ph-icon" aria-hidden="true">▦</div>
+        <p class="ph-label">Product screenshot goes here</p>
+        <p class="ph-caption">Claiming-age comparison dashboard, logged-in view</p>
       </figure>
     </div>
   </div>
 
   <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
 
+  <section class="block" id="how" aria-labelledby="how-heading">
+    <div class="eyebrow-label reveal">How it works</div>
+    <h2 class="section-title reveal d1" id="how-heading">From your earnings record to a claiming-age plan you can act on.</h2>
+    <p class="section-sub reveal d2">Four steps, most of them done for you.</p>
+
+    <div class="steps-grid reveal d3">
+      <article class="step-card">
+        <div class="problem-num">01</div>
+        <h3>Enter your earnings</h3>
+        <p>Type in your work history, or photograph your SSA statement and let MyClaimAge read it for you.</p>
+      </article>
+      <article class="step-card">
+        <div class="problem-num">02</div>
+        <h3>Compare every age</h3>
+        <p>See your real monthly benefit at every age from 62 to 70, including spousal, survivor, and WEP/GPO adjustments where they apply.</p>
+      </article>
+      <article class="step-card">
+        <div class="problem-num">03</div>
+        <h3>Ask about your plan</h3>
+        <p>Ask the assistant plan-specific questions in plain English, answered from your own saved numbers.</p>
+      </article>
+      <article class="step-card">
+        <div class="problem-num">04</div>
+        <h3>Get alerts that matter</h3>
+        <p>MyClaimAge checks SSA, IRS, and CMS filings daily and tells you when a real change affects your plan.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="block" id="features" aria-labelledby="features-heading">
-    <div class="eyebrow-label reveal">What's inside</div>
+    <div class="eyebrow-label reveal">Core features</div>
     <h2 class="section-title reveal d1" id="features-heading">A plan that talks back, reads your mail, and tells you when something changes.</h2>
 
     <div class="bento reveal d2">
@@ -253,11 +319,10 @@
         </div>
       </article>
 
-      <figure class="bento-cell image-cell b-3">
-        <div class="placeholder-img-wrap">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=500&fit=crop" alt="Placeholder — replace with a screenshot of the document upload feature" />
-          <figcaption class="placeholder-caption">Mail, decoded</figcaption>
-        </div>
+      <figure class="bento-cell image-cell b-3 screenshot-placeholder sm" role="img" aria-label="Space reserved for a screenshot of the document upload feature">
+        <div class="ph-icon" aria-hidden="true">✉</div>
+        <p class="ph-label">Screenshot goes here</p>
+        <p class="ph-caption">Document reader, letter upload</p>
       </figure>
 
       <article class="bento-cell amber b-4">
@@ -269,7 +334,7 @@
       <article class="bento-cell light b-6">
         <div class="bento-label">Stay current</div>
         <h3>Rule-change alerts, personalized</h3>
-        <p>"The Fairness Act repeal added an estimated $340/mo to your benefit."</p>
+        <p>"The Fairness Act repeal added an estimated $340/mo to your benefit." <a href="#alerts">See how alerts work →</a></p>
       </article>
 
       <article class="bento-cell dark b-5">
@@ -290,6 +355,73 @@
         <h3>Public-service pensions, handled correctly</h3>
         <p>Reflects the 2025 Social Security Fairness Act repeal automatically.</p>
       </article>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
+
+  <section class="block" id="compare" aria-labelledby="compare-heading">
+    <div class="eyebrow-label reveal">62 vs. 67 vs. 70</div>
+    <h2 class="section-title reveal d1" id="compare-heading">Three ages, three very different checks.</h2>
+    <p class="section-sub reveal d2">Illustrative numbers for someone with a $2,690/mo benefit at full retirement age (67). Your own numbers will differ — this is the shape of the tradeoff, not a prediction.</p>
+
+    <div class="problem-grid reveal d3">
+      <article class="problem-card">
+        <div class="problem-num">62</div>
+        <h3>$1,890/mo</h3>
+        <p>The earliest claiming age. Reduces your benefit by up to 30% compared to full retirement age, permanently. Often the right call if you need the income now or don't expect a long retirement.</p>
+      </article>
+      <article class="problem-card">
+        <div class="problem-num">67</div>
+        <h3>$2,690/mo</h3>
+        <p>Full retirement age for anyone born in 1960 or later. No reduction and no delayed credit — this is your Primary Insurance Amount, the baseline every other age is measured against.</p>
+      </article>
+      <article class="problem-card">
+        <div class="problem-num">70</div>
+        <h3>$3,320/mo</h3>
+        <p>The last age delayed retirement credits accrue — roughly 8% per year past full retirement age. The largest possible check, if you can afford to wait and expect to need income for a long retirement.</p>
+      </article>
+    </div>
+    <p class="compare-footnote reveal d4">Read the <a href="/guides/social-security-62-vs-67.html">full 62 vs. 67 breakdown</a>, including breakeven-age math, for the exact numbers behind this comparison.</p>
+  </section>
+
+  <section class="block" id="taxes-medicare" aria-labelledby="taxes-heading">
+    <div class="eyebrow-label reveal">The part most calculators skip</div>
+    <h2 class="section-title reveal d1" id="taxes-heading">Taxes and Medicare change what actually lands in your account.</h2>
+    <p class="section-sub reveal d2">Your gross benefit and your net deposit are two different numbers. MyClaimAge shows both.</p>
+
+    <div class="info-duo reveal d3">
+      <article class="info-card">
+        <h3>Federal (and sometimes state) taxes</h3>
+        <p>Depending on your combined income from all sources, up to 85% of your Social Security benefit can be subject to federal income tax. A handful of states tax it too, on top of federal. MyClaimAge factors your likely tax exposure into the comparison, rather than only showing the gross benefit.</p>
+      </article>
+      <article class="info-card">
+        <h3>Medicare Part B and IRMAA</h3>
+        <p>Once you're enrolled, your Medicare Part B premium — $202.90/mo at the standard 2026 rate — is deducted automatically from your check. Higher earners pay an additional IRMAA surcharge on top. MyClaimAge shows your <a href="#pricing">net deposit after Medicare</a>, so the number you see is the one you'll actually receive.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
+
+  <section class="block" id="alerts" aria-labelledby="alerts-heading">
+    <div class="eyebrow-label reveal">Rule-change alerts</div>
+    <h2 class="section-title reveal d1" id="alerts-heading">The rules move every year. Your plan should keep up automatically.</h2>
+    <p class="section-sub reveal d2">MyClaimAge checks SSA, IRS, and CMS filings every day, and uses AI to tell the difference between routine noise and a change that's actually worth knowing about. When something changes, it checks it against your own saved profile before deciding whether to tell you — WEP/GPO updates, for example, only go to people with a non-covered pension.</p>
+
+    <div class="alert-showcase reveal d3">
+      <div class="alert-card">
+        <div class="s-alert-dot"></div>
+        <div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,303.</p><small>2 days ago</small></div>
+      </div>
+      <div class="alert-card">
+        <div class="s-alert-dot"></div>
+        <div><p>The Fairness Act repeal added an estimated $340/mo to your benefit.</p><small>Last week</small></div>
+      </div>
+      <div class="alert-card">
+        <div class="s-alert-dot"></div>
+        <div><p>2026 COLA applied — your benefit estimate increased across every claiming age.</p><small>This year</small></div>
+      </div>
     </div>
   </section>
 
@@ -326,6 +458,31 @@
 
   <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
 
+  <section class="block" id="guides" aria-labelledby="guides-heading">
+    <div class="eyebrow-label reveal">Educational guides</div>
+    <h2 class="section-title reveal d1" id="guides-heading">Read the math behind the numbers.</h2>
+    <p class="section-sub reveal d2">Plain-English guides to the Social Security decisions that come up most.</p>
+
+    <div class="guides-grid reveal d3">
+      <a class="guide-card" href="/guides/social-security-62-vs-67.html">
+        <div class="bento-label">Guide</div>
+        <h3>Social Security at 62 vs. 67: the full breakdown</h3>
+        <p>The exact monthly and lifetime math behind claiming early versus waiting for full retirement age, including breakeven-age calculations.</p>
+        <span class="path-arrow">Read the guide <span>→</span></span>
+      </a>
+      <div class="guide-card coming-soon">
+        <div class="bento-label">Coming soon</div>
+        <h3>Spousal &amp; survivor benefits, explained</h3>
+        <p>How claiming ages between spouses interact, and what happens to a survivor's benefit after a spouse passes away.</p>
+      </div>
+      <div class="guide-card coming-soon">
+        <div class="bento-label">Coming soon</div>
+        <h3>IRMAA and Medicare surcharges</h3>
+        <p>How higher income can raise your Medicare premium, and what that does to your net Social Security deposit.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="faq" aria-labelledby="faq-heading">
     <div class="eyebrow-label reveal">Common questions</div>
     <h2 class="section-title reveal d1" id="faq-heading">Social Security claiming — answered plainly.</h2>
@@ -346,6 +503,18 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">Does working while claiming Social Security reduce my benefit?<span class="plus">+</span></button>
         <div class="faq-answer"><p>If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. The limit and withholding rules change each year and no longer apply once you reach full retirement age.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Is Social Security taxable?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>It can be. Depending on your combined income from all sources, up to 85% of your benefit may be subject to federal income tax, and a handful of states tax it too. MyClaimAge factors this into the net numbers it shows you, rather than just the gross benefit amount.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How does Medicare affect my Social Security check?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>Once you're enrolled, your Medicare Part B premium is deducted automatically from your Social Security payment, and higher earners pay an additional IRMAA surcharge. MyClaimAge shows your net deposit after Medicare, not just the pre-deduction benefit amount.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How do I know if a Social Security rule change affects me?<span class="plus">+</span></button>
+        <div class="faq-answer"><p>MyClaimAge checks SSA, IRS, and CMS filings every day and flags genuine benefit-relevant changes — like a COLA update or a change to WEP/GPO rules — against your own saved profile, so you only hear about the changes that actually apply to you.</p></div>
       </div>
     </div>
   </section>
@@ -378,7 +547,7 @@
           <li><span class="check">✓</span> Annual re-check &amp; rule alerts</li>
         </ul>
       </article>
-      <article class="price-card">
+      <article class="price-card" id="advisors">
         <div class="price-tier">Advisor</div>
         <h3 class="price-amount">$149<sub>/mo</sub></h3>
         <div class="price-desc">For advisors managing a full client book.</div>

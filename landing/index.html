@@ -20,7 +20,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -143,98 +143,68 @@
 </header>
 
 <main id="top">
-  <section class="hero" aria-label="Introduction">
-    <div class="hero-grid">
-      <div>
-        <div class="trust-row reveal in">
-          <div class="trust-chip"><span class="dot"></span>2026 COLA applied</div>
-          <div class="trust-chip"><span class="dot"></span>Not affiliated with the SSA</div>
-          <div class="trust-chip"><span class="dot"></span>Informational only</div>
+  <section class="hero-v2" aria-label="Introduction">
+    <div class="hero-v2-inner">
+      <nav class="breadcrumb-v2" aria-label="Breadcrumb"><a href="#top">MyClaimAge</a><span>/</span>Social Security Claiming Planner</nav>
+
+      <h1 class="hero-v2-title">Know exactly <span class="gradient-text">when to claim</span> Social Security.</h1>
+      <p class="hero-v2-sub">One decision, made once, that can move your lifetime income by six figures. MyClaimAge shows you the real numbers — yours, not an average — at every claiming age from 62 to 70, plus how Medicare and taxes change what actually lands in your account.</p>
+
+      <div class="quickstart-row">
+        <div class="quickstart-pill">
+          <input type="number" class="quickstart-input" placeholder="Enter your birth year, e.g. 1965" aria-label="Birth year" min="1930" max="2010">
+          <button type="button" class="btn-gradient-pill" onclick="window.location.href='https://myclaim-age.vercel.app/login?mode=signup'">Get my number</button>
         </div>
-
-        <h1 class="kinetic-h1">
-          <span class="word" style="animation-delay:0.05s">When</span>
-          <span class="word" style="animation-delay:0.12s">to</span>
-          <span class="word" style="animation-delay:0.19s">claim</span>
-          <span class="word accent-fill" style="animation-delay:0.30s">Social Security.</span>
-        </h1>
-
-        <p class="hero-sub reveal in d3">One decision, made once, that can move your lifetime income by six figures. MyClaimAge shows you the real numbers — yours, not an average — at every claiming age from 62 to 70, plus how Medicare and taxes change what actually lands in your account.</p>
-
-        <div class="dual-cta reveal in d4">
-          <a class="path-card primary" href="https://myclaim-age.vercel.app/login?mode=signup">
-            <div class="path-label">For myself</div>
-            <span class="path-title">Plan my own claim</span>
-            <p>Get your personalized claiming-age breakdown in 5 minutes.</p>
-            <div class="path-arrow">Start free <span>→</span></div>
-          </a>
-          <a class="path-card" href="#advisors">
-            <div class="path-label">For my clients</div>
-            <span class="path-title">I'm a financial advisor</span>
-            <p>Manage claiming strategy across your whole book.</p>
-            <div class="path-arrow">See advisor tools <span>→</span></div>
-          </a>
-        </div>
-
-        <div class="hero-secondary reveal in d4">
-          <button class="btn-ghost">Watch a 90-second demo <span class="arrow">→</span></button>
-        </div>
+        <a class="btn-outline-pill" href="#compare">See a sample report</a>
       </div>
 
-      <div class="reveal in d2">
-        <div class="mockup-frame" role="img" aria-label="Preview of the MyClaimAge app cycling through a claiming-age comparison chart, the AI assistant, a Medicare and tax breakdown, and a rule-change alert">
-          <div class="mockup-chrome">
-            <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
-            <div class="chrome-url">myclaim-age.vercel.app/plan</div>
-          </div>
-          <div class="mockup-stage" id="mockupStage">
-            <div class="mockup-screen active" data-screen="0">
-              <div class="screen-label">Claiming comparison</div>
-              <div class="s-chart">
-                <div class="s-bar" style="height:52%"><span class="v">$1,890</span><span class="a">62</span></div>
-                <div class="s-bar" style="height:68%"><span class="v">$2,340</span><span class="a">64</span></div>
-                <div class="s-bar peak" style="height:82%"><span class="v">$2,690</span><span class="a">67</span></div>
-                <div class="s-bar" style="height:90%"><span class="v">$2,910</span><span class="a">68</span></div>
-                <div class="s-bar" style="height:100%"><span class="v">$3,320</span><span class="a">70</span></div>
-              </div>
-            </div>
-            <div class="mockup-screen" data-screen="1">
-              <div class="screen-label">Ask MyClaimAge</div>
-              <div class="s-chat-bubble user">Should I claim now or wait 2 years?</div>
-              <div class="s-chat-bubble">Waiting to 67 adds $612/mo for life. You'd break even by age 78 — after that, waiting wins.</div>
-              <div class="s-chat-bubble user">What if I keep working part-time?</div>
-            </div>
-            <div class="mockup-screen" data-screen="2">
-              <div class="screen-label">Medicare &amp; taxes</div>
-              <div class="s-chat-bubble">Gross benefit at 67: $2,690/mo</div>
-              <div class="s-chat-bubble">− Medicare Part B: $202.90/mo</div>
-              <div class="s-chat-bubble">− Federal tax withholding: $184/mo</div>
-              <div class="s-chat-bubble user">Net deposit: $2,303.10/mo</div>
-            </div>
-            <div class="mockup-screen" data-screen="3">
-              <div class="screen-label">Rule-change alerts</div>
-              <div class="s-alert"><div class="s-alert-dot"></div><div><p>Medicare Part B rose to $202.90/mo — your net deposit is now $2,303.</p><small>2 days ago</small></div></div>
-              <div class="s-alert"><div class="s-alert-dot"></div><div><p>The Fairness Act repeal added an estimated $340/mo to your benefit.</p><small>Last week</small></div></div>
-            </div>
-          </div>
-          <div class="mockup-dots">
-            <button class="m-dot active" data-dot="0" aria-label="Show claiming comparison screen"></button>
-            <button class="m-dot" data-dot="1" aria-label="Show AI assistant screen"></button>
-            <button class="m-dot" data-dot="2" aria-label="Show Medicare and taxes screen"></button>
-            <button class="m-dot" data-dot="3" aria-label="Show rule-change alerts screen"></button>
-          </div>
-        </div>
-      </div>
+      <figure class="hero-preview-frame">
+        <img src="/images/dashboard.png" alt="MyClaimAge claiming-age comparison dashboard: a $3,050 monthly benefit at full retirement age 67, a $91,500 lifetime gain from waiting to 70 versus 62, an 80.4 breakeven age, and a bar chart of the benefit amount at every claiming age from 62 to 70" width="1270" height="524" loading="lazy" />
+      </figure>
     </div>
   </section>
 
-  <section class="value-strip" aria-label="Key Social Security numbers for 2026">
-    <div class="stat-bar reveal">
-      <div class="stat-cell"><div class="num"><span class="accent-num">+31%</span></div><div class="lbl">benefit increase, claiming at 70 vs. 62</div></div>
-      <div class="stat-cell"><div class="num">$214<span class="accent-num">k</span></div><div class="lbl">average lifetime difference between strategies</div></div>
-      <div class="stat-cell"><div class="num"><span class="accent-num">2032</span></div><div class="lbl">projected trust fund depletion year</div></div>
-      <div class="stat-cell"><div class="num">40</div><div class="lbl">work credits needed to qualify</div></div>
+  <section class="trust-strip-v2" aria-label="Key Social Security numbers for 2026">
+    <div class="trust-chips-v2">
+      <span>2026 COLA applied</span><span class="sep">·</span>
+      <span>Built on IRS Pub 915, SSA rules &amp; CMS Medicare data</span><span class="sep">·</span>
+      <span>Not affiliated with the SSA</span><span class="sep">·</span>
+      <span>Informational only</span>
     </div>
+    <div class="trust-stats-v2">
+      <div class="trust-stat-v2"><div class="num"><span class="accent">+31%</span></div><div class="lbl">benefit increase, claiming at 70 vs. 62</div></div>
+      <div class="trust-stat-v2"><div class="num">$214<span class="accent">k</span></div><div class="lbl">average lifetime difference between strategies</div></div>
+      <div class="trust-stat-v2"><div class="num"><span class="accent">2032</span></div><div class="lbl">projected trust fund depletion year</div></div>
+      <div class="trust-stat-v2"><div class="num">40</div><div class="lbl">work credits needed to qualify</div></div>
+    </div>
+  </section>
+
+  <section class="why-v2" aria-labelledby="why-v2-heading">
+    <h2 class="why-v2-title" id="why-v2-heading">Why people planning retirement choose MyClaimAge</h2>
+    <p class="why-v2-sub">Not a generic estimate — a plan built on your numbers and the actual rules.</p>
+    <div class="why-cards-v2">
+      <div class="why-card-v2 reveal d1">
+        <div class="why-icon">1</div>
+        <h3>Grounded in your own numbers</h3>
+        <p>Every figure comes from your actual earnings record, not a national average dressed up as a personal estimate.</p>
+      </div>
+      <div class="why-card-v2 reveal d2">
+        <div class="why-icon">2</div>
+        <h3>The whole picture, not one number</h3>
+        <p>Benefits, Medicare premiums, and taxes calculated together, so you see your real net deposit, not just the gross benefit.</p>
+      </div>
+      <div class="why-card-v2 reveal d3">
+        <div class="why-icon">3</div>
+        <h3>Built on the actual rules</h3>
+        <p>IRS Pub 915 worksheets, CMS IRMAA brackets, and the SSA's own tables — not rules of thumb or rounded averages.</p>
+      </div>
+      <div class="why-card-v2 reveal d4">
+        <div class="why-icon">4</div>
+        <h3>Stays current automatically</h3>
+        <p>Checks SSA, IRS, and CMS filings every day and tells you when a real rule change affects your plan.</p>
+      </div>
+    </div>
+    <p class="why-fineprint-v2">MyClaimAge is a new product — this reflects our design principles, not a customer count claim.</p>
   </section>
 
   <div class="section-divider" aria-hidden="true"><div class="line"></div><div class="marker"></div><div class="line"></div></div>
@@ -278,24 +248,24 @@
     <h2 class="section-title reveal d1" id="how-heading">From your earnings record to a claiming-age plan you can act on.</h2>
     <p class="section-sub reveal d2">Four steps, most of them done for you.</p>
 
-    <div class="steps-grid reveal d3">
-      <article class="step-card">
-        <div class="problem-num">01</div>
+    <div class="steps-grid-v2 reveal d3">
+      <article class="step-card-v2">
+        <div class="step-num-v2">01</div>
         <h3>Enter your earnings</h3>
         <p>Type in your work history, or photograph your SSA statement and let MyClaimAge read it for you.</p>
       </article>
-      <article class="step-card">
-        <div class="problem-num">02</div>
+      <article class="step-card-v2">
+        <div class="step-num-v2">02</div>
         <h3>Compare every age</h3>
         <p>See your real monthly benefit at every age from 62 to 70, including spousal, survivor, and WEP/GPO adjustments where they apply.</p>
       </article>
-      <article class="step-card">
-        <div class="problem-num">03</div>
+      <article class="step-card-v2">
+        <div class="step-num-v2">03</div>
         <h3>Ask about your plan</h3>
         <p>Ask the assistant plan-specific questions in plain English, answered from your own saved numbers.</p>
       </article>
-      <article class="step-card">
-        <div class="problem-num">04</div>
+      <article class="step-card-v2">
+        <div class="step-num-v2">04</div>
         <h3>Get alerts that matter</h3>
         <p>MyClaimAge checks SSA, IRS, and CMS filings daily and tells you when a real change affects your plan.</p>
       </article>
@@ -598,21 +568,9 @@
     dots[i].classList.add('active');
     current = i;
   }
-  dots.forEach(d => d.addEventListener('click', () => showScreen(parseInt(d.dataset.dot))));
-  setInterval(() => { showScreen((current + 1) % screens.length); }, 4200);
-
-  const frame = document.querySelector('.mockup-frame');
-  const heroGrid = document.querySelector('.hero-grid');
-  if (frame && heroGrid) {
-    heroGrid.addEventListener('mousemove', (e) => {
-      const r = heroGrid.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      frame.style.transform = `perspective(1400px) rotateY(${-4 + px * 4}deg) rotateX(${1 - py * 3}deg)`;
-    });
-    heroGrid.addEventListener('mouseleave', () => {
-      frame.style.transform = 'perspective(1400px) rotateY(-4deg) rotateX(1deg)';
-    });
+  if (screens.length) {
+    dots.forEach(d => d.addEventListener('click', () => showScreen(parseInt(d.dataset.dot))));
+    setInterval(() => { showScreen((current + 1) % screens.length); }, 4200);
   }
 
   const testiSlides = document.querySelectorAll('.testi-slide');

@@ -1,11 +1,12 @@
 import { verifyFirebaseToken } from './verifyFirebaseToken'
 import { corsHeaders, jsonResponse } from './cors'
-import { handleAskAssistant, BadRequest } from './askAssistant'
+import { handleAskAssistant, BadRequest, type PolicyUpdate } from './askAssistant'
 import { handleReadDocument } from './readDocument'
 import { handleCreateCheckoutSession } from './checkout'
 import { handleCreatePortalSession } from './portal'
 import { handleStripeWebhook, InvalidSignature } from './webhook'
 import { handleSeedAlerts } from './seedAlerts'
+import { createFirestoreClient } from './firestore'
 import type { ServiceAccount } from './googleAuth'
 
 export interface Env {
@@ -92,7 +93,20 @@ export default {
 
     try {
       if (url.pathname === '/ask-assistant') {
-        const result = await handleAskAssistant(body as never, env.GEMINI_API_KEY)
+        // Best-effort grounding: pull the latest real SSA/IRS/CMS items
+        // scripts/daily-news already collected into Firestore. If this
+        // fails for any reason (client not configured, transient error),
+        // the assistant still works - it just falls back to saying it
+        // doesn't have a recent update, rather than guessing.
+        let recentUpdates: PolicyUpdate[] = []
+        try {
+          const firestore = createFirestoreClient(parseServiceAccount(env), env.FIREBASE_PROJECT_ID)
+          const docs = await firestore.runQuery('ruleUpdates', 'detectedAt', 5)
+          recentUpdates = docs as unknown as PolicyUpdate[]
+        } catch (err) {
+          console.error('Fetching recent policy updates failed (continuing without them):', err)
+        }
+        const result = await handleAskAssistant(body as never, env.GEMINI_API_KEY, recentUpdates)
         return jsonResponse(result, 200, headers)
       }
       if (url.pathname === '/read-document') {

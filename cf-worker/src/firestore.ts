@@ -62,6 +62,14 @@ export interface FirestoreClient {
   getDocument(path: string): Promise<Record<string, unknown> | null>
   setDocument(path: string, data: Record<string, unknown>, merge?: boolean): Promise<void>
   createDocument(collectionPath: string, data: Record<string, unknown>): Promise<void>
+  /**
+   * Fetches the most recent documents in a top-level collection, ordered by
+   * orderByField descending. Used for RAG-style grounding (e.g. pulling the
+   * latest ruleUpdates entries into the assistant's context) rather than
+   * for anything transactional, so a query error should never take down a
+   * caller that can proceed without the extra context.
+   */
+  runQuery(collectionId: string, orderByField: string, limit: number): Promise<Record<string, unknown>[]>
 }
 
 export function createFirestoreClient(serviceAccount: ServiceAccount, projectId: string): FirestoreClient {
@@ -109,6 +117,28 @@ export function createFirestoreClient(serviceAccount: ServiceAccount, projectId:
       if (!res.ok) {
         throw new Error(`Firestore createDocument failed (${res.status}): ${await res.text().catch(() => '')}`)
       }
+    },
+
+    async runQuery(collectionId: string, orderByField: string, limit: number) {
+      // baseUrl already ends in /documents; :runQuery is a sibling of that,
+      // not a child path, so strip the trailing segment for this one call.
+      const parentUrl = baseUrl.replace(/\/documents$/, '/documents:runQuery')
+      const res = await fetch(parentUrl, {
+        method: 'POST',
+        headers: await authHeaders(),
+        body: JSON.stringify({
+          structuredQuery: {
+            from: [{ collectionId }],
+            orderBy: [{ field: { fieldPath: orderByField }, direction: 'DESCENDING' }],
+            limit,
+          },
+        }),
+      })
+      if (!res.ok) {
+        throw new Error(`Firestore runQuery failed (${res.status}): ${await res.text().catch(() => '')}`)
+      }
+      const rows = (await res.json()) as { document?: { fields?: Record<string, FirestoreValue> } }[]
+      return rows.filter((r) => r.document).map((r) => fromFirestoreFields(r.document!.fields))
     },
   }
 }

@@ -265,10 +265,8 @@
       <h2 class="section-title" id="product-heading">Not an estimate. Your record, run against every claiming age.</h2>
       <p class="section-sub">Enter your earnings history — or photograph your SSA statement — and MyClaimAge models exactly what changes at 62, at full retirement age, and at 70.</p>
 
-      <figure class="screenshot-placeholder" role="img" aria-label="Space reserved for a screenshot of the MyClaimAge claiming-age comparison dashboard">
-        <div class="ph-icon" aria-hidden="true">▦</div>
-        <p class="ph-label">Product screenshot goes here</p>
-        <p class="ph-caption">Claiming-age comparison dashboard, logged-in view</p>
+      <figure class="product-image-frame">
+        <img src="/images/dashboard.png" alt="MyClaimAge claiming-age comparison dashboard: a $3,050 monthly benefit at full retirement age 67, a $91,500 lifetime gain from waiting to 70 versus 62, an 80.4 breakeven age, and a bar chart of the benefit amount at every claiming age from 62 to 70" width="1270" height="524" loading="lazy" />
       </figure>
     </div>
   </div>
@@ -319,10 +317,11 @@
         </div>
       </article>
 
-      <figure class="bento-cell image-cell b-3 screenshot-placeholder sm" role="img" aria-label="Space reserved for a screenshot of the document upload feature">
-        <div class="ph-icon" aria-hidden="true">✉</div>
-        <p class="ph-label">Screenshot goes here</p>
-        <p class="ph-caption">Document reader, letter upload</p>
+      <figure class="bento-cell image-cell b-3">
+        <div class="placeholder-img-wrap">
+          <img src="/images/document-reader.png" alt="MyClaimAge document reader showing a plain-English explanation of an uploaded SSA-89 form, including who requested it and whether any action is needed" width="722" height="525" loading="lazy" />
+          <figcaption class="placeholder-caption">Mail, decoded</figcaption>
+        </div>
       </figure>
 
       <article class="bento-cell amber b-4">
@@ -428,31 +427,47 @@
   <section class="block" id="testimonials" aria-labelledby="testimonials-heading">
     <div class="eyebrow-label reveal">Sample feedback</div>
     <h2 class="section-title reveal d1" id="testimonials-heading">What early testers are saying.</h2>
-    <div class="testimonial-grid reveal d2">
-      <article class="t-card">
-        <p class="t-quote">"I found out waiting three more years would net me an extra $86,000 over my expected lifespan. I had no idea the gap was that big."</p>
-        <div class="t-person">
-          <img class="t-avatar" src="https://i.pravatar.cc/80?img=12" alt="Placeholder avatar for sample testimonial">
-          <div><div class="t-name">Diane R.</div><div class="t-role">Pre-retiree, age 61</div></div>
-        </div>
-        <div class="sample-tag">Sample quote — placeholder for design</div>
-      </article>
-      <article class="t-card">
-        <p class="t-quote">"My spouse and I were about to claim at the same age. MyClaimAge showed us a staggered strategy that added real money to our household total."</p>
-        <div class="t-person">
-          <img class="t-avatar" src="https://i.pravatar.cc/80?img=33" alt="Placeholder avatar for sample testimonial">
-          <div><div class="t-name">Marcus T.</div><div class="t-role">Married, age 64</div></div>
-        </div>
-        <div class="sample-tag">Sample quote — placeholder for design</div>
-      </article>
-      <article class="t-card">
-        <p class="t-quote">"I manage 80 client files. Being able to pull a claiming report in two minutes instead of an hour changed how many clients I can actually serve."</p>
-        <div class="t-person">
-          <img class="t-avatar" src="https://i.pravatar.cc/80?img=47" alt="Placeholder avatar for sample testimonial">
-          <div><div class="t-name">Priya K.</div><div class="t-role">Financial advisor</div></div>
-        </div>
-        <div class="sample-tag">Sample quote — placeholder for design</div>
-      </article>
+    <div class="testi-carousel reveal d2">
+      <div class="testi-track" id="testiTrack">
+        <article class="testi-slide t-card active" data-slide="0">
+          <p class="t-quote">"The dashboard showed waiting to 70 was worth $91,500 more over my expected lifespan, with a breakeven age of about 80. That's the number that finally made the decision easy."</p>
+          <div class="t-person">
+            <img class="t-avatar" src="https://i.pravatar.cc/80?img=12" alt="Placeholder avatar for sample testimonial">
+            <div><div class="t-name">Diane R.</div><div class="t-role">Pre-retiree, age 61</div></div>
+          </div>
+          <div class="sample-tag">Sample quote — placeholder for design</div>
+        </article>
+        <article class="testi-slide t-card" data-slide="1">
+          <p class="t-quote">"My spouse and I were about to claim at the same age. MyClaimAge showed us a staggered strategy that added real money to our household total, and the assistant answered every follow-up question we had."</p>
+          <div class="t-person">
+            <img class="t-avatar" src="https://i.pravatar.cc/80?img=33" alt="Placeholder avatar for sample testimonial">
+            <div><div class="t-name">Marcus T.</div><div class="t-role">Married, age 64</div></div>
+          </div>
+          <div class="sample-tag">Sample quote — placeholder for design</div>
+        </article>
+        <article class="testi-slide t-card" data-slide="2">
+          <p class="t-quote">"I didn't realize how much Medicare and taxes would eat into my check until I saw the net deposit, not just the gross benefit. It changed which age I'm actually planning around."</p>
+          <div class="t-person">
+            <img class="t-avatar" src="https://i.pravatar.cc/80?img=68" alt="Placeholder avatar for sample testimonial">
+            <div><div class="t-name">Robert K.</div><div class="t-role">Age 63</div></div>
+          </div>
+          <div class="sample-tag">Sample quote — placeholder for design</div>
+        </article>
+        <article class="testi-slide t-card" data-slide="3">
+          <p class="t-quote">"I manage 80 client files. Being able to pull a claiming report in two minutes instead of an hour changed how many clients I can actually serve."</p>
+          <div class="t-person">
+            <img class="t-avatar" src="https://i.pravatar.cc/80?img=47" alt="Placeholder avatar for sample testimonial">
+            <div><div class="t-name">Priya K.</div><div class="t-role">Financial advisor</div></div>
+          </div>
+          <div class="sample-tag">Sample quote — placeholder for design</div>
+        </article>
+      </div>
+      <div class="testi-dots">
+        <button class="testi-dot active" data-dot="0" aria-label="Show testimonial from Diane R."></button>
+        <button class="testi-dot" data-dot="1" aria-label="Show testimonial from Marcus T."></button>
+        <button class="testi-dot" data-dot="2" aria-label="Show testimonial from Robert K."></button>
+        <button class="testi-dot" data-dot="3" aria-label="Show testimonial from Priya K."></button>
+      </div>
     </div>
   </section>
 
@@ -598,6 +613,26 @@
     heroGrid.addEventListener('mouseleave', () => {
       frame.style.transform = 'perspective(1400px) rotateY(-4deg) rotateX(1deg)';
     });
+  }
+
+  const testiSlides = document.querySelectorAll('.testi-slide');
+  const testiDots = document.querySelectorAll('.testi-dot');
+  let testiCurrent = 0;
+  let testiTimer = null;
+  function showTesti(i) {
+    testiSlides.forEach(s => s.classList.remove('active'));
+    testiDots.forEach(d => d.classList.remove('active'));
+    testiSlides[i].classList.add('active');
+    testiDots[i].classList.add('active');
+    testiCurrent = i;
+  }
+  function startTestiAutoplay() {
+    if (testiTimer) clearInterval(testiTimer);
+    testiTimer = setInterval(() => { showTesti((testiCurrent + 1) % testiSlides.length); }, 6000);
+  }
+  if (testiSlides.length) {
+    testiDots.forEach(d => d.addEventListener('click', () => { showTesti(parseInt(d.dataset.dot)); startTestiAutoplay(); }));
+    startTestiAutoplay();
   }
 </script>
 

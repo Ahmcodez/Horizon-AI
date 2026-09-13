@@ -340,3 +340,14 @@
   .guide-card .path-arrow { margin-top: 16px; color: var(--amber-deep); }
   .guide-card.coming-soon { opacity: 0.65; }
   @media (max-width: 900px) { .guides-grid { grid-template-columns: 1fr; } }
+
+  /* ---- Testimonial slideshow ---- */
+  .testi-carousel { margin-top: 52px; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .testi-track { position: relative; min-height: 200px; }
+  .testi-slide.t-card { position: absolute; inset: 0; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 0.6s cubic-bezier(.2,.8,.2,1), transform 0.6s cubic-bezier(.2,.8,.2,1); text-align: center; }
+  .testi-slide.t-card .t-person { justify-content: center; }
+  .testi-slide.t-card.active { opacity: 1; transform: translateY(0); pointer-events: auto; position: relative; }
+  .testi-dots { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
+  .testi-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--chalk-line-strong); cursor: pointer; transition: all 0.3s ease; border: none; }
+  .testi-dot.active { background: var(--amber-deep); width: 20px; border-radius: 3px; }
+  @media (max-width: 900px) { .testi-carousel { max-width: 100%; } }

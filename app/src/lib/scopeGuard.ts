@@ -1,9 +1,11 @@
 /**
  * A cheap, client-side hint for whether a question looks like it's within
- * Horizon's scope (Social Security, Medicare, and related benefits/tax
- * topics). This is NOT the enforcement mechanism - the Gemini system prompt
- * in functions/src/index.ts is the actual authority, and every question
- * still gets sent there regardless of what this returns.
+ * MyClaimAge's scope (Social Security, Medicare, retirement taxes, and
+ * general retirement/financial education). This is NOT the enforcement
+ * mechanism - the Gemini system prompt in cf-worker/src/askAssistant.ts
+ * (and its dormant mirror in functions/src/index.ts) is the actual
+ * authority, and every question still gets sent there regardless of what
+ * this returns.
  *
  * This only powers an instant, non-blocking inline hint in the UI so
  * someone typing an obviously off-topic question ("write me a poem",
@@ -17,7 +19,7 @@ const OFF_TOPIC_SIGNALS = [
   /\bwrite (me )?(a |an )?(poem|song|story|essay|code|script)\b/i,
   /\bjoke\b/i,
   /\brecipe\b/i,
-  /\bstock (price|market)\b/i,
+  /\bstock price\b/i,
   /\bcrypto(currency)?\b/i,
   /\btranslate\b/i,
   /\bsports? (score|game)\b/i,

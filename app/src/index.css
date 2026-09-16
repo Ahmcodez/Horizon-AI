@@ -120,6 +120,49 @@
   --radius-cards: 15px;
   --radius-tags: 9999px;
   --radius-buttons: 0px;
+
+  /* ============================================================
+     Landing-matched accent layer (rolling out incrementally,
+     page by page, same pattern as Obsidian/Vivid+Co above). This
+     is a deliberate override of the Vivid+Co brief's "no filled
+     CTA color" rule, per explicit direction to match the new
+     marketing site — see index.css history/commit for context.
+     Base surface/text tokens (vivid-obsidian, bone-white, etc.)
+     are untouched: only typography and CTA/accent treatment
+     change, to avoid touching proven contrast relationships.
+     ============================================================ */
+  --font-jakarta: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --color-lp-cyan: #38BDF8;
+  --color-lp-purple: #A855F7;
+  --color-lp-magenta: #EC4899;
+}
+
+/* Landing-matched gradient CTA button - the filled counterpart to
+   .ov-outlined-btn, used on pages migrated to the new accent system. */
+.lp-gradient-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, var(--color-lp-purple), var(--color-lp-magenta), var(--color-lp-cyan));
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 16px;
+  color: #FFFFFF;
+  font-family: var(--font-jakarta);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(168,85,247,0.35);
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease, opacity 0.25s ease;
+}
+.lp-gradient-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(236,72,153,0.4);
+}
+.lp-gradient-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Signature motion curve from the brief - drives all meaningful state

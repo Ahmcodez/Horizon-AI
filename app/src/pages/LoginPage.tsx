@@ -32,7 +32,7 @@ export default function LoginPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
     >
       <div
@@ -113,7 +113,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="ov-outlined-btn w-full py-3.5"
+              className="lp-gradient-btn w-full py-3.5"
             >
               {submitting ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Create account'}
             </button>

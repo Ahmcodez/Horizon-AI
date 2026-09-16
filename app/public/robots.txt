@@ -1,16 +1,2 @@
 User-agent: *
-Allow: /$
-Allow: /login$
-Disallow: /app
-Disallow: /onboarding
-Disallow: /calculator
-Disallow: /documents
-Disallow: /billing
-Disallow: /scenarios
-Disallow: /alerts
-Disallow: /advisor
-Disallow: /states
-Disallow: /tax-medicare
-Disallow: /embed
-
-Sitemap: https://myclaim-age.vercel.app/sitemap.xml
+Disallow: /

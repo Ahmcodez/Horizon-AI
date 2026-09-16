@@ -77,11 +77,6 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <ul className="hidden md:flex items-center gap-6 text-[14px] font-normal uppercase">
-              <li><GhostNavLink href="/#how">How it works</GhostNavLink></li>
-              <li><GhostNavLink href="/#features">Features</GhostNavLink></li>
-              <li><GhostNavLink href="/#faq">FAQ</GhostNavLink></li>
-            </ul>
             <div className="flex items-center gap-5">
               <a
                 href="/login"
@@ -90,7 +85,7 @@ export default function Navbar() {
               >
                 Sign in
               </a>
-              <a href="/login" className="ov-outlined-btn">
+              <a href="/login?mode=signup" className="lp-gradient-btn">
                 Get started
               </a>
             </div>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './lib/authContext'
 import { AssistantProvider } from './lib/assistantContext'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -8,7 +8,6 @@ import AssistantWidget from './components/AssistantWidget'
 import CalculatorPage from './pages/CalculatorPage'
 import OnboardingPage from './pages/OnboardingPage'
 import LoginPage from './pages/LoginPage'
-import LandingPage from './pages/LandingPage'
 import PrivacyPage from './pages/PrivacyPage'
 import DocumentsPage from './pages/DocumentsPage'
 import BillingPage from './pages/BillingPage'
@@ -35,7 +34,7 @@ export default function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route

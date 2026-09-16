@@ -56,7 +56,7 @@ export default function OnboardingPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
     >
       <div className="w-full max-w-lg relative">
@@ -66,7 +66,7 @@ export default function OnboardingPage() {
               <div
                 key={s}
                 className={`h-1 flex-1 rounded-[5px] transition-all duration-500 ${
-                  i <= stepIndex - 1 ? 'bg-bone-white' : 'bg-ash-border'
+                  i <= stepIndex - 1 ? 'bg-[var(--color-lp-cyan)]' : 'bg-ash-border'
                 }`}
               />
             ))}
@@ -92,7 +92,7 @@ export default function OnboardingPage() {
                   A few quick questions — the same ones you'd answer once, so every screen after
                   this one already knows your situation.
                 </p>
-                <button onClick={next} className="ov-outlined-btn w-full py-3.5">
+                <button onClick={next} className="lp-gradient-btn w-full py-3.5">
                   Get started
                 </button>
               </div>
@@ -141,7 +141,7 @@ export default function OnboardingPage() {
                       onClick={() => setDraft({ ...draft, maritalStatus: option })}
                       className={`w-full text-left px-5 py-3.5 rounded-[5px] border capitalize transition-colors duration-500 text-bone-white ${
                         draft.maritalStatus === option
-                          ? 'bg-graphite-veil/45 border-bone-white'
+                          ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]'
                           : 'border-ash-border hover:border-bone-white/40'
                       }`}
                     >
@@ -161,7 +161,7 @@ export default function OnboardingPage() {
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: true })}
                     className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
-                      draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-bone-white' : 'border-ash-border'
+                      draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]' : 'border-ash-border'
                     }`}
                   >
                     Yes
@@ -169,7 +169,7 @@ export default function OnboardingPage() {
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: false })}
                     className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
-                      !draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-bone-white' : 'border-ash-border'
+                      !draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]' : 'border-ash-border'
                     }`}
                   >
                     No
@@ -189,7 +189,7 @@ export default function OnboardingPage() {
                 <p className="text-bone-white/60 leading-relaxed mb-8">
                   Your numbers are saved on this device. See your full claiming-age breakdown now.
                 </p>
-                <button onClick={finish} className="ov-outlined-btn w-full py-3.5">
+                <button onClick={finish} className="lp-gradient-btn w-full py-3.5">
                   See my results
                 </button>
               </div>
@@ -210,7 +210,7 @@ export default function OnboardingPage() {
                 >
                   ← Back
                 </button>
-                <button onClick={next} disabled={saving} className="ov-outlined-btn">
+                <button onClick={next} disabled={saving} className="lp-gradient-btn">
                   {saving ? 'Saving…' : isLastContentStep ? 'Finish' : 'Continue'}
                 </button>
               </div>

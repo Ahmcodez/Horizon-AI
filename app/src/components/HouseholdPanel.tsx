@@ -27,7 +27,7 @@ export default function HouseholdPanel({ primaryPia, primaryBirthYear }: Props) 
   const [tab, setTab] = useState<Tab>('spousal')
 
   return (
-    <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8" style={{ fontFamily: 'var(--font-vivid)' }}>
+    <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8" style={{ fontFamily: 'var(--font-jakarta)' }}>
       <h2 className="text-xl font-normal mb-1 text-bone-white">Household &amp; work situation</h2>
       <p className="text-sm text-bone-white/60 mb-6">
         Spousal and survivor coordination, public-pension status, and working while claiming —
@@ -41,7 +41,7 @@ export default function HouseholdPanel({ primaryPia, primaryBirthYear }: Props) 
             onClick={() => setTab(t.id)}
             className={`px-4 py-2 rounded-[9999px] text-sm transition-colors duration-500 border ${
               tab === t.id
-                ? 'bg-bone-white text-vivid-obsidian border-bone-white'
+                ? 'bg-graphite-veil/60 text-bone-white border-[var(--color-lp-cyan)]'
                 : 'bg-transparent text-fog-blue border-ash-border hover:text-bone-white'
             }`}
             style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
@@ -92,7 +92,7 @@ function SpousalTab({ primaryPia, primaryBirthYear }: Props) {
             max={70}
             value={spouseClaimAge}
             onChange={(e) => setSpouseClaimAge(Number(e.target.value))}
-            className="w-full accent-bone-white"
+            className="w-full accent-[var(--color-lp-cyan)]"
           />
         </div>
       </div>
@@ -154,7 +154,7 @@ function SurvivorTab({ primaryBirthYear }: Pick<Props, 'primaryBirthYear'>) {
             max={survivorFra.years}
             value={survivorClaimAge}
             onChange={(e) => setSurvivorClaimAge(Number(e.target.value))}
-            className="w-full accent-bone-white"
+            className="w-full accent-[var(--color-lp-cyan)]"
           />
           <div className="flex justify-between text-xs text-fog-blue mt-1">
             <span>60 (earliest)</span>
@@ -198,7 +198,7 @@ function PensionTab() {
         <button
           onClick={() => setHasPension(true)}
           className={`px-5 py-2.5 rounded-[9999px] text-sm border transition-colors duration-500 ${
-            hasPension === true ? 'bg-bone-white text-vivid-obsidian border-bone-white' : 'bg-transparent border-ash-border text-fog-blue'
+            hasPension === true ? 'bg-graphite-veil/60 text-bone-white border-[var(--color-lp-cyan)]' : 'bg-transparent border-ash-border text-fog-blue'
           }`}
           style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
         >
@@ -207,7 +207,7 @@ function PensionTab() {
         <button
           onClick={() => setHasPension(false)}
           className={`px-5 py-2.5 rounded-[9999px] text-sm border transition-colors duration-500 ${
-            hasPension === false ? 'bg-bone-white text-vivid-obsidian border-bone-white' : 'bg-transparent border-ash-border text-fog-blue'
+            hasPension === false ? 'bg-graphite-veil/60 text-bone-white border-[var(--color-lp-cyan)]' : 'bg-transparent border-ash-border text-fog-blue'
           }`}
           style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
         >
@@ -259,7 +259,7 @@ function WorkingTab({ primaryPia, primaryBirthYear }: Props) {
             max={70}
             value={claimAge}
             onChange={(e) => setClaimAge(Number(e.target.value))}
-            className="w-full accent-bone-white"
+            className="w-full accent-[var(--color-lp-cyan)]"
           />
         </div>
         <FieldNumber
@@ -333,7 +333,7 @@ function FieldNumber({
           max={max}
           step={step}
           onChange={(e) => onChange(Number(e.target.value))}
-          className={`w-full bg-vivid-obsidian border border-ash-border rounded-[5px] py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white ${
+          className={`w-full bg-vivid-obsidian border border-ash-border rounded-[5px] py-3 text-base focus:border-[var(--color-lp-cyan)] outline-none transition-colors text-bone-white ${
             prefix ? 'pl-8 pr-4' : 'px-4'
           }`}
         />

@@ -20,7 +20,7 @@ export default function UpgradeGate({ children, feature }: { children: ReactNode
 
   return (
     <div
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="bg-graphite-veil/30 border border-ash-border rounded-[15px] p-10 text-center"
     >
       <div className="text-xs uppercase tracking-[0.02em] text-fog-blue mb-3">
@@ -31,7 +31,7 @@ export default function UpgradeGate({ children, feature }: { children: ReactNode
         Upgrade to unlock this along with the AI assistant, document reader, and annual rule-change
         alerts — $12/month.
       </p>
-      <button onClick={() => navigate('/billing')} className="ov-outlined-btn">
+      <button onClick={() => navigate('/billing')} className="lp-gradient-btn">
         See plans
       </button>
     </div>

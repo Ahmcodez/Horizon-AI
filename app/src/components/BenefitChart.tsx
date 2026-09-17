@@ -13,7 +13,7 @@ function CustomTooltip({ active, payload }: any) {
   return (
     <div
       className="bg-vivid-obsidian text-bone-white rounded-[5px] px-4 py-3 border border-ash-border"
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
     >
       <div className="text-xs text-fog-blue mb-1">Age {d.age}</div>
       <div className="text-lg font-normal">
@@ -36,14 +36,14 @@ export default function BenefitChart({ data, highlightAge, fraAge }: Props) {
             dataKey="age"
             axisLine={false}
             tickLine={false}
-            tick={{ fontFamily: 'Inter', fontSize: 12, fill: '#6F879C' }}
+            tick={{ fontFamily: 'Plus Jakarta Sans', fontSize: 12, fill: '#6F879C' }}
           />
           <YAxis hide domain={[0, 'dataMax + 300']} />
           <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,253,249,0.05)' }} />
           <Bar dataKey="monthlyBenefit" radius={[2, 2, 0, 0]} maxBarSize={56}>
             {data.map((entry) => {
               let fill = 'rgba(255,253,249,0.12)' // neutral default bar
-              if (entry.age === highlightAge) fill = '#FFFDF9' // bone-white — user-selected age
+              if (entry.age === highlightAge) fill = '#38BDF8' // new accent cyan — user-selected age
               else if (entry.age === fraAge) fill = '#6F879C' // fog-blue — FRA reference
               return <Cell key={entry.age} fill={fill} />
             })}

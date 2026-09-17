@@ -91,7 +91,7 @@ export default function CalculatorPage() {
 
   if (loadError) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-8 bg-vivid-obsidian" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <div className="min-h-screen flex items-center justify-center px-8 bg-vivid-obsidian" style={{ fontFamily: 'var(--font-jakarta)' }}>
         <div className="max-w-md text-center">
           <div className="text-xs uppercase tracking-[0.02em] text-prism-red mb-3">Couldn't load your data</div>
           <p className="text-sm text-bone-white/70 leading-relaxed">{loadError}</p>
@@ -102,7 +102,7 @@ export default function CalculatorPage() {
 
   if (!profileLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-vivid-obsidian" style={{ fontFamily: 'var(--font-vivid)' }}>
+      <div className="min-h-screen flex items-center justify-center bg-vivid-obsidian" style={{ fontFamily: 'var(--font-jakarta)' }}>
         <div className="text-sm text-fog-blue">Loading your numbers…</div>
       </div>
     )
@@ -110,7 +110,7 @@ export default function CalculatorPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-[1280px] mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian text-bone-white min-h-screen"
     >
       {/* Intro */}
@@ -197,7 +197,7 @@ export default function CalculatorPage() {
               step={1}
               value={selectedAge}
               onChange={(e) => setSelectedAge(Number(e.target.value))}
-              className="w-full accent-bone-white"
+              className="w-full accent-[var(--color-lp-cyan)]"
             />
             <div className="flex justify-between text-xs text-fog-blue mt-1">
               <span>62</span>
@@ -260,7 +260,7 @@ export default function CalculatorPage() {
                   <span className="w-2.5 h-2.5 rounded-sm bg-fog-blue inline-block" /> FRA ({fra.years})
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-sm bg-bone-white inline-block" /> Selected
+                  <span className="w-2.5 h-2.5 rounded-sm bg-[var(--color-lp-cyan)] inline-block" /> Selected
                 </span>
               </div>
             </div>
@@ -285,7 +285,7 @@ export default function CalculatorPage() {
                     key={row.age}
                     onClick={() => setSelectedAge(row.age)}
                     className={`border-b border-ash-border/50 cursor-pointer transition-colors duration-500 ${
-                      row.age === selectedAge ? 'bg-white/10' : 'hover:bg-white/5'
+                      row.age === selectedAge ? 'bg-[var(--color-lp-cyan)]/10' : 'hover:bg-white/5'
                     }`}
                     style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
                   >

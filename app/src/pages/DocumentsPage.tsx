@@ -60,7 +60,7 @@ export default function DocumentsPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -89,7 +89,7 @@ export default function DocumentsPage() {
             onDrop={onDrop}
             onClick={() => inputRef.current?.click()}
             className={`border-2 border-dashed rounded-[15px] p-16 text-center cursor-pointer transition-all vivid-ease ${
-              dragOver ? 'border-bone-white bg-graphite-veil/20 scale-[1.01]' : 'border-ash-border bg-graphite-veil/10 hover:border-bone-white/40'
+              dragOver ? 'border-[var(--color-lp-cyan)] bg-graphite-veil/20 scale-[1.01]' : 'border-ash-border bg-graphite-veil/10 hover:border-[var(--color-lp-cyan)]/40'
             }`}
           >
             <div className="text-4xl mb-4">📄</div>
@@ -131,7 +131,7 @@ export default function DocumentsPage() {
             <button
               onClick={analyze}
               disabled={loading}
-              className="ov-outlined-btn w-full py-3.5"
+              className="lp-gradient-btn w-full py-3.5"
             >
               {loading ? 'Reading document…' : 'Analyze this document'}
             </button>

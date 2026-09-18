@@ -99,8 +99,8 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-normal text-bone-white mb-3">Contact</h2>
           <p>
             Questions about this policy or your data — reach us at{' '}
-            <a href="mailto:support@REPLACE_WITH_YOUR_DOMAIN" className="text-bone-white underline hover:text-fog-blue transition-colors">
-              support@REPLACE_WITH_YOUR_DOMAIN
+            <a href="mailto:myclaimagesupport@gmail.com" className="text-bone-white underline hover:text-fog-blue transition-colors">
+              myclaimagesupport@gmail.com
             </a>
             .
           </p>

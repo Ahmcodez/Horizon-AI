@@ -1,7 +1,7 @@
 import horizonIcon from '../assets/horizon-icon.png'
 
 // TODO: replace with your real support inbox before launch
-const SUPPORT_EMAIL = 'support@REPLACE_WITH_YOUR_DOMAIN'
+const SUPPORT_EMAIL = 'myclaimagesupport@gmail.com'
 
 export default function Footer() {
   const year = new Date().getFullYear()

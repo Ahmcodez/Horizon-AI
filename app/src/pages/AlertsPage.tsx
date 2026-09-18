@@ -23,7 +23,7 @@ export default function AlertsPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-6xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -40,7 +40,7 @@ export default function AlertsPage() {
         </p>
       </div>
 
-      <section className="bg-graphite-veil/15 border-2 border-bone-white/30 rounded-[15px] p-8 shadow-[0_0_35px_rgba(255,255,255,0.10)]">
+      <section className="bg-graphite-veil/15 border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.15)]">
         {alerts.length === 0 && (
           <div className="text-center text-fog-blue text-sm py-6">
             <p className="mb-5">
@@ -50,7 +50,7 @@ export default function AlertsPage() {
             <button
               onClick={seedSamples}
               disabled={seeding}
-              className="font-mono text-xs bg-vivid-obsidian border-2 border-ash-border px-4 py-2 rounded-[5px] hover:border-bone-white transition-colors disabled:opacity-60 text-bone-white"
+              className="font-mono text-xs bg-vivid-obsidian border-2 border-ash-border px-4 py-2 rounded-[5px] hover:border-[var(--color-lp-cyan)] transition-colors disabled:opacity-60 text-bone-white"
             >
               {seeding ? 'Loading…' : 'See what this looks like (sample data)'}
             </button>
@@ -70,10 +70,10 @@ export default function AlertsPage() {
               className={`rounded-[10px] border-2 p-5 flex items-start gap-4 transition-all duration-300 ${
                 alert.read
                   ? 'bg-vivid-obsidian border-ash-border'
-                  : 'bg-muted-grey/25 border-bone-white/50 shadow-[0_0_20px_rgba(255,255,255,0.10)]'
+                  : 'bg-muted-grey/25 border-[var(--color-lp-cyan)]/50 shadow-[0_0_20px_rgba(56,189,248,0.15)]'
               }`}
             >
-              {!alert.read && <div className="w-2 h-2 rounded-full bg-bone-white mt-1.5 flex-shrink-0" />}
+              {!alert.read && <div className="w-2 h-2 rounded-full bg-[var(--color-lp-cyan)] mt-1.5 flex-shrink-0" />}
               <div className="flex-1">
                 <p className="text-sm text-bone-white leading-relaxed">{alert.message}</p>
                 <div className="text-xs text-fog-blue font-mono mt-2">
@@ -88,7 +88,7 @@ export default function AlertsPage() {
                 {!alert.read && user && (
                   <button
                     onClick={() => markAlertRead(user.uid, alert.id)}
-                    className="text-xs font-mono text-bone-white hover:text-fog-blue transition-colors"
+                    className="text-xs font-mono text-[var(--color-lp-cyan)] hover:text-bone-white transition-colors"
                   >
                     Mark read
                   </button>
@@ -119,7 +119,7 @@ function PolicyNewsSection() {
   const status = useDigestStatus()
 
   return (
-    <section className="mt-10 bg-muted-grey/10 border-2 border-cyan-600/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(8,145,178,0.18)]">
+    <section className="mt-10 bg-muted-grey/10 border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.18)]">
       <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-2 flex items-center gap-2">
         <span className="w-4 h-[1.5px] bg-fog-blue" />
         General policy news
@@ -133,7 +133,7 @@ function PolicyNewsSection() {
         <div className="mb-12">
           <h2 className="text-2xl font-normal text-bone-white mb-1 flex items-center gap-3">
             Today
-            <span className="text-[10px] font-mono uppercase tracking-wide border border-cyan-600 text-cyan-600 px-2 py-0.5 rounded-[3px]">
+            <span className="text-[10px] font-mono uppercase tracking-wide border border-[var(--color-lp-cyan)] text-[var(--color-lp-cyan)] px-2 py-0.5 rounded-[3px]">
               live
             </span>
           </h2>
@@ -218,7 +218,7 @@ function PolicyNewsCard({ item, index }: { item: (typeof POLICY_NEWS)[number]; i
       target="_blank"
       rel="noopener noreferrer"
       style={{ animation: `fadeUp 0.45s cubic-bezier(.16,.8,.24,1) ${index * 0.07}s both` }}
-      className="block bg-graphite-veil/20 border-2 border-ash-border rounded-[10px] p-5 hover:border-cyan-600 hover:-translate-y-1 hover:shadow-[0_0_28px_rgba(8,145,178,0.4)] transition-all duration-300"
+      className="block bg-graphite-veil/20 border-2 border-ash-border rounded-[10px] p-5 hover:border-[var(--color-lp-cyan)] hover:-translate-y-1 hover:shadow-[0_0_28px_rgba(56,189,248,0.4)] transition-all duration-300"
     >
       <div className="text-[11px] font-mono text-fog-blue mb-2">{item.date} · {item.source}</div>
       <div className="text-sm text-bone-white font-normal mb-2 leading-snug">{item.title}</div>

@@ -5,11 +5,12 @@ import { usePlan } from '../lib/billing'
 import horizonIcon from '../assets/horizon-icon.png'
 
 /**
- * Per the Vivid+Co brief: no filled buttons, no shadows, no accent colors
- * outside the (unused-here) prism artifact. The nav uses only bone-white
- * text on a near-black surface, a 1px ash-border hairline instead of a
- * shadow for definition, and the brief's single outlined "Contact button"
- * pattern as the nav's one and only CTA style.
+ * Per the original Vivid+Co brief, this nav used to be bone-white text only,
+ * no filled buttons or accent colors. That's been deliberately overridden
+ * to match the new landing-site direction: the "My plan" / "Get started"
+ * CTAs use the .lp-gradient-btn treatment, and the unread-alert badge and
+ * a few other small touches use the new cyan accent (--color-lp-cyan).
+ * Nav links themselves remain plain bone-white, unchanged.
  */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -29,7 +30,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
       <nav
         aria-label="Primary"
-        style={{ fontFamily: 'var(--font-vivid)' }}
+        style={{ fontFamily: 'var(--font-jakarta)' }}
         className={`w-full max-w-5xl flex items-center justify-between gap-4 px-5 py-3 rounded-[5px] border-b transition-colors duration-500 ${
           scrolled ? 'bg-vivid-obsidian/95 border-ash-border' : 'bg-vivid-obsidian/80 border-ash-border/50'
         }`}
@@ -65,12 +66,12 @@ export default function Navbar() {
               >
                 <BellIcon />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-bone-white text-vivid-obsidian text-[9px] font-medium flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-[var(--color-lp-cyan)] text-vivid-obsidian text-[9px] font-medium flex items-center justify-center">
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
               </a>
-              <a href="/app" className="ov-outlined-btn">
+              <a href="/app" className="lp-gradient-btn">
                 My plan
               </a>
             </div>

@@ -45,7 +45,7 @@ export default function AdvisorDashboardPage() {
   if (plan !== 'advisor') {
     return (
       <main
-        style={{ fontFamily: 'var(--font-vivid)' }}
+        style={{ fontFamily: 'var(--font-jakarta)' }}
         className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center bg-vivid-obsidian min-h-screen"
       >
         <div className="hover-glow-white bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
@@ -60,7 +60,7 @@ export default function AdvisorDashboardPage() {
           </p>
           <button
             onClick={() => navigate('/billing')}
-            className="ov-outlined-btn px-6 py-3"
+            className="lp-gradient-btn px-6 py-3"
           >
             See plans
           </button>
@@ -114,7 +114,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-5xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="flex items-start justify-between gap-6 mb-10">
@@ -159,7 +159,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
               />
             </label>
             <label className="block">
@@ -169,7 +169,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
                 required
                 value={form.birthYear}
                 onChange={(e) => setForm({ ...form, birthYear: Number(e.target.value) })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
               />
             </label>
             <label className="block">
@@ -179,7 +179,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
                 required
                 value={form.pia}
                 onChange={(e) => setForm({ ...form, pia: Number(e.target.value) })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
               />
             </label>
             <label className="block">
@@ -187,7 +187,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
               <select
                 value={form.maritalStatus}
                 onChange={(e) => setForm({ ...form, maritalStatus: e.target.value as NewAdvisorClient['maritalStatus'] })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
               >
                 <option value="single">Single</option>
                 <option value="married">Married</option>
@@ -200,7 +200,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
               type="checkbox"
               checked={form.hasNonCoveredPension}
               onChange={(e) => setForm({ ...form, hasNonCoveredPension: e.target.checked })}
-              className="accent-bone-white"
+              className="accent-[var(--color-lp-cyan)]"
             />
             Has a non-covered pension
           </label>
@@ -210,13 +210,13 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}
-              className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+              className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
             />
           </label>
           <button
             type="submit"
             disabled={saving}
-            className="ov-outlined-btn px-6 py-3"
+            className="lp-gradient-btn px-6 py-3"
           >
             {saving ? 'Saving…' : 'Add client'}
           </button>
@@ -246,7 +246,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
               </div>
               <button
                 onClick={() => setSelectedId(selectedId === client.id ? null : client.id)}
-                className="text-sm font-normal text-bone-white hover:text-fog-blue transition-colors whitespace-nowrap"
+                className="text-sm font-normal text-[var(--color-lp-cyan)] hover:text-bone-white transition-colors whitespace-nowrap"
               >
                 {selectedId === client.id ? 'Hide' : 'View analysis'}
               </button>

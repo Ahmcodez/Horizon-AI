@@ -50,7 +50,7 @@ export default function BillingPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-4xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -103,8 +103,8 @@ export default function BillingPage() {
           {plan === 'free' && <div className="mt-6 text-xs font-mono text-fog-blue">Your current plan</div>}
         </div>
 
-        <div className="hover-glow-white rounded-[15px] p-8 bg-graphite-veil/40 text-bone-white relative border-2 border-bone-white">
-          <div className="absolute -top-3 right-7 bg-vivid-obsidian border border-bone-white text-bone-white text-[11px] font-normal uppercase px-3 py-1.5 rounded-[5px]">
+        <div className="hover-glow-white rounded-[15px] p-8 bg-graphite-veil/40 text-bone-white relative border-2 border-[var(--color-lp-cyan)]">
+          <div className="absolute -top-3 right-7 bg-vivid-obsidian border border-[var(--color-lp-cyan)] text-[var(--color-lp-cyan)] text-[11px] font-normal uppercase px-3 py-1.5 rounded-[5px]">
             Most chosen
           </div>
           <div className="text-xs uppercase tracking-[0.02em] text-bone-white font-normal mb-4">Plan</div>
@@ -122,7 +122,7 @@ export default function BillingPage() {
             <button
               onClick={() => handleUpgrade('plan')}
               disabled={loadingPlan === 'plan'}
-              className="ov-outlined-btn mt-6 w-full py-3"
+              className="lp-gradient-btn mt-6 w-full py-3"
             >
               {loadingPlan === 'plan' ? 'Redirecting…' : 'Upgrade to Plan'}
             </button>
@@ -148,7 +148,7 @@ export default function BillingPage() {
             <button
               onClick={() => handleUpgrade('advisor')}
               disabled={loadingPlan === 'advisor'}
-              className="ov-outlined-btn mt-6 w-full py-3"
+              className="lp-gradient-btn mt-6 w-full py-3"
             >
               {loadingPlan === 'advisor' ? 'Redirecting…' : 'Upgrade to Advisor'}
             </button>

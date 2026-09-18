@@ -44,7 +44,7 @@ export default function ScenariosPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-5xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -104,7 +104,7 @@ function BenefitCutScenario({ baseline }: { baseline: ReturnType<typeof generate
           max={30}
           value={cutPercent}
           onChange={(e) => setCutPercent(Number(e.target.value))}
-          className="w-full accent-bone-white"
+          className="w-full accent-[var(--color-lp-cyan)]"
         />
       </div>
 
@@ -156,7 +156,7 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
           max={100}
           value={lifeExpectancy}
           onChange={(e) => setLifeExpectancy(Number(e.target.value))}
-          className="w-full accent-bone-white"
+          className="w-full accent-[var(--color-lp-cyan)]"
         />
       </div>
 
@@ -173,15 +173,15 @@ function LongevityScenario({ baseline }: { baseline: ReturnType<typeof generateC
             const total = calculateLifetimeTotal(row.annual, row.age, lifeExpectancy)
             const isBest = total === Math.max(...rows.map((r) => calculateLifetimeTotal(r.annual, r.age, lifeExpectancy)))
             return (
-              <tr key={row.label} className={`border-b border-ash-border/50 text-bone-white transition-colors ${isBest ? 'bg-graphite-veil/40' : ''}`}>
-                <td className="py-3" style={{ fontFamily: 'var(--font-vivid)' }}>{row.label}</td>
+              <tr key={row.label} className={`border-b border-ash-border/50 text-bone-white transition-colors ${isBest ? 'bg-[var(--color-lp-cyan)]/10' : ''}`}>
+                <td className="py-3" style={{ fontFamily: 'var(--font-jakarta)' }}>{row.label}</td>
                 <td className="py-3">${row.annual.toLocaleString()}</td>
                 <td className="py-3 font-semibold">
                   ${total.toLocaleString()}
                   {isBest && (
                     <span
-                      className="ml-2 text-[10px] border border-bone-white text-bone-white px-1.5 py-0.5 rounded-[3px] font-normal uppercase"
-                      style={{ fontFamily: 'var(--font-vivid)' }}
+                      className="ml-2 text-[10px] border border-[var(--color-lp-cyan)] text-[var(--color-lp-cyan)] px-1.5 py-0.5 rounded-[3px] font-normal uppercase"
+                      style={{ fontFamily: 'var(--font-jakarta)' }}
                     >
                       best
                     </span>

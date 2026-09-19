@@ -15,7 +15,7 @@ export default function StateComparisonPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-4xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -71,7 +71,7 @@ function StatePicker({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+        className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
       >
         {ALL_STATE_CODES.map((code) => (
           <option key={code} value={code}>

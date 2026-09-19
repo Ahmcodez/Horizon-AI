@@ -14,7 +14,7 @@ export default function TaxMedicarePage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-5xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">
@@ -78,7 +78,7 @@ function RmdCard() {
             type="number"
             value={balance}
             onChange={(e) => setBalance(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
         <label className="block">
@@ -87,7 +87,7 @@ function RmdCard() {
             type="number"
             value={birthYear}
             onChange={(e) => setBirthYear(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
       </div>
@@ -136,7 +136,7 @@ function SsTaxCard() {
           <select
             value={filingStatus}
             onChange={(e) => setFilingStatus(e.target.value as FilingStatus)}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           >
             <option value="single">Single / head of household</option>
             <option value="marriedFilingJointly">Married filing jointly</option>
@@ -149,7 +149,7 @@ function SsTaxCard() {
             type="number"
             value={netBenefits}
             onChange={(e) => setNetBenefits(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
         <label className="block">
@@ -158,7 +158,7 @@ function SsTaxCard() {
             type="number"
             value={otherIncome}
             onChange={(e) => setOtherIncome(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
         <label className="block">
@@ -167,7 +167,7 @@ function SsTaxCard() {
             type="number"
             value={taxExemptInterest}
             onChange={(e) => setTaxExemptInterest(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
       </div>
@@ -178,7 +178,7 @@ function SsTaxCard() {
             type="checkbox"
             checked={livedWithSpouse}
             onChange={(e) => setLivedWithSpouse(e.target.checked)}
-            className="accent-bone-white"
+            className="accent-[var(--color-lp-cyan)]"
           />
           Lived with spouse at any point this year
         </label>
@@ -213,7 +213,7 @@ function IrmaaCard() {
           <select
             value={filingStatus}
             onChange={(e) => setFilingStatus(e.target.value as IrmaaFilingStatus)}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           >
             <option value="single">Single</option>
             <option value="marriedFilingJointly">Married filing jointly</option>
@@ -228,7 +228,7 @@ function IrmaaCard() {
             type="number"
             value={magi}
             onChange={(e) => setMagi(Number(e.target.value))}
-            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-bone-white outline-none text-bone-white"
+            className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
           />
         </label>
       </div>

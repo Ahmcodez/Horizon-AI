@@ -40,7 +40,7 @@ export default function EmbedPage() {
   if (plan !== 'advisor') {
     return (
       <main
-        style={{ fontFamily: 'var(--font-vivid)' }}
+        style={{ fontFamily: 'var(--font-jakarta)' }}
         className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center bg-vivid-obsidian min-h-screen"
       >
         <div className="hover-glow-white bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
@@ -51,7 +51,7 @@ export default function EmbedPage() {
           </p>
           <button
             onClick={() => navigate('/billing')}
-            className="ov-outlined-btn px-6 py-3"
+            className="lp-gradient-btn px-6 py-3"
           >
             See plans
           </button>
@@ -62,7 +62,7 @@ export default function EmbedPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-vivid)' }}
+      style={{ fontFamily: 'var(--font-jakarta)' }}
       className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
     >
       <div className="mb-10">

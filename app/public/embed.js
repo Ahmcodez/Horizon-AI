@@ -19,15 +19,15 @@
     }
 
     container.innerHTML = `
-      <div style="font-family:-apple-system,sans-serif;max-width:420px;border:1px solid #e5e0d5;border-radius:16px;padding:24px;background:#faf7f2;">
-        <div style="font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:#c97f1e;font-weight:600;margin-bottom:12px;">Social Security Estimate</div>
+      <div style="font-family:-apple-system,sans-serif;max-width:420px;border:1px solid #E2E8F0;border-radius:16px;padding:24px;background:#F8FAFC;">
+        <div style="font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:#A855F7;font-weight:600;margin-bottom:12px;">Social Security Estimate</div>
         <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Birth year</label>
         <input id="hz-birthyear" type="number" value="1965" min="1930" max="2010"
-          style="width:100%;padding:10px 12px;border:1px solid #ddd6c5;border-radius:8px;margin-bottom:14px;font-family:monospace;box-sizing:border-box;">
+          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:14px;font-family:monospace;box-sizing:border-box;">
         <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Benefit at full retirement age ($/mo)</label>
         <input id="hz-pia" type="number" value="2000" min="0" max="10000"
-          style="width:100%;padding:10px 12px;border:1px solid #ddd6c5;border-radius:8px;margin-bottom:16px;font-family:monospace;box-sizing:border-box;">
-        <button id="hz-calc" style="width:100%;padding:12px;border:none;border-radius:100px;background:#e8a33d;color:#0e0f12;font-weight:700;cursor:pointer;">
+          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:16px;font-family:monospace;box-sizing:border-box;">
+        <button id="hz-calc" style="width:100%;padding:12px;border:none;border-radius:100px;background:linear-gradient(90deg,#A855F7,#EC4899,#38BDF8);color:#fff;font-weight:700;cursor:pointer;">
           Calculate
         </button>
         <div id="hz-result" style="margin-top:18px;"></div>

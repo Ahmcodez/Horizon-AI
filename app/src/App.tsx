@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from './lib/authContext'
 import { AssistantProvider } from './lib/assistantContext'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -17,6 +17,7 @@ import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
 import StateComparisonPage from './pages/StateComparisonPage'
 import TaxMedicarePage from './pages/TaxMedicarePage'
 import EmbedPage from './pages/EmbedPage'
+import HomePage from './pages/HomePage'
 import RootRedirect from './components/RootRedirect'
 import { usePlan } from './lib/billing'
 
@@ -34,7 +35,7 @@ export default function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route

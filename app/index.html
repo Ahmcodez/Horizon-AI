@@ -4,26 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In | MyClaimAge</title>
-    <meta name="description" content="Sign in to your MyClaimAge account to see your personalized Social Security claiming-age plan." />
-    <meta name="robots" content="noindex, follow" />
+    <title>When to Claim Social Security | MyClaimAge Calculator</title>
+    <meta name="description" content="Find out when to claim Social Security based on your own numbers. Compare 62 vs. 67 vs. 70, spousal benefits, Medicare and tax impact — free to start, updated for 2026 rules." />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#101010" />
 
-    <link rel="canonical" href="https://myclaim-age.vercel.app/login" />
+    <link rel="canonical" href="https://myclaim-age.vercel.app/" />
 
     <!-- Open Graph (Facebook, LinkedIn, iMessage, Slack previews, etc.) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MyClaimAge" />
-    <meta property="og:title" content="Sign In | MyClaimAge" />
-    <meta property="og:description" content="Sign in to your MyClaimAge account to see your personalized Social Security claiming-age plan." />
-    <meta property="og:url" content="https://myclaim-age.vercel.app/login" />
+    <meta property="og:title" content="When to Claim Social Security | MyClaimAge Calculator" />
+    <meta property="og:description" content="Personalized Social Security claiming-age analysis, spousal & survivor coordination, Medicare and tax impact, and plain-English guidance — updated automatically as the rules change." />
+    <meta property="og:url" content="https://myclaim-age.vercel.app/" />
     <!-- TODO: add an og-image.png (1200x630px) to /public and uncomment the line below -->
     <!-- <meta property="og:image" content="https://myclaim-age.vercel.app/og-image.png" /> -->
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sign In | MyClaimAge" />
-    <meta name="twitter:description" content="Sign in to your MyClaimAge account to see your personalized Social Security claiming-age plan." />
+    <meta name="twitter:title" content="When to Claim Social Security | MyClaimAge Calculator" />
+    <meta name="twitter:description" content="See exactly what your Social Security benefit is worth at every claiming age — personalized, updated for 2026 rules." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,6 +49,52 @@
           "highPrice": "149",
           "priceCurrency": "USD"
         }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "MyClaimAge",
+        "url": "https://myclaim-age.vercel.app/",
+        "description": "Personalized Social Security claiming-age planning and retirement benefit calculator.",
+        "sameAs": []
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MyClaimAge",
+        "url": "https://myclaim-age.vercel.app/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to find your best Social Security claiming age with MyClaimAge",
+        "step": [
+          { "@type": "HowToStep", "name": "Enter your earnings history", "text": "Enter your work history yourself, or take a photo of your Social Security statement and let MyClaimAge read it." },
+          { "@type": "HowToStep", "name": "Compare every claiming age", "text": "See your real monthly benefit at every age from 62 to 70, including spousal, survivor, and WEP/GPO adjustments where they apply." },
+          { "@type": "HowToStep", "name": "Ask about your specific plan", "text": "Ask the assistant plan-specific questions in plain English and get answers grounded in your own saved numbers." },
+          { "@type": "HowToStep", "name": "Get alerts when something changes", "text": "MyClaimAge checks SSA, IRS, and CMS filings daily and tells you when a real rule change affects your plan." }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What is the best age to claim Social Security?", "acceptedAnswer": { "@type": "Answer", "text": "There is no single best age for everyone — it depends on your health, other income, and household situation. Claiming at 62 reduces your monthly benefit permanently, while waiting until 70 increases it. MyClaimAge models your specific numbers across every age from 62 to 70 so you can compare the real dollar difference for your situation." } },
+          { "@type": "Question", "name": "How much does Social Security increase if I wait to claim?", "acceptedAnswer": { "@type": "Answer", "text": "Delaying benefits past full retirement age adds delayed retirement credits worth roughly 8% per year, up until age 70. Claiming before full retirement age instead reduces your benefit, by as much as 30% at age 62." } },
+          { "@type": "Question", "name": "What is full retirement age (FRA) in 2026?", "acceptedAnswer": { "@type": "Answer", "text": "For anyone born in 1960 or later, full retirement age is 67. This is the final step of a phase-in that began with 1983 legislation." } },
+          { "@type": "Question", "name": "Does working while claiming Social Security reduce my benefit?", "acceptedAnswer": { "@type": "Answer", "text": "If you claim before full retirement age and continue working, Social Security withholds a portion of your benefit above an annual earnings limit. The limit and withholding rules change each year and no longer apply once you reach full retirement age." } },
+          { "@type": "Question", "name": "Is Social Security taxable?", "acceptedAnswer": { "@type": "Answer", "text": "It can be. Depending on your combined income from all sources, up to 85% of your Social Security benefit may be subject to federal income tax, and a handful of states tax it too. MyClaimAge factors this into the net numbers it shows you, rather than just the gross benefit amount." } },
+          { "@type": "Question", "name": "How does Medicare affect my Social Security check?", "acceptedAnswer": { "@type": "Answer", "text": "Once you're enrolled, your Medicare Part B premium is deducted automatically from your Social Security payment, and higher earners pay an additional IRMAA surcharge. MyClaimAge shows your net deposit after Medicare, not just the pre-deduction benefit amount." } },
+          { "@type": "Question", "name": "How do I know if a Social Security rule change affects me?", "acceptedAnswer": { "@type": "Answer", "text": "MyClaimAge checks SSA, IRS, and CMS filings every day and flags genuine benefit-relevant changes — like a COLA update or a change to WEP/GPO rules — against your own saved profile, so you only hear about the changes that actually apply to you." } }
+        ]
       }
     </script>
   </head>

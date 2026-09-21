@@ -126,7 +126,7 @@ export default function HomePage() {
   }
 
   return (
-    <main id="top">
+    <main id="top" className="hp">
       <section className="hero-v2" aria-label="Introduction">
         <div className="hero-v2-inner">
           <nav className="breadcrumb-v2" aria-label="Breadcrumb">

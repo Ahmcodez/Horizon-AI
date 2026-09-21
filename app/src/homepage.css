@@ -1,4 +1,9 @@
-  :root {
+/*
+  Homepage styles. Everything is scoped under .hp so this stylesheet can never
+  leak into the rest of the app (an earlier unscoped copy reset margin/padding on
+  every element app-wide, which beat Tailwind utilities and squashed every page).
+*/
+.hp {
     --graphite: #0F172A;
     --graphite-2: #1E293B;
     --graphite-3: #334155;
@@ -31,12 +36,22 @@
     --fs-body-lg: 18px;
     --fs-body: 15.5px;
     --fs-small: 13px;
-  }
+    --v2-font: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    --v2-ink: #0F172A;
+    --v2-slate: #64748B;
+    --v2-cyan: #38BDF8;
+    --v2-purple: #A855F7;
+    --v2-magenta: #EC4899;
+    --v2-dark-card: #0F172A;
+    --v2-border-light: #E2E8F0;
+    --v2-border-dark: #111827;
+    --v2-gradient-text: linear-gradient(90deg, var(--v2-cyan), var(--v2-purple), var(--v2-magenta));
+    --v2-gradient-cta: linear-gradient(90deg, var(--v2-purple), var(--v2-magenta), var(--v2-cyan));
+  background: var(--chalk); color: var(--graphite); font-family: var(--body); line-height: 1.5; overflow-x: clip;
+}
+.hp {
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  #top { background: var(--chalk); color: var(--graphite); }
-  body { background: var(--chalk); color: var(--graphite); font-family: var(--body); line-height: 1.5; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
   ul, ol { list-style: none; }
@@ -83,6 +98,7 @@
     box-shadow: var(--shadow-lg); padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
     opacity: 0; pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease;
   }
+  .nav-dropdown::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
   .nav-item:hover .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
   .dd-item { display: flex; gap: 12px; padding: 12px; border-radius: 12px; transition: background 0.2s ease; }
   .dd-item:hover { background: var(--chalk-dim); }
@@ -94,6 +110,7 @@
   .nav-cta:hover { background: var(--amber); color: var(--graphite); transform: translateY(-1px); box-shadow: var(--shadow-amber); }
   @media (max-width: 980px) { .nav-links { display: none; } nav.primary-nav { padding: 16px 22px; } }
 
+  [id] { scroll-margin-top: 84px; }
   .section-divider { max-width: 1280px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; gap: 18px; }
   .section-divider .line { flex: 1; height: 1px; background: var(--chalk-line-strong); box-shadow: 0 1px 0 rgba(250,247,242,0.6); }
   .section-divider .marker { width: 8px; height: 8px; border-radius: 2px; background: var(--amber); transform: rotate(45deg); box-shadow: var(--shadow-xs); }
@@ -267,22 +284,9 @@
      of the page (still on the original chalk/graphite system) is
      untouched until it gets re-skinned in a follow-up pass.
      ===================================================================== */
-  :root {
-    --v2-font: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    --v2-ink: #0F172A;
-    --v2-slate: #64748B;
-    --v2-cyan: #38BDF8;
-    --v2-purple: #A855F7;
-    --v2-magenta: #EC4899;
-    --v2-dark-card: #0F172A;
-    --v2-border-light: #E2E8F0;
-    --v2-border-dark: #111827;
-    --v2-gradient-text: linear-gradient(90deg, var(--v2-cyan), var(--v2-purple), var(--v2-magenta));
-    --v2-gradient-cta: linear-gradient(90deg, var(--v2-purple), var(--v2-magenta), var(--v2-cyan));
-  }
 
   /* ---- Hero ---- */
-  .hero-v2 { padding: 72px 24px 0; background: linear-gradient(180deg, #F8FAFC 0%, #EDF5FF 55%, #FFFFFF 100%); text-align: center; }
+  .hero-v2 { padding: 116px 24px 0; background: linear-gradient(180deg, #F8FAFC 0%, #EDF5FF 55%, #FFFFFF 100%); text-align: center; }
   .hero-v2-inner { max-width: 780px; margin: 0 auto; }
   .breadcrumb-v2 { font-family: var(--v2-font); font-size: 13px; color: var(--v2-slate); margin-bottom: 28px; }
   .breadcrumb-v2 a { color: var(--v2-slate); text-decoration: none; }
@@ -342,3 +346,5 @@
   .primary-nav { font-family: var(--v2-font); }
   .primary-nav .nav-cta { background: var(--v2-gradient-cta); border-radius: 9999px; box-shadow: 0 6px 18px rgba(168,85,247,0.3); }
   .primary-nav .nav-cta:hover { background: var(--v2-gradient-cta); box-shadow: 0 8px 22px rgba(236,72,153,0.4); }
+
+}

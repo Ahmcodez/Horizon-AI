@@ -19,14 +19,14 @@
     }
 
     container.innerHTML = `
-      <div style="font-family:-apple-system,sans-serif;max-width:420px;border:1px solid #E2E8F0;border-radius:16px;padding:24px;background:#F8FAFC;">
+      <div style="font-family:-apple-system,sans-serif;max-width:420px;border:1px solid #E2E8F0;border-radius:16px;padding:24px;background:#F8FAFC;color:#0F172A;">
         <div style="font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:#A855F7;font-weight:600;margin-bottom:12px;">Social Security Estimate</div>
-        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Birth year</label>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#0F172A;">Birth year</label>
         <input id="hz-birthyear" type="number" value="1965" min="1930" max="2010"
-          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:14px;font-family:monospace;box-sizing:border-box;">
-        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Benefit at full retirement age ($/mo)</label>
+          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:14px;font-family:monospace;box-sizing:border-box;color:#0F172A;background:#fff;">
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#0F172A;">Benefit at full retirement age ($/mo)</label>
         <input id="hz-pia" type="number" value="2000" min="0" max="10000"
-          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:16px;font-family:monospace;box-sizing:border-box;">
+          style="width:100%;padding:10px 12px;border:1px solid #E2E8F0;border-radius:8px;margin-bottom:16px;font-family:monospace;box-sizing:border-box;color:#0F172A;background:#fff;">
         <button id="hz-calc" style="width:100%;padding:12px;border:none;border-radius:100px;background:linear-gradient(90deg,#A855F7,#EC4899,#38BDF8);color:#fff;font-weight:700;cursor:pointer;">
           Calculate
         </button>

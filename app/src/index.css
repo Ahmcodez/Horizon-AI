@@ -135,6 +135,26 @@
   --color-lp-cyan: #38BDF8;
   --color-lp-purple: #A855F7;
   --color-lp-magenta: #EC4899;
+
+  /* ============================================================
+     Light "landing" surface tokens — the exact palette used by
+     HomePage.tsx / homepage.css, promoted to real global Tailwind
+     utilities (bg-lp-chalk, text-lp-graphite, border-lp-line, etc.)
+     so authenticated app pages can be migrated off the Vivid+Co
+     dark theme to match the landing page, one page at a time,
+     without needing homepage.css's .hp scope (which resets
+     margin/padding app-wide and must never wrap app pages).
+     ============================================================ */
+  --color-lp-chalk: #FFFFFF;
+  --color-lp-chalk-dim: #F8FAFC;
+  --color-lp-graphite: #0F172A;
+  --color-lp-slate: #64748B;
+  --color-lp-line: rgba(15, 23, 42, 0.09);
+  --color-lp-line-strong: rgba(15, 23, 42, 0.14);
+  /* Semantic accents re-tuned for the light surface — prism-red/prism-lime
+     are tuned for dark backgrounds and don't have enough contrast on white. */
+  --color-lp-good: #15803D;
+  --color-lp-bad: #DC2626;
 }
 
 /* Landing-matched gradient CTA button - the filled counterpart to
@@ -265,6 +285,18 @@ body {
 .hover-glow-white:hover {
   border-color: var(--color-bone-white);
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+}
+
+/* Light-theme equivalent of .hover-glow-white, used on cards migrated to
+   the landing page's light surface — a soft lift + shadow instead of a
+   white glow, matching homepage.css's .price-card:hover treatment. */
+.hover-glow-lp {
+  transition: box-shadow 0.4s cubic-bezier(0.16, 0.8, 0.24, 1),
+    transform 0.4s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.hover-glow-lp:hover {
+  box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
 

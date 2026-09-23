@@ -46,14 +46,14 @@ export default function Navbar() {
         aria-label="Primary"
         style={{ fontFamily: 'var(--font-jakarta)' }}
         className={`w-full max-w-5xl flex items-center justify-between gap-4 px-5 py-3 rounded-[5px] border-b transition-colors duration-500 ${
-          scrolled ? 'bg-vivid-obsidian/95 border-ash-border' : 'bg-vivid-obsidian/80 border-ash-border/50'
+          scrolled ? 'bg-lp-chalk/95 border-lp-line-strong shadow-sm' : 'bg-lp-chalk/80 border-lp-line'
         }`}
       >
-        <a href="/" className="flex items-center gap-2 text-[15px] font-normal tracking-tight text-bone-white uppercase">
-          <img src={horizonIcon} alt="" className="h-[30px] w-[30px] object-contain" />
+        <a href="/" className="flex items-center gap-2 text-[15px] font-normal tracking-tight text-lp-graphite uppercase">
+          <img src={horizonIcon} alt="" className="h-[30px] w-[30px] object-contain" style={{ filter: 'invert(1)' }} />
           MyClaimAge
           {devUnlocked && (
-            <span className="text-[10px] normal-case tracking-normal font-mono border border-bone-white/40 text-fog-blue px-1.5 py-0.5 rounded-[3px]">
+            <span className="text-[10px] normal-case tracking-normal font-mono border border-lp-line-strong text-lp-slate px-1.5 py-0.5 rounded-[3px]">
               dev-unlocked
             </span>
           )}
@@ -72,13 +72,13 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <a
               href="/alerts"
-              className="relative text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+              className="relative text-lp-slate hover:text-lp-graphite transition-colors duration-500"
               style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               aria-label={`Alerts${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
             >
               <BellIcon />
               {unreadCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-[var(--color-lp-cyan)] text-vivid-obsidian text-[9px] font-medium flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-[var(--color-lp-cyan)] text-lp-chalk text-[9px] font-medium flex items-center justify-center">
                   {unreadCount > 9 ? '9+' : unreadCount}
                 </span>
               )}
@@ -96,7 +96,7 @@ function GhostNavLink({ href, children }: { href: string; children: React.ReactN
   return (
     <a
       href={href}
-      className="text-bone-white/70 hover:text-bone-white transition-colors duration-500"
+      className="text-lp-slate hover:text-lp-graphite transition-colors duration-500"
       style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
     >
       {children}

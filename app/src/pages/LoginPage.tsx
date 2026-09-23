@@ -32,50 +32,65 @@ export default function LoginPage() {
 
   return (
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
+      style={{ fontFamily: 'var(--font-jakarta)', background: 'var(--chalk-dim, #F8FAFC)' }}
+      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden"
     >
       <div
         className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(73,87,100,0.30), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.14), transparent 70%)' }}
       />
       <div
         className="absolute bottom-0 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(73,87,100,0.18), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.10), transparent 70%)' }}
       />
 
       <div className="w-full max-w-md relative">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 text-[15px] font-normal tracking-tight mb-2 text-bone-white uppercase">
+          <div
+            className="inline-flex items-center gap-2 text-[15px] font-normal tracking-tight mb-2 uppercase"
+            style={{ color: 'var(--graphite, #0F172A)' }}
+          >
             MyClaimAge
           </div>
-          <p className="text-fog-blue text-sm">
+          <p className="text-sm" style={{ color: 'var(--slate, #64748B)' }}>
             {mode === 'signin' ? 'Welcome back.' : 'Create your account to save your numbers.'}
           </p>
         </div>
 
-        <div className="bg-graphite-veil/30 border border-ash-border rounded-[15px] p-8">
+        <div
+          className="rounded-[15px] p-8"
+          style={{
+            background: 'var(--chalk, #FFFFFF)',
+            border: '1px solid var(--chalk-line-strong, rgba(15,23,42,0.14))',
+            boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(15,23,42,0.08))',
+          }}
+        >
           {/* Sliding tab toggle */}
-          <div className="relative flex gap-2 mb-7 bg-vivid-obsidian border border-ash-border rounded-[5px] p-1">
+          <div
+            className="relative flex gap-2 mb-7 rounded-[5px] p-1"
+            style={{ background: 'var(--chalk-dim, #F8FAFC)', border: '1px solid var(--chalk-line, rgba(15,23,42,0.09))' }}
+          >
             <div
-              className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-graphite-veil/60 rounded-[3px] transition-transform duration-300 vivid-ease"
-              style={{ transform: mode === 'signin' ? 'translateX(0%)' : 'translateX(calc(100% + 8px))' }}
+              className="absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-[3px] transition-transform duration-300 vivid-ease"
+              style={{
+                transform: mode === 'signin' ? 'translateX(0%)' : 'translateX(calc(100% + 8px))',
+                background: 'var(--chalk, #FFFFFF)',
+                boxShadow: 'var(--shadow-xs, 0 1px 2px rgba(15,23,42,0.08))',
+              }}
             />
             <button
               type="button"
               onClick={() => setMode('signin')}
-              className={`relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors ${
-                mode === 'signin' ? 'text-bone-white' : 'text-fog-blue'
-              }`}
+              className="relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors"
+              style={{ color: mode === 'signin' ? 'var(--graphite, #0F172A)' : 'var(--slate, #64748B)' }}
             >
               Sign in
             </button>
             <button
               type="button"
               onClick={() => setMode('signup')}
-              className={`relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors ${
-                mode === 'signup' ? 'text-bone-white' : 'text-fog-blue'
-              }`}
+              className="relative z-10 flex-1 py-2 rounded-[3px] text-sm font-normal uppercase transition-colors"
+              style={{ color: mode === 'signup' ? 'var(--graphite, #0F172A)' : 'var(--slate, #64748B)' }}
             >
               Create account
             </button>
@@ -83,31 +98,46 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <label className="block">
-              <span className="text-sm font-normal text-bone-white/80 block mb-2">Email</span>
+              <span className="text-sm font-normal block mb-2" style={{ color: 'var(--graphite, #0F172A)' }}>Email</span>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
+                className="w-full rounded-[5px] px-4 py-3 text-base outline-none transition-colors"
+                style={{
+                  background: 'var(--chalk, #FFFFFF)',
+                  border: '1px solid var(--chalk-line-strong, rgba(15,23,42,0.14))',
+                  color: 'var(--graphite, #0F172A)',
+                }}
                 autoComplete="email"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-normal text-bone-white/80 block mb-2">Password</span>
+              <span className="text-sm font-normal block mb-2" style={{ color: 'var(--graphite, #0F172A)' }}>Password</span>
               <input
                 type="password"
                 required
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
+                className="w-full rounded-[5px] px-4 py-3 text-base outline-none transition-colors"
+                style={{
+                  background: 'var(--chalk, #FFFFFF)',
+                  border: '1px solid var(--chalk-line-strong, rgba(15,23,42,0.14))',
+                  color: 'var(--graphite, #0F172A)',
+                }}
                 autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
               />
             </label>
 
             {error && (
-              <div className="text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-4 py-3">{error}</div>
+              <div
+                className="text-sm rounded-[5px] px-4 py-3"
+                style={{ color: '#B91C1C', background: '#FEF2F2', border: '1px solid #FECACA' }}
+              >
+                {error}
+              </div>
             )}
 
             <button
@@ -120,7 +150,7 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-fog-blue mt-6 leading-relaxed max-w-sm mx-auto">
+        <p className="text-center text-xs mt-6 leading-relaxed max-w-sm mx-auto" style={{ color: 'var(--slate, #64748B)' }}>
           Your Social Security numbers are stored securely and are never shared. Not affiliated
           with the Social Security Administration.
         </p>

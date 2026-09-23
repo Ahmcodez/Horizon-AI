@@ -22,6 +22,10 @@ export default function Navbar() {
   // page for logged-out visitors. The app nav is only for logged-in users
   // once they're inside the app.
   const showAppNav = !!user && pathname !== '/'
+  // The login/create-account screen is pre-authentication — it gets no nav
+  // bar at all, app or marketing. A nav bar only makes sense once someone
+  // has actually created or logged into an account.
+  const onLoginPage = pathname === '/login'
   const alerts = useAlerts(user?.uid)
   const { plan, status } = usePlan(user?.uid)
   const unreadCount = alerts.filter((a) => !a.read).length
@@ -33,6 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  if (onLoginPage) return null
   if (!showAppNav) return <MarketingNav scrolled={scrolled} loggedIn={!!user} />
 
   return (

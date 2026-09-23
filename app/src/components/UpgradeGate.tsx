@@ -21,13 +21,13 @@ export default function UpgradeGate({ children, feature }: { children: ReactNode
   return (
     <div
       style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="bg-graphite-veil/30 border border-ash-border rounded-[15px] p-10 text-center"
+      className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-10 text-center"
     >
-      <div className="text-xs uppercase tracking-[0.02em] text-fog-blue mb-3">
+      <div className="text-xs uppercase tracking-[0.02em] text-lp-slate mb-3">
         Plan feature
       </div>
-      <h3 className="text-xl font-normal mb-2 text-bone-white">{feature} is part of the Plan tier</h3>
-      <p className="text-sm text-bone-white/60 max-w-md mx-auto mb-6 leading-relaxed">
+      <h3 className="text-xl font-normal mb-2 text-lp-graphite">{feature} is part of the Plan tier</h3>
+      <p className="text-sm text-lp-slate max-w-md mx-auto mb-6 leading-relaxed">
         Upgrade to unlock this along with the AI assistant, document reader, and annual rule-change
         alerts — $12/month.
       </p>

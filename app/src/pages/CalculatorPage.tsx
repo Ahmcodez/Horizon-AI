@@ -91,10 +91,10 @@ export default function CalculatorPage() {
 
   if (loadError) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-8 bg-vivid-obsidian" style={{ fontFamily: 'var(--font-jakarta)' }}>
+      <div className="min-h-screen flex items-center justify-center px-8 bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
         <div className="max-w-md text-center">
-          <div className="text-xs uppercase tracking-[0.02em] text-prism-red mb-3">Couldn't load your data</div>
-          <p className="text-sm text-bone-white/70 leading-relaxed">{loadError}</p>
+          <div className="text-xs uppercase tracking-[0.02em] text-lp-bad mb-3">Couldn't load your data</div>
+          <p className="text-sm text-lp-slate leading-relaxed">{loadError}</p>
         </div>
       </div>
     )
@@ -102,8 +102,8 @@ export default function CalculatorPage() {
 
   if (!profileLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-vivid-obsidian" style={{ fontFamily: 'var(--font-jakarta)' }}>
-        <div className="text-sm text-fog-blue">Loading your numbers…</div>
+      <div className="min-h-screen flex items-center justify-center bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
+        <div className="text-sm text-lp-slate">Loading your numbers…</div>
       </div>
     )
   }
@@ -111,25 +111,25 @@ export default function CalculatorPage() {
   return (
     <main
       style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-[1280px] mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian text-bone-white min-h-screen"
+      className="max-w-[1280px] mx-auto px-8 pt-32 pb-24 bg-lp-chalk-dim text-lp-graphite min-h-screen"
     >
       {/* Intro */}
       <div className="mb-10 max-w-2xl">
         <div className="flex items-center justify-between gap-4 mb-5">
-          <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue">
+          <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate">
             Your claiming-age calculator
           </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate('/onboarding')}
-              className="text-sm text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 whitespace-nowrap rounded-full px-5 py-2.5 uppercase tracking-[0.02em] font-medium"
+              className="text-sm text-lp-chalk bg-lp-graphite hover:bg-lp-graphite/90 transition-colors duration-500 whitespace-nowrap rounded-full px-5 py-2.5 uppercase tracking-[0.02em] font-medium"
               style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
             >
               Redo the 5-minute setup →
             </button>
             <button
               onClick={() => signOut()}
-              className="text-xs text-fog-blue hover:text-prism-red transition-colors duration-500 whitespace-nowrap"
+              className="text-xs text-lp-slate hover:text-lp-bad transition-colors duration-500 whitespace-nowrap"
               style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
             >
               Sign out
@@ -139,7 +139,7 @@ export default function CalculatorPage() {
         <h1 className="text-4xl md:text-5xl font-normal leading-tight" style={{ letterSpacing: '-0.01em' }}>
           See what your benefit is worth, at every age from 62 to 70.
         </h1>
-        <p className="mt-4 text-bone-white/60 text-lg leading-relaxed">
+        <p className="mt-4 text-lp-slate text-lg leading-relaxed">
           Enter the numbers from your SSA statement — your full retirement age benefit is called
           your "Primary Insurance Amount," or PIA.
         </p>
@@ -147,48 +147,48 @@ export default function CalculatorPage() {
 
       <div className="grid lg:grid-cols-[380px_1fr] gap-8" id="calculator">
         {/* Input form */}
-        <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8 h-fit">
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 h-fit">
           <h2 className="text-xl font-normal mb-6">Your information</h2>
 
           <label className="block mb-6">
-            <span className="text-sm text-bone-white block mb-2">Birth year</span>
+            <span className="text-sm text-lp-graphite block mb-2">Birth year</span>
             <input
               type="number"
               value={birthYear}
               min={1943}
               max={1970}
               onChange={(e) => setBirthYear(Number(e.target.value))}
-              className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 text-base focus:border-[var(--color-lp-cyan)] outline-none transition-colors text-lp-graphite"
             />
-            <span className="text-xs text-fog-blue mt-1.5 block">
+            <span className="text-xs text-lp-slate mt-1.5 block">
               Your full retirement age is {fra.years}
               {fra.months > 0 ? ` and ${fra.months} months` : ''}.
             </span>
           </label>
 
           <label className="block mb-6">
-            <span className="text-sm text-bone-white block mb-2">
+            <span className="text-sm text-lp-graphite block mb-2">
               Benefit at full retirement age (PIA)
             </span>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-fog-blue">$</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lp-slate">$</span>
               <input
                 type="number"
                 value={pia}
                 min={0}
                 step={50}
                 onChange={(e) => setPia(Number(e.target.value))}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] pl-8 pr-4 py-3 text-base focus:border-bone-white outline-none transition-colors text-bone-white"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] pl-8 pr-4 py-3 text-base focus:border-[var(--color-lp-cyan)] outline-none transition-colors text-lp-graphite"
               />
             </div>
-            <span className="text-xs text-fog-blue mt-1.5 block">
+            <span className="text-xs text-lp-slate mt-1.5 block">
               Found on your SSA statement at ssa.gov/myaccount.
             </span>
           </label>
 
           <label className="block">
-            <span className="text-sm text-bone-white block mb-2">
-              Compare claiming at age <span className="text-bone-white font-normal">{selectedAge}</span>
+            <span className="text-sm text-lp-graphite block mb-2">
+              Compare claiming at age <span className="text-lp-graphite font-normal">{selectedAge}</span>
             </span>
             <input
               type="range"
@@ -199,7 +199,7 @@ export default function CalculatorPage() {
               onChange={(e) => setSelectedAge(Number(e.target.value))}
               className="w-full accent-[var(--color-lp-cyan)]"
             />
-            <div className="flex justify-between text-xs text-fog-blue mt-1">
+            <div className="flex justify-between text-xs text-lp-slate mt-1">
               <span>62</span>
               <span>70</span>
             </div>
@@ -210,40 +210,40 @@ export default function CalculatorPage() {
         <div id="results" className="space-y-6">
           {/* Key stat row */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 ${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </div>
-              <div className="text-xs text-fog-blue mt-1">monthly at age {selectedAge}</div>
+              <div className="text-xs text-lp-slate mt-1">monthly at age {selectedAge}</div>
               <button
                 onClick={() => explain(`Why is my benefit $${selected.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo at age ${selectedAge}?`)}
-                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
+                className="absolute top-3 right-3 text-[10px] text-lp-chalk bg-lp-graphite hover:bg-lp-graphite/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain
               </button>
             </div>
-            <div className="hover-glow-white bg-graphite-veil/45 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-lp bg-lp-chalk-dim border border-lp-line-strong rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 +${lifetimeDiff.toLocaleString()}
               </div>
-              <div className="text-xs text-fog-blue mt-1">lifetime gain, 70 vs. 62 (to age 85)</div>
+              <div className="text-xs text-lp-slate mt-1">lifetime gain, 70 vs. 62 (to age 85)</div>
               <button
                 onClick={() => explain(`Why does waiting until 70 instead of 62 add $${lifetimeDiff.toLocaleString()} over my lifetime?`)}
-                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
+                className="absolute top-3 right-3 text-[10px] text-lp-chalk bg-lp-graphite hover:bg-lp-graphite/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain
               </button>
             </div>
-            <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-5 relative group">
+            <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-5 relative group">
               <div className="text-2xl font-normal">
                 {breakeven ? breakeven.toFixed(1) : '—'}
               </div>
-              <div className="text-xs text-fog-blue mt-1">breakeven age, 62 vs. 70</div>
+              <div className="text-xs text-lp-slate mt-1">breakeven age, 62 vs. 70</div>
               <button
                 onClick={() => explain(`What does my breakeven age of ${breakeven?.toFixed(1)} actually mean?`)}
-                className="absolute top-3 right-3 text-[10px] text-vivid-obsidian bg-bone-white hover:bg-bone-white/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
+                className="absolute top-3 right-3 text-[10px] text-lp-chalk bg-lp-graphite hover:bg-lp-graphite/90 transition-colors duration-500 rounded-full px-2.5 py-1 uppercase tracking-[0.02em] font-medium"
                 style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
               >
                 explain
@@ -252,12 +252,12 @@ export default function CalculatorPage() {
           </div>
 
           {/* Chart */}
-          <div className="hover-glow-white bg-muted-grey/25 border border-ash-border rounded-[15px] p-8">
+          <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-normal">Benefit by claiming age</h2>
-              <div className="flex gap-4 text-xs text-fog-blue">
+              <div className="flex gap-4 text-xs text-lp-slate">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-sm bg-fog-blue inline-block" /> FRA ({fra.years})
+                  <span className="w-2.5 h-2.5 rounded-sm bg-lp-slate inline-block" /> FRA ({fra.years})
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-sm bg-[var(--color-lp-cyan)] inline-block" /> Selected
@@ -268,11 +268,11 @@ export default function CalculatorPage() {
           </div>
 
           {/* Table */}
-          <div className="hover-glow-white bg-graphite-veil/25 border border-ash-border rounded-[15px] p-8 overflow-x-auto">
+          <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 overflow-x-auto">
             <h2 className="text-xl font-normal mb-5">Full comparison</h2>
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-fog-blue border-b border-ash-border">
+                <tr className="text-left text-lp-slate border-b border-lp-line-strong">
                   <th className="pb-3 font-normal">Age</th>
                   <th className="pb-3 font-normal">Monthly</th>
                   <th className="pb-3 font-normal">Annual</th>
@@ -284,22 +284,22 @@ export default function CalculatorPage() {
                   <tr
                     key={row.age}
                     onClick={() => setSelectedAge(row.age)}
-                    className={`border-b border-ash-border/50 cursor-pointer transition-colors duration-500 ${
-                      row.age === selectedAge ? 'bg-[var(--color-lp-cyan)]/10' : 'hover:bg-white/5'
+                    className={`border-b border-lp-line cursor-pointer transition-colors duration-500 ${
+                      row.age === selectedAge ? 'bg-[var(--color-lp-cyan)]/10' : 'hover:bg-black/[0.03]'
                     }`}
                     style={{ transitionTimingFunction: 'cubic-bezier(0.52,0.01,0,1)' }}
                   >
                     <td className="py-3">
                       {row.age}
                       {row.age === fra.years && (
-                        <span className="ml-2 text-[10px] border border-ash-border text-fog-blue px-1.5 py-0.5 rounded-[9999px] uppercase">
+                        <span className="ml-2 text-[10px] border border-lp-line-strong text-lp-slate px-1.5 py-0.5 rounded-[9999px] uppercase">
                           FRA
                         </span>
                       )}
                     </td>
                     <td className="py-3">${row.monthlyBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
                     <td className="py-3">${row.annualBenefit.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
-                    <td className={`py-3 ${row.vsFraPct > 0 ? 'text-prism-lime' : row.vsFraPct < 0 ? 'text-prism-red' : 'text-fog-blue'}`}>
+                    <td className={`py-3 ${row.vsFraPct > 0 ? 'text-lp-good' : row.vsFraPct < 0 ? 'text-lp-bad' : 'text-lp-slate'}`}>
                       {row.vsFraPct > 0 ? '+' : ''}
                       {row.vsFraPct}%
                     </td>
@@ -313,7 +313,7 @@ export default function CalculatorPage() {
             <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
           </UpgradeGate>
 
-          <p className="text-xs text-fog-blue leading-relaxed max-w-2xl">
+          <p className="text-xs text-lp-slate leading-relaxed max-w-2xl">
             These figures are informational estimates based on the Primary Insurance Amount you
             entered and published SSA claiming-age adjustment rules. They do not account for
             future COLA increases beyond 2026 — not financial, legal, or tax advice.

@@ -44,18 +44,18 @@ export default function AdvisorDashboardPage() {
 
   if (plan !== 'advisor') {
     return (
+      <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
       <main
-        style={{ fontFamily: 'var(--font-jakarta)' }}
-        className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center bg-vivid-obsidian min-h-screen"
+        className="max-w-2xl mx-auto px-8 pt-32 pb-24 text-center"
       >
-        <div className="hover-glow-white bg-graphite-veil/30 text-bone-white border border-ash-border rounded-[15px] p-12">
-          <div className="text-xs uppercase tracking-[0.02em] text-fog-blue mb-3">
+        <div className="hover-glow-lp bg-lp-chalk text-lp-graphite border border-lp-line-strong rounded-[15px] p-12">
+          <div className="text-xs uppercase tracking-[0.02em] text-lp-slate mb-3">
             Advisor tier
           </div>
           <h1 className="text-2xl font-normal mb-3">
             The client dashboard is part of the Advisor plan
           </h1>
-          <p className="text-sm text-bone-white/60 mb-6 max-w-md mx-auto leading-relaxed">
+          <p className="text-sm text-lp-slate mb-6 max-w-md mx-auto leading-relaxed">
             Manage claiming-strategy analysis across your whole book of clients — $149/month.
           </p>
           <button
@@ -66,6 +66,7 @@ export default function AdvisorDashboardPage() {
           </button>
         </div>
       </main>
+      </div>
     )
   }
 
@@ -113,33 +114,33 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
   const selectedClient = clients.find((c) => c.id === selectedId)
 
   return (
+    <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-5xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
+      className="max-w-5xl mx-auto px-8 pt-32 pb-24"
     >
       <div className="flex items-start justify-between gap-6 mb-10">
         <div>
-          <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5 flex items-center gap-2">
-            <span className="w-4 h-[1.5px] bg-fog-blue" />
+          <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate mb-5 flex items-center gap-2">
+            <span className="w-4 h-[1.5px] bg-lp-slate" />
             Advisor dashboard
           </div>
-          <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-bone-white">
+          <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-lp-graphite">
             Your clients
           </h1>
-          <p className="mt-4 text-fog-blue text-lg leading-relaxed">
+          <p className="mt-4 text-lp-slate text-lg leading-relaxed">
             {clients.length} client{clients.length === 1 ? '' : 's'} on file.
           </p>
         </div>
         <button
           onClick={() => setShowAddForm((v) => !v)}
-          className="ov-outlined-btn px-5 py-3 whitespace-nowrap"
+          className="ov-outlined-btn-lp px-5 py-3 whitespace-nowrap"
         >
           {showAddForm ? 'Cancel' : '+ Add client'}
         </button>
       </div>
 
       {error && (
-        <div className="bg-vivid-obsidian border border-bone-white/40 text-bone-white text-sm rounded-[10px] px-5 py-4 mb-8 leading-relaxed">
+        <div className="bg-[#FEF2F2] border border-[#FECACA] text-lp-bad text-sm rounded-[10px] px-5 py-4 mb-8 leading-relaxed">
           {error}
         </div>
       )}
@@ -148,46 +149,46 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
         <form
           onSubmit={handleAdd}
           style={{ animation: 'fadeUp 0.35s cubic-bezier(.16,.8,.24,1)' }}
-          className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-8 mb-8"
+          className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8"
         >
-          <h2 className="text-lg font-normal mb-5 text-bone-white">New client</h2>
+          <h2 className="text-lg font-normal mb-5 text-lp-graphite">New client</h2>
           <div className="grid md:grid-cols-2 gap-5 mb-5">
             <label className="block">
-              <span className="text-sm font-normal block mb-2 text-bone-white/80">Client name</span>
+              <span className="text-sm font-normal block mb-2 text-lp-slate">Client name</span>
               <input
                 type="text"
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-normal block mb-2 text-bone-white/80">Birth year</span>
+              <span className="text-sm font-normal block mb-2 text-lp-slate">Birth year</span>
               <input
                 type="number"
                 required
                 value={form.birthYear}
                 onChange={(e) => setForm({ ...form, birthYear: Number(e.target.value) })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-normal block mb-2 text-bone-white/80">PIA ($/mo at FRA)</span>
+              <span className="text-sm font-normal block mb-2 text-lp-slate">PIA ($/mo at FRA)</span>
               <input
                 type="number"
                 required
                 value={form.pia}
                 onChange={(e) => setForm({ ...form, pia: Number(e.target.value) })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
               />
             </label>
             <label className="block">
-              <span className="text-sm font-normal block mb-2 text-bone-white/80">Marital status</span>
+              <span className="text-sm font-normal block mb-2 text-lp-slate">Marital status</span>
               <select
                 value={form.maritalStatus}
                 onChange={(e) => setForm({ ...form, maritalStatus: e.target.value as NewAdvisorClient['maritalStatus'] })}
-                className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
               >
                 <option value="single">Single</option>
                 <option value="married">Married</option>
@@ -195,7 +196,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
               </select>
             </label>
           </div>
-          <label className="flex items-center gap-2 mb-5 text-sm text-bone-white">
+          <label className="flex items-center gap-2 mb-5 text-sm text-lp-graphite">
             <input
               type="checkbox"
               checked={form.hasNonCoveredPension}
@@ -205,12 +206,12 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
             Has a non-covered pension
           </label>
           <label className="block mb-6">
-            <span className="text-sm font-normal block mb-2 text-bone-white/80">Notes</span>
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Notes</span>
             <textarea
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}
-              className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-bone-white"
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
           <button
@@ -224,7 +225,7 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
       )}
 
       {clients.length === 0 && !showAddForm && (
-        <div className="bg-graphite-veil/20 border border-ash-border rounded-[15px] p-12 text-center text-fog-blue text-sm">
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-12 text-center text-lp-slate text-sm">
           No clients yet — add your first one to get started.
         </div>
       )}
@@ -234,26 +235,26 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
           <div
             key={client.id}
             style={{ animation: `fadeUp 0.35s cubic-bezier(.16,.8,.24,1) ${i * 0.04}s both` }}
-            className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] overflow-hidden"
+            className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] overflow-hidden"
           >
             <div className="flex items-center gap-4 p-5">
               <div className="flex-1 min-w-0">
-                <div className="font-normal text-bone-white">{client.name}</div>
-                <div className="text-xs text-fog-blue font-mono mt-0.5">
+                <div className="font-normal text-lp-graphite">{client.name}</div>
+                <div className="text-xs text-lp-slate font-mono mt-0.5">
                   Born {client.birthYear} · ${client.pia.toLocaleString()}/mo PIA · {client.maritalStatus}
                   {client.hasNonCoveredPension ? ' · non-covered pension' : ''}
                 </div>
               </div>
               <button
                 onClick={() => setSelectedId(selectedId === client.id ? null : client.id)}
-                className="text-sm font-normal text-[var(--color-lp-cyan)] hover:text-bone-white transition-colors whitespace-nowrap"
+                className="text-sm font-normal text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors whitespace-nowrap"
               >
                 {selectedId === client.id ? 'Hide' : 'View analysis'}
               </button>
               <button
                 onClick={() => handleDelete(client.id)}
                 disabled={deletingId === client.id}
-                className="text-sm text-fog-blue hover:text-bone-white transition-colors disabled:opacity-40"
+                className="text-sm text-lp-slate hover:text-lp-graphite transition-colors disabled:opacity-40"
               >
                 {deletingId === client.id ? 'Deleting…' : 'Delete'}
               </button>
@@ -264,9 +265,10 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
       </div>
 
       {selectedClient === undefined && selectedId && (
-        <p className="text-xs text-fog-blue mt-4">Client no longer exists — it may have just been deleted.</p>
+        <p className="text-xs text-lp-slate mt-4">Client no longer exists — it may have just been deleted.</p>
       )}
     </main>
+    </div>
   )
 }
 
@@ -280,28 +282,28 @@ function ClientAnalysis({ client }: { client: AdvisorClient }) {
   return (
     <div
       style={{ animation: 'fadeUp 0.3s cubic-bezier(.16,.8,.24,1)' }}
-      className="border-t border-ash-border bg-vivid-obsidian text-bone-white p-6"
+      className="border-t border-lp-line-strong bg-lp-chalk-dim text-lp-graphite p-6"
     >
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
-          <div className="font-mono text-lg font-normal text-bone-white">
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[10px] p-4">
+          <div className="font-mono text-lg font-normal text-lp-graphite">
             ${age62.monthlyBenefit.toLocaleString()} → ${age70.monthlyBenefit.toLocaleString()}
           </div>
-          <div className="text-xs text-fog-blue mt-1">monthly, 62 vs. 70</div>
+          <div className="text-xs text-lp-slate mt-1">monthly, 62 vs. 70</div>
         </div>
-        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
-          <div className="font-mono text-lg font-normal text-bone-white">{fra.years}{fra.months > 0 ? `y ${fra.months}m` : ''}</div>
-          <div className="text-xs text-fog-blue mt-1">full retirement age</div>
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[10px] p-4">
+          <div className="font-mono text-lg font-normal text-lp-graphite">{fra.years}{fra.months > 0 ? `y ${fra.months}m` : ''}</div>
+          <div className="text-xs text-lp-slate mt-1">full retirement age</div>
         </div>
-        <div className="hover-glow-white bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4">
-          <div className="font-mono text-lg font-normal text-bone-white">{breakeven ? breakeven.toFixed(1) : '—'}</div>
-          <div className="text-xs text-fog-blue mt-1">breakeven age</div>
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[10px] p-4">
+          <div className="font-mono text-lg font-normal text-lp-graphite">{breakeven ? breakeven.toFixed(1) : '—'}</div>
+          <div className="text-xs text-lp-slate mt-1">breakeven age</div>
         </div>
       </div>
       <BenefitChart data={comparison} highlightAge={70} fraAge={fra.years} />
       {client.notes && (
-        <div className="mt-5 text-sm bg-graphite-veil/30 border border-ash-border rounded-[10px] p-4 text-bone-white">
-          <span className="font-normal text-fog-blue">Notes: </span>
+        <div className="mt-5 text-sm bg-lp-chalk border border-lp-line-strong rounded-[10px] p-4 text-lp-graphite">
+          <span className="font-normal text-lp-slate">Notes: </span>
           {client.notes}
         </div>
       )}

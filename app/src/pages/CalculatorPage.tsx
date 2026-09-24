@@ -109,9 +109,9 @@ export default function CalculatorPage() {
   }
 
   return (
+    <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-[1280px] mx-auto px-8 pt-32 pb-24 bg-lp-chalk-dim text-lp-graphite min-h-screen"
+      className="max-w-[1280px] mx-auto px-8 pt-32 pb-24 text-lp-graphite"
     >
       {/* Intro */}
       <div className="mb-10 max-w-2xl">
@@ -321,5 +321,6 @@ export default function CalculatorPage() {
         </div>
       </div>
     </main>
+    </div>
   )
 }

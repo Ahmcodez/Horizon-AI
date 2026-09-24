@@ -59,19 +59,19 @@ export default function DocumentsPage() {
   }
 
   return (
+    <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
+      className="max-w-3xl mx-auto px-8 pt-32 pb-24"
     >
       <div className="mb-10">
-        <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5 flex items-center gap-2">
-          <span className="w-4 h-[1.5px] bg-fog-blue" />
+        <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate mb-5 flex items-center gap-2">
+          <span className="w-4 h-[1.5px] bg-lp-slate" />
           Document reader
         </div>
-        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-bone-white">
+        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-lp-graphite">
           Upload the letter. Get the plain-English version.
         </h1>
-        <p className="mt-4 text-fog-blue text-lg leading-relaxed">
+        <p className="mt-4 text-lp-slate text-lg leading-relaxed">
           Photograph or scan an SSA, IRS, or Medicare notice — we'll tell you what it says and
           whether you need to do anything about it. This reader only handles Social
           Security/benefits-related documents; it won't summarize unrelated files.
@@ -89,12 +89,12 @@ export default function DocumentsPage() {
             onDrop={onDrop}
             onClick={() => inputRef.current?.click()}
             className={`border-2 border-dashed rounded-[15px] p-16 text-center cursor-pointer transition-all vivid-ease ${
-              dragOver ? 'border-[var(--color-lp-cyan)] bg-graphite-veil/20 scale-[1.01]' : 'border-ash-border bg-graphite-veil/10 hover:border-[var(--color-lp-cyan)]/40'
+              dragOver ? 'border-[var(--color-lp-cyan)] bg-lp-chalk scale-[1.01]' : 'border-lp-line-strong bg-lp-chalk-dim hover:border-[var(--color-lp-cyan)]/40'
             }`}
           >
             <div className="text-4xl mb-4">📄</div>
-            <p className="font-normal text-bone-white mb-1">Drop a file here, or click to browse</p>
-            <p className="text-sm text-fog-blue">JPEG, PNG, or PDF — up to 6MB</p>
+            <p className="font-normal text-lp-graphite mb-1">Drop a file here, or click to browse</p>
+            <p className="text-sm text-lp-slate">JPEG, PNG, or PDF — up to 6MB</p>
             <input
               ref={inputRef}
               type="file"
@@ -110,19 +110,19 @@ export default function DocumentsPage() {
 
       {file && (
         <div className="space-y-6" style={{ animation: 'fadeUp 0.4s cubic-bezier(.16,.8,.24,1)' }}>
-          <div className="hover-glow-white bg-graphite-veil/20 border border-ash-border rounded-[15px] p-6 flex items-center gap-5">
+          <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-6 flex items-center gap-5">
             {previewUrl ? (
-              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-[5px] border border-ash-border" />
+              <img src={previewUrl} alt="Document preview" className="w-20 h-20 object-cover rounded-[5px] border border-lp-line-strong" />
             ) : (
-              <div className="w-20 h-20 rounded-[5px] bg-vivid-obsidian border border-ash-border text-bone-white flex items-center justify-center font-mono text-xs">
+              <div className="w-20 h-20 rounded-[5px] bg-lp-chalk border border-lp-line-strong text-lp-graphite flex items-center justify-center font-mono text-xs">
                 PDF
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <div className="font-normal truncate text-bone-white">{file.name}</div>
-              <div className="text-xs text-fog-blue">{(file.size / 1024).toFixed(0)} KB</div>
+              <div className="font-normal truncate text-lp-graphite">{file.name}</div>
+              <div className="text-xs text-lp-slate">{(file.size / 1024).toFixed(0)} KB</div>
             </div>
-            <button onClick={reset} className="text-sm text-fog-blue hover:text-bone-white transition-colors">
+            <button onClick={reset} className="text-sm text-lp-slate hover:text-lp-graphite transition-colors">
               Remove
             </button>
           </div>
@@ -137,20 +137,20 @@ export default function DocumentsPage() {
             </button>
           )}
 
-          {error && <div className="text-sm text-bone-white bg-vivid-obsidian border border-bone-white/40 rounded-[5px] px-5 py-4">{error}</div>}
+          {error && <div className="text-sm text-lp-bad bg-[#FEF2F2] border border-[#FECACA] rounded-[5px] px-5 py-4">{error}</div>}
 
           {reading && reading.isRelevant && (
             <div
-              className="hover-glow-white bg-graphite-veil/30 border border-ash-border text-bone-white rounded-[15px] p-8"
+              className="hover-glow-lp bg-lp-chalk border border-lp-line-strong text-lp-graphite rounded-[15px] p-8"
               style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
             >
-              <div className="text-[13px] uppercase tracking-[0.02em] text-fog-blue mb-4">
+              <div className="text-[13px] uppercase tracking-[0.02em] text-lp-slate mb-4">
                 What this document says
               </div>
               <div className="leading-relaxed whitespace-pre-line">{reading.summary}</div>
               <button
                 onClick={reset}
-                className="mt-6 text-sm font-normal text-fog-blue hover:text-bone-white transition-colors"
+                className="mt-6 text-sm font-normal text-lp-slate hover:text-lp-graphite transition-colors"
               >
                 ← Analyze another document
               </button>
@@ -159,21 +159,21 @@ export default function DocumentsPage() {
 
           {reading && !reading.isRelevant && (
             <div
-              className="bg-vivid-obsidian border border-dashed border-ash-border text-fog-blue rounded-[15px] p-8"
+              className="bg-lp-chalk border border-dashed border-lp-line-strong text-lp-slate rounded-[15px] p-8"
               style={{ animation: 'fadeUp 0.5s cubic-bezier(.16,.8,.24,1)' }}
             >
               <div className="text-[13px] uppercase tracking-[0.02em] mb-4">Not a supported document</div>
               <div className="leading-relaxed whitespace-pre-line">{reading.summary}</div>
               <button
                 onClick={reset}
-                className="mt-6 text-sm font-normal text-fog-blue hover:text-bone-white transition-colors"
+                className="mt-6 text-sm font-normal text-lp-slate hover:text-lp-graphite transition-colors"
               >
                 ← Try a different document
               </button>
             </div>
           )}
 
-          <p className="text-xs text-fog-blue leading-relaxed">
+          <p className="text-xs text-lp-slate leading-relaxed">
             Informational only — not financial, legal, or tax advice. If a document requests
             action, confirm directly with SSA.gov, the IRS, or Medicare before responding.
           </p>
@@ -181,5 +181,6 @@ export default function DocumentsPage() {
       )}
       </UpgradeGate>
     </main>
+    </div>
   )
 }

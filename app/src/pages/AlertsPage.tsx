@@ -22,27 +22,27 @@ export default function AlertsPage() {
   }
 
   return (
+    <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-6xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
+      className="max-w-6xl mx-auto px-8 pt-32 pb-24"
     >
       <div className="mb-10">
-        <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5 flex items-center gap-2">
-          <span className="w-4 h-[1.5px] bg-fog-blue" />
+        <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate mb-5 flex items-center gap-2">
+          <span className="w-4 h-[1.5px] bg-lp-slate" />
           Rule-change alerts
         </div>
-        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-bone-white max-w-2xl">
+        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-lp-graphite max-w-2xl">
           What's changed, and whether it affects you.
         </h1>
-        <p className="mt-4 text-fog-blue text-lg leading-relaxed max-w-2xl">
+        <p className="mt-4 text-lp-slate text-lg leading-relaxed max-w-2xl">
           We check SSA, IRS, and CMS daily and only alert you when something relevant to your
           situation actually changes.
         </p>
       </div>
 
-      <section className="bg-graphite-veil/15 border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.15)]">
+      <section className="bg-lp-chalk border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.15)]">
         {alerts.length === 0 && (
-          <div className="text-center text-fog-blue text-sm py-6">
+          <div className="text-center text-lp-slate text-sm py-6">
             <p className="mb-5">
               No alerts yet — you'll see something here the next time a rule change affects your
               numbers.
@@ -50,11 +50,11 @@ export default function AlertsPage() {
             <button
               onClick={seedSamples}
               disabled={seeding}
-              className="font-mono text-xs bg-vivid-obsidian border-2 border-ash-border px-4 py-2 rounded-[5px] hover:border-[var(--color-lp-cyan)] transition-colors disabled:opacity-60 text-bone-white"
+              className="font-mono text-xs bg-lp-chalk border-2 border-lp-line-strong px-4 py-2 rounded-[5px] hover:border-[var(--color-lp-cyan)] transition-colors disabled:opacity-60 text-lp-graphite"
             >
               {seeding ? 'Loading…' : 'See what this looks like (sample data)'}
             </button>
-            <p className="text-[10px] text-fog-blue/70 mt-3 max-w-sm mx-auto leading-relaxed">
+            <p className="text-[10px] text-lp-slate/70 mt-3 max-w-sm mx-auto leading-relaxed">
               This loads 3 realistic sample alerts to preview the feature — it does not test the
               actual daily SSA/IRS/CMS monitoring, which only produces real alerts after a genuine
               rule change is detected.
@@ -69,14 +69,14 @@ export default function AlertsPage() {
               style={{ animation: `fadeUp 0.4s cubic-bezier(.16,.8,.24,1) ${i * 0.05}s both` }}
               className={`rounded-[10px] border-2 p-5 flex items-start gap-4 transition-all duration-300 ${
                 alert.read
-                  ? 'bg-vivid-obsidian border-ash-border'
-                  : 'bg-muted-grey/25 border-[var(--color-lp-cyan)]/50 shadow-[0_0_20px_rgba(56,189,248,0.15)]'
+                  ? 'bg-lp-chalk border-lp-line-strong'
+                  : 'bg-lp-chalk border-[var(--color-lp-cyan)]/50 shadow-[0_0_20px_rgba(56,189,248,0.15)]'
               }`}
             >
               {!alert.read && <div className="w-2 h-2 rounded-full bg-[var(--color-lp-cyan)] mt-1.5 flex-shrink-0" />}
               <div className="flex-1">
-                <p className="text-sm text-bone-white leading-relaxed">{alert.message}</p>
-                <div className="text-xs text-fog-blue font-mono mt-2">
+                <p className="text-sm text-lp-graphite leading-relaxed">{alert.message}</p>
+                <div className="text-xs text-lp-slate font-mono mt-2">
                   {new Date(alert.createdAt).toLocaleDateString(undefined, {
                     month: 'short',
                     day: 'numeric',
@@ -88,7 +88,7 @@ export default function AlertsPage() {
                 {!alert.read && user && (
                   <button
                     onClick={() => markAlertRead(user.uid, alert.id)}
-                    className="text-xs font-mono text-[var(--color-lp-cyan)] hover:text-bone-white transition-colors"
+                    className="text-xs font-mono text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors"
                   >
                     Mark read
                   </button>
@@ -96,7 +96,7 @@ export default function AlertsPage() {
                 {user && (
                   <button
                     onClick={() => dismissAlert(user.uid, alert.id)}
-                    className="text-xs font-mono text-fog-blue hover:text-bone-white transition-colors"
+                    className="text-xs font-mono text-lp-slate hover:text-lp-graphite transition-colors"
                   >
                     Dismiss
                   </button>
@@ -109,6 +109,7 @@ export default function AlertsPage() {
 
       <PolicyNewsSection />
     </main>
+    </div>
   )
 }
 
@@ -119,28 +120,28 @@ function PolicyNewsSection() {
   const status = useDigestStatus()
 
   return (
-    <section className="mt-10 bg-muted-grey/10 border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.18)]">
-      <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-2 flex items-center gap-2">
-        <span className="w-4 h-[1.5px] bg-fog-blue" />
+    <section className="mt-10 bg-lp-chalk border-2 border-[var(--color-lp-cyan)]/40 rounded-[15px] p-8 shadow-[0_0_35px_rgba(56,189,248,0.18)]">
+      <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate mb-2 flex items-center gap-2">
+        <span className="w-4 h-[1.5px] bg-lp-slate" />
         General policy news
       </div>
-      <p className="text-fog-blue text-sm leading-relaxed mb-10 max-w-xl">
+      <p className="text-lp-slate text-sm leading-relaxed mb-10 max-w-xl">
         These aren't personalized to your record — they're the broader SSA, CMS, and Trustees
         Report changes everyone planning around Social Security should know about.
       </p>
 
       {live.length > 0 ? (
         <div className="mb-12">
-          <h2 className="text-2xl font-normal text-bone-white mb-1 flex items-center gap-3">
+          <h2 className="text-2xl font-normal text-lp-graphite mb-1 flex items-center gap-3">
             Today
             <span className="text-[10px] font-mono uppercase tracking-wide border border-[var(--color-lp-cyan)] text-[var(--color-lp-cyan)] px-2 py-0.5 rounded-[3px]">
               live
             </span>
           </h2>
-          <p className="text-xs text-fog-blue mb-6">
+          <p className="text-xs text-lp-slate mb-6">
             Pulled automatically from SSA, IRS, and CMS.
             {status && (
-              <span className="text-fog-blue/70">
+              <span className="text-lp-slate/70">
                 {' '}
                 · Last checked {formatRelativeTime(status.lastRunAt)} ({status.succeeded}/{status.sourcesChecked} sources)
               </span>
@@ -165,7 +166,7 @@ function PolicyNewsSection() {
           </div>
         </div>
       ) : (
-        <div className="mb-12 border border-ash-border rounded-[10px] px-5 py-4 text-xs text-fog-blue leading-relaxed">
+        <div className="mb-12 border border-lp-line-strong rounded-[10px] px-5 py-4 text-xs text-lp-slate leading-relaxed">
           {status && status.succeeded === 0 ? (
             <>
               The live monitor ran but every source failed ({status.failed}/{status.sourcesChecked}) —{' '}
@@ -182,7 +183,7 @@ function PolicyNewsSection() {
       )}
 
       <div className="mb-4">
-        <h2 className="text-2xl font-normal text-bone-white mb-6">Recent</h2>
+        <h2 className="text-2xl font-normal text-lp-graphite mb-6">Recent</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {recent.map((item, i) => (
             <PolicyNewsCard key={item.id} item={item} index={i} />
@@ -191,7 +192,7 @@ function PolicyNewsSection() {
       </div>
 
       <div className="mt-12">
-        <h2 className="text-2xl font-normal text-bone-white mb-6">Upcoming</h2>
+        <h2 className="text-2xl font-normal text-lp-graphite mb-6">Upcoming</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {upcoming.map((item, i) => (
             <PolicyNewsCard key={item.id} item={item} index={i} />
@@ -218,11 +219,11 @@ function PolicyNewsCard({ item, index }: { item: (typeof POLICY_NEWS)[number]; i
       target="_blank"
       rel="noopener noreferrer"
       style={{ animation: `fadeUp 0.45s cubic-bezier(.16,.8,.24,1) ${index * 0.07}s both` }}
-      className="block bg-graphite-veil/20 border-2 border-ash-border rounded-[10px] p-5 hover:border-[var(--color-lp-cyan)] hover:-translate-y-1 hover:shadow-[0_0_28px_rgba(56,189,248,0.4)] transition-all duration-300"
+      className="block bg-lp-chalk border-2 border-lp-line-strong rounded-[10px] p-5 hover:border-[var(--color-lp-cyan)] hover:-translate-y-1 hover:shadow-[0_0_28px_rgba(56,189,248,0.4)] transition-all duration-300"
     >
-      <div className="text-[11px] font-mono text-fog-blue mb-2">{item.date} · {item.source}</div>
-      <div className="text-sm text-bone-white font-normal mb-2 leading-snug">{item.title}</div>
-      <p className="text-xs text-grey-text leading-relaxed">{item.description}</p>
+      <div className="text-[11px] font-mono text-lp-slate mb-2">{item.date} · {item.source}</div>
+      <div className="text-sm text-lp-graphite font-normal mb-2 leading-snug">{item.title}</div>
+      <p className="text-xs text-lp-slate leading-relaxed">{item.description}</p>
     </a>
   )
 }

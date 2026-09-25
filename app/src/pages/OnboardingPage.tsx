@@ -57,7 +57,7 @@ export default function OnboardingPage() {
   return (
     <main
       style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="min-h-screen flex items-center justify-center px-6 bg-vivid-obsidian relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-6 bg-lp-chalk-dim relative overflow-hidden"
     >
       <div className="w-full max-w-lg relative">
         {step !== 'welcome' && step !== 'done' && (
@@ -66,14 +66,14 @@ export default function OnboardingPage() {
               <div
                 key={s}
                 className={`h-1 flex-1 rounded-[5px] transition-all duration-500 ${
-                  i <= stepIndex - 1 ? 'bg-[var(--color-lp-cyan)]' : 'bg-ash-border'
+                  i <= stepIndex - 1 ? 'bg-[var(--color-lp-cyan)]' : 'bg-lp-line-strong'
                 }`}
               />
             ))}
           </div>
         )}
 
-        <div className="bg-graphite-veil/25 border border-ash-border rounded-[15px] p-10 overflow-hidden">
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-10 overflow-hidden">
           <div
             key={step}
             style={{
@@ -82,13 +82,13 @@ export default function OnboardingPage() {
           >
             {step === 'welcome' && (
               <div className="text-center">
-                <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.02em] text-fog-blue mb-6">
-                  <span className="w-4 h-[1.5px] bg-fog-blue" />5 minutes
+                <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.02em] text-lp-slate mb-6">
+                  <span className="w-4 h-[1.5px] bg-lp-slate" />5 minutes
                 </div>
-                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-bone-white">
+                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-lp-graphite">
                   Let's find your number.
                 </h1>
-                <p className="text-bone-white/60 leading-relaxed mb-8">
+                <p className="text-lp-slate leading-relaxed mb-8">
                   A few quick questions — the same ones you'd answer once, so every screen after
                   this one already knows your situation.
                 </p>
@@ -106,7 +106,7 @@ export default function OnboardingPage() {
                   min={1943}
                   max={1970}
                   onChange={(e) => setDraft({ ...draft, birthYear: Number(e.target.value) })}
-                  className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] px-4 py-3.5 text-lg text-center focus:border-bone-white outline-none transition-colors text-bone-white"
+                  className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3.5 text-lg text-center focus:border-[var(--color-lp-cyan)] outline-none transition-colors text-lp-graphite"
                   autoFocus
                 />
               </StepShell>
@@ -118,14 +118,14 @@ export default function OnboardingPage() {
                 sub="This is your Primary Insurance Amount (PIA) — find it at ssa.gov/myaccount, on your Social Security statement."
               >
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-fog-blue text-lg">$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lp-slate text-lg">$</span>
                   <input
                     type="number"
                     value={draft.pia}
                     min={0}
                     step={50}
                     onChange={(e) => setDraft({ ...draft, pia: Number(e.target.value) })}
-                    className="w-full bg-vivid-obsidian border border-ash-border rounded-[5px] pl-9 pr-4 py-3.5 text-lg text-center focus:border-bone-white outline-none transition-colors text-bone-white"
+                    className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] pl-9 pr-4 py-3.5 text-lg text-center focus:border-[var(--color-lp-cyan)] outline-none transition-colors text-lp-graphite"
                     autoFocus
                   />
                 </div>
@@ -139,10 +139,10 @@ export default function OnboardingPage() {
                     <button
                       key={option}
                       onClick={() => setDraft({ ...draft, maritalStatus: option })}
-                      className={`w-full text-left px-5 py-3.5 rounded-[5px] border capitalize transition-colors duration-500 text-bone-white ${
+                      className={`w-full text-left px-5 py-3.5 rounded-[5px] border capitalize transition-colors duration-500 text-lp-graphite ${
                         draft.maritalStatus === option
-                          ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]'
-                          : 'border-ash-border hover:border-bone-white/40'
+                          ? 'bg-lp-chalk-dim border-[var(--color-lp-cyan)]'
+                          : 'border-lp-line-strong hover:border-lp-line-strong'
                       }`}
                     >
                       {option}
@@ -160,16 +160,16 @@ export default function OnboardingPage() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: true })}
-                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
-                      draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]' : 'border-ash-border'
+                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-lp-graphite ${
+                      draft.hasNonCoveredPension ? 'bg-lp-chalk-dim border-[var(--color-lp-cyan)]' : 'border-lp-line-strong'
                     }`}
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setDraft({ ...draft, hasNonCoveredPension: false })}
-                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-bone-white ${
-                      !draft.hasNonCoveredPension ? 'bg-graphite-veil/45 border-[var(--color-lp-cyan)]' : 'border-ash-border'
+                    className={`flex-1 py-3.5 rounded-[5px] border transition-colors duration-500 text-lp-graphite ${
+                      !draft.hasNonCoveredPension ? 'bg-lp-chalk-dim border-[var(--color-lp-cyan)]' : 'border-lp-line-strong'
                     }`}
                   >
                     No
@@ -180,13 +180,13 @@ export default function OnboardingPage() {
 
             {step === 'done' && (
               <div className="text-center">
-                <div className="w-14 h-14 rounded-full border border-bone-white flex items-center justify-center mx-auto mb-6">
-                  <span className="text-bone-white text-xl">✓</span>
+                <div className="w-14 h-14 rounded-full border border-lp-graphite flex items-center justify-center mx-auto mb-6">
+                  <span className="text-lp-graphite text-xl">✓</span>
                 </div>
-                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-bone-white">
+                <h1 className="text-heading-sm font-normal leading-tight mb-4 text-lp-graphite">
                   You're all set.
                 </h1>
-                <p className="text-bone-white/60 leading-relaxed mb-8">
+                <p className="text-lp-slate leading-relaxed mb-8">
                   Your numbers are saved on this device. See your full claiming-age breakdown now.
                 </p>
                 <button onClick={finish} className="lp-gradient-btn w-full py-3.5">
@@ -199,14 +199,14 @@ export default function OnboardingPage() {
           {step !== 'welcome' && step !== 'done' && (
             <div className="mt-8">
               {error && (
-                <div className="text-xs text-prism-red bg-prism-red/10 border border-prism-red/30 rounded-[5px] px-4 py-3 mb-4">
+                <div className="text-xs text-lp-bad bg-[#FEF2F2] border border-[#FECACA] rounded-[5px] px-4 py-3 mb-4">
                   {error}
                 </div>
               )}
               <div className="flex justify-between items-center">
                 <button
                   onClick={back}
-                  className="text-sm text-fog-blue hover:text-bone-white transition-colors duration-500"
+                  className="text-sm text-lp-slate hover:text-lp-graphite transition-colors duration-500"
                 >
                   ← Back
                 </button>
@@ -219,7 +219,7 @@ export default function OnboardingPage() {
         </div>
 
         {step !== 'welcome' && step !== 'done' && (
-          <p className="text-center text-xs text-bone-white/40 mt-5">
+          <p className="text-center text-xs text-lp-slate mt-5">
             Saved securely to your account — available whenever you sign back in.
           </p>
         )}
@@ -231,8 +231,8 @@ export default function OnboardingPage() {
 function StepShell({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-heading-sm font-normal leading-tight mb-2 text-bone-white">{title}</h2>
-      <p className="text-sm text-fog-blue mb-6 leading-relaxed">{sub}</p>
+      <h2 className="text-heading-sm font-normal leading-tight mb-2 text-lp-graphite">{title}</h2>
+      <p className="text-sm text-lp-slate mb-6 leading-relaxed">{sub}</p>
       {children}
     </div>
   )

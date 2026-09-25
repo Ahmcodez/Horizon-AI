@@ -6,25 +6,25 @@ export default function PrivacyPage() {
   }, [])
 
   return (
+    <div className="min-h-screen bg-lp-chalk-dim" style={{ fontFamily: 'var(--font-jakarta)' }}>
     <main
-      style={{ fontFamily: 'var(--font-jakarta)' }}
-      className="max-w-3xl mx-auto px-8 pt-32 pb-24 bg-vivid-obsidian min-h-screen"
+      className="max-w-3xl mx-auto px-8 pt-32 pb-24"
     >
       <div className="mb-10">
-        <div className="text-[14px] uppercase tracking-[0.02em] text-fog-blue mb-5 flex items-center gap-2">
-          <span className="w-4 h-[1.5px] bg-fog-blue" />
+        <div className="text-[14px] uppercase tracking-[0.02em] text-lp-slate mb-5 flex items-center gap-2">
+          <span className="w-4 h-[1.5px] bg-lp-slate" />
           Privacy Policy
         </div>
-        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-bone-white">
+        <h1 className="text-heading-sm font-normal tracking-tight leading-tight text-lp-graphite">
           What we collect, and why.
         </h1>
-        <p className="mt-4 text-fog-blue text-lg leading-relaxed">
+        <p className="mt-4 text-lp-slate text-lg leading-relaxed">
           Last updated: {new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}.
         </p>
       </div>
 
-      <div className="bg-graphite-veil/15 border border-ash-border rounded-[15px] p-8 mb-8">
-        <p className="text-sm text-bone-white leading-relaxed">
+      <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
+        <p className="text-sm text-lp-graphite leading-relaxed">
           <span className="font-normal">This is a working draft, not a finished legal document.</span>{' '}
           It accurately describes what the app's code actually does as of today, but it hasn't
           been reviewed by a lawyer. Have this checked by one before you rely on it publicly —
@@ -32,10 +32,10 @@ export default function PrivacyPage() {
         </p>
       </div>
 
-      <div className="space-y-10 text-sm text-bone-white/85 leading-relaxed">
+      <div className="space-y-10 text-sm text-lp-graphite leading-relaxed">
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">What we collect</h2>
-          <ul className="space-y-2 list-disc list-inside text-bone-white/75">
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">What we collect</h2>
+          <ul className="space-y-2 list-disc list-inside text-lp-slate">
             <li>Your email address and password, handled entirely by Firebase Authentication.</li>
             <li>
               The Social Security details you enter — birth year, PIA, marital status, and
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">How it's used</h2>
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">How it's used</h2>
           <p>
             Your saved numbers power the calculator, scenario modeling, and AI assistant — the
             assistant only answers using the figures already saved to your account, and the
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">AI processing (Gemini)</h2>
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">AI processing (Gemini)</h2>
           <p>
             The AI assistant and document reader are powered by Google's Gemini API. Depending on
             which tier this account is running on, Google's free-tier terms may permit using
@@ -78,8 +78,8 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">What we don't do</h2>
-          <ul className="space-y-2 list-disc list-inside text-bone-white/75">
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">What we don't do</h2>
+          <ul className="space-y-2 list-disc list-inside text-lp-slate">
             <li>We don't sell your data to anyone.</li>
             <li>We don't share your Social Security numbers with advertisers.</li>
             <li>We don't run ads or ad-tracking in this app.</li>
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">Your choices</h2>
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">Your choices</h2>
           <p>
             You can delete your saved numbers, uploaded documents, and account at any time by
             contacting us. If you're on the Advisor plan, deleting a client record removes it
@@ -96,10 +96,10 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-normal text-bone-white mb-3">Contact</h2>
+          <h2 className="text-xl font-normal text-lp-graphite mb-3">Contact</h2>
           <p>
             Questions about this policy or your data — reach us at{' '}
-            <a href="mailto:myclaimagesupport@gmail.com" className="text-[var(--color-lp-cyan)] underline hover:text-bone-white transition-colors">
+            <a href="mailto:myclaimagesupport@gmail.com" className="text-[var(--color-lp-cyan)] underline hover:text-lp-graphite transition-colors">
               myclaimagesupport@gmail.com
             </a>
             .
@@ -107,5 +107,6 @@ export default function PrivacyPage() {
         </section>
       </div>
     </main>
+    </div>
   )
 }

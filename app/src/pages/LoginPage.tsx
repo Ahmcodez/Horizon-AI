@@ -24,6 +24,7 @@ export default function LoginPage() {
       }
       navigate('/app')
     } catch (err) {
+      console.error('[MyClaimAge] Sign-in/sign-up failed:', err)
       setError(friendlyAuthError(err))
     } finally {
       setSubmitting(false)
@@ -172,7 +173,20 @@ function friendlyAuthError(err: unknown): string {
       return 'Password should be at least 6 characters.'
     case 'auth/invalid-email':
       return 'That email address doesn\'t look right.'
+    case 'auth/too-many-requests':
+      return 'Too many attempts — please wait a bit and try again.'
+    case 'auth/network-request-failed':
+      return 'Network error — check your connection and try again.'
+    case 'auth/unauthorized-domain':
+      return 'This site isn\'t yet authorized for sign-in (check Firebase Console → Authentication → Settings → Authorized domains).'
+    case 'auth/operation-not-allowed':
+      return 'Email/password sign-in isn\'t enabled for this project yet (check Firebase Console → Authentication → Sign-in method).'
+    case 'auth/api-key-not-valid.-please-pass-a-valid-api-key.':
+    case 'auth/invalid-api-key':
+      return 'This deployment is missing a valid Firebase configuration — contact support.'
     default:
-      return 'Something went wrong. Please try again.'
+      return code
+        ? `Something went wrong (${code}). Please try again.`
+        : 'Something went wrong. Please try again.'
   }
 }

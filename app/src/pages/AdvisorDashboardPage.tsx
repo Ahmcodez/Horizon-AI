@@ -10,11 +10,20 @@ import {
   type AdvisorClient,
 } from '../lib/advisorClients'
 import {
+  useAdvisorProfile,
+  saveAdvisorProfile,
+  EMPTY_ADVISOR_PROFILE,
+  useAdvisorMatches,
+  setMatchResolved,
+  type NewAdvisorProfile,
+} from '../lib/advisorMatching'
+import {
   generateClaimingComparison,
   getFullRetirementAge,
   calculateBreakevenAge,
 } from '../lib/socialSecurity'
 import BenefitChart from '../components/BenefitChart'
+import MatchThread from '../components/MatchThread'
 
 const EMPTY_FORM: NewAdvisorClient = {
   name: '',
@@ -139,6 +148,9 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
         </button>
       </div>
 
+      <AdvisorProfileEditor advisorUid={advisorUid} />
+      <ClientMatches advisorUid={advisorUid} />
+
       {error && (
         <div className="bg-[#FEF2F2] border border-[#FECACA] text-lp-bad text-sm rounded-[10px] px-5 py-4 mb-8 leading-relaxed">
           {error}
@@ -224,6 +236,8 @@ function AdvisorDashboard({ advisorUid }: { advisorUid: string }) {
         </form>
       )}
 
+      <h2 className="text-xl font-normal text-lp-graphite mb-4">Your manual client book</h2>
+
       {clients.length === 0 && !showAddForm && (
         <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-12 text-center text-lp-slate text-sm">
           No clients yet — add your first one to get started.
@@ -305,6 +319,225 @@ function ClientAnalysis({ client }: { client: AdvisorClient }) {
         <div className="mt-5 text-sm bg-lp-chalk border border-lp-line-strong rounded-[10px] p-4 text-lp-graphite">
           <span className="font-normal text-lp-slate">Notes: </span>
           {client.notes}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/**
+ * The advisor's own public directory listing - what a Plan-tier client sees
+ * in the "Find an advisor" directory. Saved separately from the manual
+ * client book above; toggling "Accepting new clients" off hides the advisor
+ * from the directory without deleting anything.
+ */
+function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
+  const { profile, loaded } = useAdvisorProfile(advisorUid)
+  const [form, setForm] = useState<NewAdvisorProfile>(EMPTY_ADVISOR_PROFILE)
+  const [initialized, setInitialized] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!loaded || initialized) return
+    if (profile) {
+      setForm({
+        displayName: profile.displayName,
+        credential: profile.credential,
+        bio: profile.bio,
+        statesLicensed: profile.statesLicensed,
+        specialties: profile.specialties,
+        yearsExperience: profile.yearsExperience,
+        acceptingClients: profile.acceptingClients,
+      })
+    }
+    setInitialized(true)
+  }, [loaded, initialized, profile])
+
+  async function handleSave(e: FormEvent) {
+    e.preventDefault()
+    setSaving(true)
+    setError(null)
+    setSaved(false)
+    try {
+      await saveAdvisorProfile(advisorUid, form)
+      setSaved(true)
+    } catch (err) {
+      setError(describeFirestoreError(err))
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
+      <div className="flex items-center justify-between gap-4 mb-5">
+        <h2 className="text-lg font-normal text-lp-graphite">Your public profile</h2>
+        <label className="flex items-center gap-2 text-sm text-lp-graphite whitespace-nowrap">
+          <input
+            type="checkbox"
+            checked={form.acceptingClients}
+            onChange={(e) => setForm({ ...form, acceptingClients: e.target.checked })}
+            className="accent-[var(--color-lp-cyan)]"
+          />
+          Accepting new clients
+        </label>
+      </div>
+      <p className="text-xs text-lp-slate mb-5 leading-relaxed">
+        This is what clients see in the "Find an advisor" directory. Only visible while "Accepting
+        new clients" is checked.
+      </p>
+      <form onSubmit={handleSave} className="space-y-5">
+        <div className="grid md:grid-cols-2 gap-5">
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Display name</span>
+            <input
+              type="text"
+              required
+              value={form.displayName}
+              onChange={(e) => setForm({ ...form, displayName: e.target.value })}
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            />
+          </label>
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Credential</span>
+            <input
+              type="text"
+              value={form.credential}
+              onChange={(e) => setForm({ ...form, credential: e.target.value })}
+              placeholder="e.g. CFP®"
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            />
+          </label>
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">States licensed</span>
+            <input
+              type="text"
+              value={form.statesLicensed}
+              onChange={(e) => setForm({ ...form, statesLicensed: e.target.value })}
+              placeholder="e.g. CA, NY, TX"
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            />
+          </label>
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Years of experience</span>
+            <input
+              type="number"
+              min={0}
+              value={form.yearsExperience}
+              onChange={(e) => setForm({ ...form, yearsExperience: Number(e.target.value) })}
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            />
+          </label>
+        </div>
+        <label className="block">
+          <span className="text-sm font-normal block mb-2 text-lp-slate">Specialties</span>
+          <input
+            type="text"
+            value={form.specialties}
+            onChange={(e) => setForm({ ...form, specialties: e.target.value })}
+            placeholder="e.g. Social Security claiming, retirement income planning"
+            className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+          />
+        </label>
+        <label className="block">
+          <span className="text-sm font-normal block mb-2 text-lp-slate">Bio</span>
+          <textarea
+            value={form.bio}
+            onChange={(e) => setForm({ ...form, bio: e.target.value })}
+            rows={3}
+            className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+          />
+        </label>
+
+        {error && <div className="text-sm text-lp-bad">{error}</div>}
+        {saved && !error && <div className="text-sm text-lp-good">Saved.</div>}
+
+        <button type="submit" disabled={saving} className="lp-gradient-btn px-6 py-3">
+          {saving ? 'Saving…' : 'Save profile'}
+        </button>
+      </form>
+    </div>
+  )
+}
+
+/**
+ * Clients matched to this advisor through the in-app directory - separate
+ * from the manually-entered client book above. Each row expands into the
+ * shared MatchThread conversation UI.
+ */
+function ClientMatches({ advisorUid }: { advisorUid: string }) {
+  const { matches, error } = useAdvisorMatches(advisorUid)
+  const [openId, setOpenId] = useState<string | null>(null)
+  const [updatingId, setUpdatingId] = useState<string | null>(null)
+
+  async function toggleResolved(matchId: string, resolved: boolean) {
+    setUpdatingId(matchId)
+    try {
+      await setMatchResolved(matchId, resolved)
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
+  return (
+    <div className="mb-10">
+      <h2 className="text-xl font-normal text-lp-graphite mb-4">
+        Client matches {matches.length > 0 ? `(${matches.length})` : ''}
+      </h2>
+
+      {error && (
+        <div className="bg-[#FEF2F2] border border-[#FECACA] text-lp-bad text-sm rounded-[10px] px-5 py-4 mb-4">
+          {error}
+        </div>
+      )}
+
+      {matches.length === 0 && !error && (
+        <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 text-center text-lp-slate text-sm mb-8">
+          No clients have matched with you yet. Make sure your public profile above is set to
+          "Accepting new clients."
+        </div>
+      )}
+
+      {matches.length > 0 && (
+        <div className="space-y-4 mb-8">
+          {matches.map((m) => (
+            <div key={m.id} className="bg-lp-chalk border border-lp-line-strong rounded-[15px] overflow-hidden">
+              <div className="p-5 flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <div className="font-normal text-lp-graphite">{m.clientName}</div>
+                  <div className="text-xs text-lp-slate mt-0.5 truncate">
+                    {m.lastSenderRole === 'client' ? 'They said: ' : 'You said: '}
+                    {m.lastMessagePreview}
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 whitespace-nowrap">
+                  {m.resolved && (
+                    <span className="text-[10px] uppercase tracking-wide border border-lp-line-strong text-lp-slate px-2 py-1 rounded-[5px]">
+                      Resolved
+                    </span>
+                  )}
+                  <button
+                    onClick={() => toggleResolved(m.id, !m.resolved)}
+                    disabled={updatingId === m.id}
+                    className="text-xs text-lp-slate hover:text-lp-graphite transition-colors disabled:opacity-40"
+                  >
+                    {m.resolved ? 'Reopen' : 'Mark resolved'}
+                  </button>
+                  <button
+                    onClick={() => setOpenId(openId === m.id ? null : m.id)}
+                    className="text-sm font-normal text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors"
+                  >
+                    {openId === m.id ? 'Hide' : 'Open'}
+                  </button>
+                </div>
+              </div>
+              {openId === m.id && (
+                <MatchThread matchId={m.id} viewerUid={advisorUid} viewerRole="advisor" />
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>

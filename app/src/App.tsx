@@ -14,6 +14,7 @@ import BillingPage from './pages/BillingPage'
 import ScenariosPage from './pages/ScenariosPage'
 import AlertsPage from './pages/AlertsPage'
 import AdvisorDashboardPage from './pages/AdvisorDashboardPage'
+import FindAdvisorPage from './pages/FindAdvisorPage'
 import StateComparisonPage from './pages/StateComparisonPage'
 import TaxMedicarePage from './pages/TaxMedicarePage'
 import EmbedPage from './pages/EmbedPage'
@@ -99,6 +100,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AdvisorDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/find-advisor"
+              element={
+                <ProtectedRoute>
+                  <FindAdvisorPage />
                 </ProtectedRoute>
               }
             />

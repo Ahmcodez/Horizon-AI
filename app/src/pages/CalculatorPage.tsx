@@ -313,6 +313,27 @@ export default function CalculatorPage() {
             <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
           </UpgradeGate>
 
+          <div className="hover-glow-lp bg-lp-graphite text-lp-chalk rounded-[15px] p-8 flex items-center justify-between gap-6 flex-wrap">
+            <div className="max-w-xl">
+              <div className="text-[11px] uppercase tracking-[0.02em] text-lp-chalk/60 mb-2">
+                Talk to a human
+              </div>
+              <h2 className="text-xl font-normal leading-snug">
+                Want a Certified Financial Planner to verify your strategy?
+              </h2>
+              <p className="text-sm text-lp-chalk/70 mt-2 leading-relaxed">
+                Match with a licensed US advisor — share your numbers and your question, right here
+                in the app.
+              </p>
+            </div>
+            <button
+              onClick={() => navigate('/find-advisor')}
+              className="lp-gradient-btn px-6 py-3 whitespace-nowrap"
+            >
+              Find an advisor →
+            </button>
+          </div>
+
           <p className="text-xs text-lp-slate leading-relaxed max-w-2xl">
             These figures are informational estimates based on the Primary Insurance Amount you
             entered and published SSA claiming-age adjustment rules. They do not account for

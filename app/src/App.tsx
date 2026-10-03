@@ -20,12 +20,17 @@ import TaxMedicarePage from './pages/TaxMedicarePage'
 import EmbedPage from './pages/EmbedPage'
 import HomePage from './pages/HomePage'
 import RootRedirect from './components/RootRedirect'
-import { usePlan } from './lib/billing'
 
+/**
+ * Mounted for every signed-in user, regardless of tier - a free-tier user
+ * still sees the launcher button, but AssistantWidget itself shows an
+ * upgrade popup instead of the chat panel when they try to use it (see
+ * assistantContext's `locked`). This way the AI assistant is discoverable,
+ * not just invisible, for the tier it's trying to convert.
+ */
 function GlobalAssistant() {
   const { user } = useAuth()
-  const { plan } = usePlan(user?.uid)
-  if (!user || (plan !== 'plan' && plan !== 'advisor')) return null
+  if (!user) return null
   return <AssistantWidget />
 }
 

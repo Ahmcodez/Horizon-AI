@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useAssistant } from '../lib/assistantContext'
 import { looksOffTopic } from '../lib/scopeGuard'
+import UpgradeModal from './UpgradeModal'
 import {
   useSpeechRecognition,
   isSpeechSynthesisSupported,
@@ -9,8 +10,20 @@ import {
 } from '../lib/voice'
 
 export default function AssistantWidget() {
-  const { isOpen, messages, draftQuestion, sending, error, toggle, close, setDraftQuestion, send } =
-    useAssistant()
+  const {
+    isOpen,
+    messages,
+    draftQuestion,
+    sending,
+    error,
+    locked,
+    upgradePromptOpen,
+    closeUpgradePrompt,
+    toggle,
+    close,
+    setDraftQuestion,
+    send,
+  } = useAssistant()
   const scrollRef = useRef<HTMLDivElement>(null)
   const [autoSpeak, setAutoSpeak] = useState(false)
   const lastSpokenIndex = useRef(-1)
@@ -48,7 +61,14 @@ export default function AssistantWidget() {
 
   return (
     <div style={{ fontFamily: 'var(--font-vivid)' }}>
-      {isOpen && (
+      <UpgradeModal
+        open={upgradePromptOpen}
+        onClose={closeUpgradePrompt}
+        title="The AI assistant is a Plan feature"
+        description="Ask follow-up questions about your numbers and get plain-English explanations — upgrade to unlock it."
+      />
+
+      {isOpen && !locked && (
         <div
           className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] bg-bone-white/92 backdrop-blur-md border border-ash-border/30 rounded-[15px] overflow-hidden flex flex-col shadow-2xl shadow-black/40"
           style={{ animation: 'fadeUp 0.3s cubic-bezier(.16,.8,.24,1)' }}
@@ -161,9 +181,9 @@ export default function AssistantWidget() {
       <button
         onClick={toggle}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-vivid-obsidian border-2 border-bone-white text-bone-white flex items-center justify-center text-2xl font-normal hover:bg-graphite-veil/30 transition-colors"
-        aria-label={isOpen ? 'Close assistant' : 'Open assistant'}
+        aria-label={locked ? 'AI assistant (upgrade required)' : isOpen ? 'Close assistant' : 'Open assistant'}
       >
-        {isOpen ? '×' : '💬'}
+        {isOpen && !locked ? '×' : '💬'}
       </button>
     </div>
   )

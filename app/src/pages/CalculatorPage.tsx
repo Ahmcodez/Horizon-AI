@@ -8,6 +8,7 @@ import {
 import { getProfile, saveProfile, DEFAULT_PROFILE } from '../lib/profileStore'
 import { useAuth } from '../lib/authContext'
 import { useAssistant } from '../lib/assistantContext'
+import { usePlan } from '../lib/billing'
 import BenefitChart from '../components/BenefitChart'
 import HouseholdPanel from '../components/HouseholdPanel'
 import UpgradeGate from '../components/UpgradeGate'
@@ -15,6 +16,7 @@ import UpgradeGate from '../components/UpgradeGate'
 export default function CalculatorPage() {
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
+  const { plan } = usePlan(user?.uid)
   const { setGroundingContext, setDraftQuestion, open } = useAssistant()
 
   const [birthYear, setBirthYearState] = useState(DEFAULT_PROFILE.birthYear)
@@ -313,26 +315,31 @@ export default function CalculatorPage() {
             <HouseholdPanel primaryPia={pia} primaryBirthYear={birthYear} />
           </UpgradeGate>
 
-          <div className="hover-glow-lp bg-lp-graphite text-lp-chalk rounded-[15px] p-8 flex items-center justify-between gap-6 flex-wrap">
-            <div className="max-w-xl">
-              <div className="text-[11px] uppercase tracking-[0.02em] text-lp-chalk/60 mb-2">
-                Talk to a human
+          {/* Advisor matching is a client-facing feature - advisors themselves
+              don't need to be matched with another advisor, so this is hidden
+              for the advisor tier (they get their own dashboard instead). */}
+          {plan !== 'advisor' && (
+            <div className="hover-glow-lp bg-lp-graphite text-lp-chalk rounded-[15px] p-8 flex items-center justify-between gap-6 flex-wrap">
+              <div className="max-w-xl">
+                <div className="text-[11px] uppercase tracking-[0.02em] text-lp-chalk/60 mb-2">
+                  Talk to a human
+                </div>
+                <h2 className="text-xl font-normal leading-snug">
+                  Want a Certified Financial Planner to verify your strategy?
+                </h2>
+                <p className="text-sm text-lp-chalk/70 mt-2 leading-relaxed">
+                  Match with a licensed US advisor — share your numbers and your question, right here
+                  in the app.
+                </p>
               </div>
-              <h2 className="text-xl font-normal leading-snug">
-                Want a Certified Financial Planner to verify your strategy?
-              </h2>
-              <p className="text-sm text-lp-chalk/70 mt-2 leading-relaxed">
-                Match with a licensed US advisor — share your numbers and your question, right here
-                in the app.
-              </p>
+              <button
+                onClick={() => navigate('/find-advisor')}
+                className="lp-gradient-btn px-6 py-3 whitespace-nowrap"
+              >
+                Find an advisor →
+              </button>
             </div>
-            <button
-              onClick={() => navigate('/find-advisor')}
-              className="lp-gradient-btn px-6 py-3 whitespace-nowrap"
-            >
-              Find an advisor →
-            </button>
-          </div>
+          )}
 
           <p className="text-xs text-lp-slate leading-relaxed max-w-2xl">
             These figures are informational estimates based on the Primary Insurance Amount you

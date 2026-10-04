@@ -415,7 +415,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
 
   if (!editing && profile) {
     return (
-      <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
+      <div className="gig-card rounded-[15px] p-8 mb-8">
         <div className="flex items-center justify-between gap-4 mb-5">
           <h2 className="text-lg font-normal text-lp-graphite">Your gig profile</h2>
           <div className="flex items-center gap-3">
@@ -428,7 +428,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
             >
               {profile.acceptingClients ? 'Visible to clients' : 'Hidden — not accepting clients'}
             </span>
-            <button onClick={startEditing} className="ov-outlined-btn-lp px-4 py-2 text-sm whitespace-nowrap">
+            <button onClick={startEditing} className="lp-gradient-btn px-4 py-2 text-sm whitespace-nowrap">
               Edit profile
             </button>
           </div>
@@ -440,7 +440,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
   }
 
   return (
-    <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
+    <div className="gig-card rounded-[15px] p-8 mb-8">
       <div className="flex items-center justify-between gap-4 mb-5">
         <h2 className="text-lg font-normal text-lp-graphite">
           {profile ? 'Edit your gig profile' : 'Set up your gig profile'}
@@ -474,7 +474,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
               required
               value={form.displayName}
               onChange={(e) => setForm({ ...form, displayName: e.target.value })}
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
           <label className="block">
@@ -484,7 +484,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
               value={form.credential}
               onChange={(e) => setForm({ ...form, credential: e.target.value })}
               placeholder="e.g. CFP®"
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
           <label className="block">
@@ -494,7 +494,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
               value={form.statesLicensed}
               onChange={(e) => setForm({ ...form, statesLicensed: e.target.value })}
               placeholder="e.g. CA, NY, TX"
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
           <label className="block">
@@ -504,7 +504,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
               min={0}
               value={form.yearsExperience}
               onChange={(e) => setForm({ ...form, yearsExperience: Number(e.target.value) })}
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
         </div>
@@ -528,7 +528,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
                 value={form.startingPrice || ''}
                 onChange={(e) => setForm({ ...form, startingPrice: Number(e.target.value) })}
                 placeholder="0"
-                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] pl-8 pr-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+                className="gig-field-bg w-full border rounded-[5px] pl-8 pr-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
               />
             </div>
             <span className="text-xs text-lp-slate mt-1.5 block">Leave at 0 for "Contact for pricing".</span>
@@ -538,7 +538,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
             <select
               value={form.pricingUnit}
               onChange={(e) => setForm({ ...form, pricingUnit: e.target.value as PricingUnit })}
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             >
               <option value="hour">Hour</option>
               <option value="session">Session</option>
@@ -552,7 +552,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
               value={form.pricingNote}
               onChange={(e) => setForm({ ...form, pricingNote: e.target.value })}
               placeholder="e.g. Free 15-min intro call"
-              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
             />
           </label>
         </div>
@@ -564,7 +564,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
             onChange={(e) => setForm({ ...form, bio: e.target.value })}
             rows={3}
             placeholder="What you help clients with, your approach, and anything that sets you apart."
-            className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            className="gig-field-bg w-full border rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
           />
         </label>
 

@@ -68,7 +68,7 @@ export default function ProfilePictureUpload({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="relative w-20 h-20 rounded-full overflow-hidden border border-lp-line-strong bg-lp-chalk-dim flex items-center justify-center flex-shrink-0 group"
+        className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[rgba(56,189,248,0.4)] bg-lp-chalk-dim flex items-center justify-center flex-shrink-0 group"
         aria-label="Change profile picture"
       >
         {shown ? (
@@ -85,7 +85,7 @@ export default function ProfilePictureUpload({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="ov-outlined-btn-lp px-4 py-2 text-sm disabled:opacity-50"
+          className="lp-gradient-btn px-4 py-2 text-sm disabled:opacity-50"
         >
           {uploading ? 'Uploading…' : shown ? 'Change photo' : 'Add a photo'}
         </button>

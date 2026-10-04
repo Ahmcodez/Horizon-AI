@@ -49,8 +49,8 @@ export default function SpecialtyPicker({
               onClick={() => toggle(spec)}
               className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                 selected
-                  ? 'bg-lp-graphite border-lp-graphite text-lp-chalk'
-                  : 'bg-lp-chalk border-lp-line-strong text-lp-slate hover:border-lp-graphite hover:text-lp-graphite'
+                  ? 'bg-[var(--color-lp-cyan)] border-[var(--color-lp-cyan)] text-white'
+                  : 'gig-field-bg text-lp-slate hover:border-[var(--color-lp-cyan)] hover:text-lp-graphite'
               }`}
             >
               {spec}
@@ -65,12 +65,12 @@ export default function SpecialtyPicker({
           value={customText}
           onChange={(e) => setCustomText(e.target.value)}
           placeholder="Add your own specialty…"
-          className="flex-1 bg-lp-chalk border border-lp-line-strong rounded-[5px] px-3 py-2 text-sm focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+          className="gig-field-bg flex-1 border rounded-[5px] px-3 py-2 text-sm focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
         />
         <button
           type="submit"
           disabled={!customText.trim()}
-          className="ov-outlined-btn-lp px-4 py-2 text-sm disabled:opacity-40"
+          className="lp-gradient-btn px-4 py-2 text-sm disabled:opacity-40"
         >
           Add
         </button>

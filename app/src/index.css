@@ -338,3 +338,55 @@ body {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   Advisor "gig marketplace" accent layer — a bluish treatment
+   (built on --color-lp-cyan) layered over the light landing
+   tokens above, used on the Find an Advisor directory and the
+   advisor dashboard's gig profile. Kept as its own small set of
+   classes rather than touching .hover-glow-lp / .ov-outlined-btn-lp
+   globally, so this look stays scoped to the advisor-gig surfaces.
+   ============================================================ */
+.gig-card {
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.14), 0 1px 3px rgba(15, 23, 42, 0.06);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05), rgba(255, 255, 255, 0) 45%), var(--color-lp-chalk);
+  transition: box-shadow 0.3s cubic-bezier(0.16, 0.8, 0.24, 1),
+    transform 0.3s cubic-bezier(0.16, 0.8, 0.24, 1),
+    border-color 0.3s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.gig-card-clickable {
+  cursor: pointer;
+}
+.gig-card-clickable:hover,
+.gig-card:hover {
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 0 14px 36px rgba(56, 189, 248, 0.22), 0 2px 8px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
+}
+
+/* Specialty tag used on gig cards — light cyan fill instead of a plain
+   outline, so the "services offered" list reads as part of the blue theme. */
+.gig-chip {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #0369A1;
+}
+
+/* Form-field background for the advisor's own gig editor — a faint cyan
+   tint rather than plain white, tying the editor to the same blue scheme
+   as the public gig card and the "My plan" button. */
+.gig-field-bg {
+  background: rgba(56, 189, 248, 0.05);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+.gig-field-bg:focus {
+  border-color: var(--color-lp-cyan);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gig-card-clickable:hover,
+  .gig-card:hover {
+    transform: none !important;
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from '../lib/advisorMatching'
 import UpgradeGate from '../components/UpgradeGate'
 import MatchThread from '../components/MatchThread'
+import AdvisorGigCard from '../components/AdvisorGigCard'
 
 export default function FindAdvisorPage() {
   useEffect(() => {
@@ -99,7 +100,7 @@ function FindAdvisorContent() {
           </div>
         )}
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="space-y-5">
           {advisors.map((advisor) => (
             <AdvisorCard
               key={advisor.advisorUid}
@@ -146,27 +147,9 @@ function AdvisorCard({ advisor, alreadyMatched }: { advisor: AdvisorProfile; alr
 
   return (
     <div className="hover-glow-lp bg-lp-chalk border border-lp-line-strong rounded-[15px] p-6">
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <div>
-          <div className="font-normal text-lp-graphite text-lg">{advisor.displayName}</div>
-          {advisor.credential && (
-            <div className="text-xs text-[var(--color-lp-cyan)] font-mono mt-0.5">{advisor.credential}</div>
-          )}
-        </div>
-        {advisor.yearsExperience > 0 && (
-          <span className="text-[11px] text-lp-slate whitespace-nowrap font-mono mt-1">
-            {advisor.yearsExperience}+ yrs
-          </span>
-        )}
-      </div>
+      <AdvisorGigCard profile={advisor} />
 
-      {advisor.bio && <p className="text-sm text-lp-slate leading-relaxed mb-3">{advisor.bio}</p>}
-
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-lp-slate mb-4">
-        {advisor.statesLicensed && <span>Licensed: {advisor.statesLicensed}</span>}
-        {advisor.specialties && <span>Focus: {advisor.specialties}</span>}
-      </div>
-
+      <div className="mt-5 pt-5 border-t border-lp-line">
       {alreadyMatched ? (
         <div className="text-xs text-lp-slate">
           You've already reached out — see your conversation above.
@@ -215,6 +198,7 @@ function AdvisorCard({ advisor, alreadyMatched }: { advisor: AdvisorProfile; alr
           Message this advisor
         </button>
       )}
+      </div>
     </div>
   )
 }

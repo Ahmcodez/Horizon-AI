@@ -28,15 +28,25 @@ import {
 import { useEffect, useState } from 'react'
 import { db } from './firebase'
 
+export type PricingUnit = 'hour' | 'session' | 'flat'
+
 export interface AdvisorProfile {
   advisorUid: string
   displayName: string
   credential: string
   bio: string
   statesLicensed: string
-  specialties: string
+  /** Gig tags - a mix of picks from advisorSpecialties.ts and the advisor's own custom entries. */
+  specialties: string[]
   yearsExperience: number
   acceptingClients: boolean
+  /** Cloudinary secure_url for the profile thumbnail, or '' if none set. */
+  photoUrl: string
+  /** 0 means "no price set" - the UI shows "Contact for pricing" instead of $0. */
+  startingPrice: number
+  pricingUnit: PricingUnit
+  /** Optional free-text pricing detail, e.g. "Free 15-minute intro call". */
+  pricingNote: string
   updatedAt: number
 }
 
@@ -47,13 +57,56 @@ export const EMPTY_ADVISOR_PROFILE: NewAdvisorProfile = {
   credential: '',
   bio: '',
   statesLicensed: '',
-  specialties: '',
+  specialties: [],
   yearsExperience: 0,
   acceptingClients: false,
+  photoUrl: '',
+  startingPrice: 0,
+  pricingUnit: 'hour',
+  pricingNote: '',
+}
+
+/** "$150/hr", "$500 flat", "Contact for pricing" when nothing's set. */
+export function formatAdvisorPrice(profile: Pick<AdvisorProfile, 'startingPrice' | 'pricingUnit'>): string {
+  if (!profile.startingPrice) return 'Contact for pricing'
+  const amount = `$${profile.startingPrice.toLocaleString()}`
+  if (profile.pricingUnit === 'flat') return `${amount} flat`
+  if (profile.pricingUnit === 'session') return `${amount}/session`
+  return `${amount}/hr`
 }
 
 function advisorProfileRef(advisorUid: string) {
   return doc(db, 'advisorProfiles', advisorUid)
+}
+
+/**
+ * Normalizes a Firestore doc into the current AdvisorProfile shape. Profiles
+ * saved before `specialties` became an array (a plain comma-separated string)
+ * still read back fine, split into tags.
+ */
+function normalizeAdvisorProfile(data: Record<string, unknown>): AdvisorProfile {
+  const rawSpecialties = data.specialties
+  const specialties = Array.isArray(rawSpecialties)
+    ? (rawSpecialties as string[])
+    : typeof rawSpecialties === 'string' && rawSpecialties.trim()
+      ? rawSpecialties.split(',').map((s) => s.trim()).filter(Boolean)
+      : []
+
+  return {
+    advisorUid: data.advisorUid as string,
+    displayName: (data.displayName as string) ?? '',
+    credential: (data.credential as string) ?? '',
+    bio: (data.bio as string) ?? '',
+    statesLicensed: (data.statesLicensed as string) ?? '',
+    specialties,
+    yearsExperience: (data.yearsExperience as number) ?? 0,
+    acceptingClients: Boolean(data.acceptingClients),
+    photoUrl: (data.photoUrl as string) ?? '',
+    startingPrice: (data.startingPrice as number) ?? 0,
+    pricingUnit: (data.pricingUnit as PricingUnit) ?? 'hour',
+    pricingNote: (data.pricingNote as string) ?? '',
+    updatedAt: (data.updatedAt as number) ?? 0,
+  }
 }
 
 /** Real-time read of an advisor's own public profile (or null if not set up yet). */
@@ -67,7 +120,7 @@ export function useAdvisorProfile(advisorUid: string | undefined): {
   useEffect(() => {
     if (!advisorUid) return
     const unsubscribe = onSnapshot(advisorProfileRef(advisorUid), (snap) => {
-      setProfile(snap.exists() ? (snap.data() as AdvisorProfile) : null)
+      setProfile(snap.exists() ? normalizeAdvisorProfile(snap.data()) : null)
       setLoaded(true)
     })
     return unsubscribe
@@ -99,7 +152,7 @@ export function useAdvisorDirectory(): {
     const unsubscribe = onSnapshot(
       q,
       (snap) => {
-        const list = snap.docs.map((d) => d.data() as AdvisorProfile)
+        const list = snap.docs.map((d) => normalizeAdvisorProfile(d.data()))
         list.sort((a, b) => b.yearsExperience - a.yearsExperience)
         setAdvisors(list)
         setLoading(false)
@@ -228,12 +281,20 @@ export async function setMatchResolved(matchId: string, resolved: boolean): Prom
   await updateDoc(doc(db, 'matches', matchId), { resolved })
 }
 
+export interface MatchAttachment {
+  url: string
+  name: string
+  /** MIME type, e.g. "application/pdf" or "image/jpeg" - decides how the thread renders it. */
+  type: string
+}
+
 export interface MatchMessage {
   id: string
   senderUid: string
   senderRole: 'client' | 'advisor'
   text: string
   createdAt: number
+  attachment?: MatchAttachment
 }
 
 /** Real-time conversation thread for one match, oldest first. */
@@ -256,7 +317,8 @@ export async function sendMatchMessage(
   matchId: string,
   senderUid: string,
   senderRole: 'client' | 'advisor',
-  text: string
+  text: string,
+  attachment?: MatchAttachment
 ): Promise<void> {
   const now = Date.now()
   await addDoc(collection(db, 'matches', matchId, 'messages'), {
@@ -264,10 +326,11 @@ export async function sendMatchMessage(
     senderRole,
     text,
     createdAt: now,
+    ...(attachment ? { attachment } : {}),
   })
   await updateDoc(doc(db, 'matches', matchId), {
     lastMessageAt: now,
-    lastMessagePreview: text,
+    lastMessagePreview: text || (attachment ? `📎 ${attachment.name}` : ''),
     lastSenderRole: senderRole,
   })
 }

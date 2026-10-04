@@ -16,6 +16,7 @@ import {
   useAdvisorMatches,
   setMatchResolved,
   type NewAdvisorProfile,
+  type PricingUnit,
 } from '../lib/advisorMatching'
 import {
   generateClaimingComparison,
@@ -24,6 +25,9 @@ import {
 } from '../lib/socialSecurity'
 import BenefitChart from '../components/BenefitChart'
 import MatchThread from '../components/MatchThread'
+import AdvisorGigCard from '../components/AdvisorGigCard'
+import SpecialtyPicker from '../components/SpecialtyPicker'
+import ProfilePictureUpload from '../components/ProfilePictureUpload'
 
 const EMPTY_FORM: NewAdvisorClient = {
   name: '',
@@ -327,14 +331,22 @@ function ClientAnalysis({ client }: { client: AdvisorClient }) {
 
 /**
  * The advisor's own public directory listing - what a Plan-tier client sees
- * in the "Find an advisor" directory. Saved separately from the manual
- * client book above; toggling "Accepting new clients" off hides the advisor
- * from the directory without deleting anything.
+ * in the "Find an advisor" directory, styled as a gig/freelancer profile.
+ * Saved separately from the manual client book above; toggling "Accepting
+ * new clients" off hides the advisor from the directory without deleting
+ * anything.
+ *
+ * Shows one of two views: the full editing form (for a new or in-progress
+ * profile), or - once something's been saved - a collapsed preview using the
+ * exact same AdvisorGigCard a client would see, with an "Edit profile"
+ * button. This keeps the dashboard from permanently parking a long form at
+ * the top of the page once setup is done.
  */
 function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
   const { profile, loaded } = useAdvisorProfile(advisorUid)
   const [form, setForm] = useState<NewAdvisorProfile>(EMPTY_ADVISOR_PROFILE)
   const [initialized, setInitialized] = useState(false)
+  const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -350,10 +362,38 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
         specialties: profile.specialties,
         yearsExperience: profile.yearsExperience,
         acceptingClients: profile.acceptingClients,
+        photoUrl: profile.photoUrl,
+        startingPrice: profile.startingPrice,
+        pricingUnit: profile.pricingUnit,
+        pricingNote: profile.pricingNote,
       })
+    } else {
+      // No profile yet - a brand new advisor goes straight into the form.
+      setEditing(true)
     }
     setInitialized(true)
   }, [loaded, initialized, profile])
+
+  function startEditing() {
+    if (profile) {
+      setForm({
+        displayName: profile.displayName,
+        credential: profile.credential,
+        bio: profile.bio,
+        statesLicensed: profile.statesLicensed,
+        specialties: profile.specialties,
+        yearsExperience: profile.yearsExperience,
+        acceptingClients: profile.acceptingClients,
+        photoUrl: profile.photoUrl,
+        startingPrice: profile.startingPrice,
+        pricingUnit: profile.pricingUnit,
+        pricingNote: profile.pricingNote,
+      })
+    }
+    setSaved(false)
+    setError(null)
+    setEditing(true)
+  }
 
   async function handleSave(e: FormEvent) {
     e.preventDefault()
@@ -363,6 +403,7 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
     try {
       await saveAdvisorProfile(advisorUid, form)
       setSaved(true)
+      setEditing(false)
     } catch (err) {
       setError(describeFirestoreError(err))
     } finally {
@@ -370,10 +411,40 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
     }
   }
 
+  if (!initialized) return null
+
+  if (!editing && profile) {
+    return (
+      <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <h2 className="text-lg font-normal text-lp-graphite">Your gig profile</h2>
+          <div className="flex items-center gap-3">
+            <span
+              className={`text-[10px] uppercase tracking-wide px-2 py-1 rounded-[5px] border ${
+                profile.acceptingClients
+                  ? 'border-lp-good text-lp-good'
+                  : 'border-lp-line-strong text-lp-slate'
+              }`}
+            >
+              {profile.acceptingClients ? 'Visible to clients' : 'Hidden — not accepting clients'}
+            </span>
+            <button onClick={startEditing} className="ov-outlined-btn-lp px-4 py-2 text-sm whitespace-nowrap">
+              Edit profile
+            </button>
+          </div>
+        </div>
+        {saved && <div className="text-sm text-lp-good mb-4">Saved — this is live on your gig now.</div>}
+        <AdvisorGigCard profile={profile} />
+      </div>
+    )
+  }
+
   return (
     <div className="bg-lp-chalk border border-lp-line-strong rounded-[15px] p-8 mb-8">
       <div className="flex items-center justify-between gap-4 mb-5">
-        <h2 className="text-lg font-normal text-lp-graphite">Your public profile</h2>
+        <h2 className="text-lg font-normal text-lp-graphite">
+          {profile ? 'Edit your gig profile' : 'Set up your gig profile'}
+        </h2>
         <label className="flex items-center gap-2 text-sm text-lp-graphite whitespace-nowrap">
           <input
             type="checkbox"
@@ -385,10 +456,16 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
         </label>
       </div>
       <p className="text-xs text-lp-slate mb-5 leading-relaxed">
-        This is what clients see in the "Find an advisor" directory. Only visible while "Accepting
-        new clients" is checked.
+        This is what clients see in the "Find an advisor" directory — think of it like a freelancer
+        gig listing. Only visible while "Accepting new clients" is checked.
       </p>
       <form onSubmit={handleSave} className="space-y-5">
+        <ProfilePictureUpload
+          photoUrl={form.photoUrl}
+          displayName={form.displayName}
+          onChange={(url) => setForm({ ...form, photoUrl: url })}
+        />
+
         <div className="grid md:grid-cols-2 gap-5">
           <label className="block">
             <span className="text-sm font-normal block mb-2 text-lp-slate">Display name</span>
@@ -431,32 +508,82 @@ function AdvisorProfileEditor({ advisorUid }: { advisorUid: string }) {
             />
           </label>
         </div>
-        <label className="block">
-          <span className="text-sm font-normal block mb-2 text-lp-slate">Specialties</span>
-          <input
-            type="text"
+
+        <div>
+          <span className="text-sm font-normal block mb-2 text-lp-slate">Specialties / services offered</span>
+          <SpecialtyPicker
             value={form.specialties}
-            onChange={(e) => setForm({ ...form, specialties: e.target.value })}
-            placeholder="e.g. Social Security claiming, retirement income planning"
-            className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            onChange={(specialties) => setForm({ ...form, specialties })}
           />
-        </label>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-5">
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Starting price</span>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lp-slate">$</span>
+              <input
+                type="number"
+                min={0}
+                value={form.startingPrice || ''}
+                onChange={(e) => setForm({ ...form, startingPrice: Number(e.target.value) })}
+                placeholder="0"
+                className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] pl-8 pr-4 py-3 font-mono focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+              />
+            </div>
+            <span className="text-xs text-lp-slate mt-1.5 block">Leave at 0 for "Contact for pricing".</span>
+          </label>
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Per</span>
+            <select
+              value={form.pricingUnit}
+              onChange={(e) => setForm({ ...form, pricingUnit: e.target.value as PricingUnit })}
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            >
+              <option value="hour">Hour</option>
+              <option value="session">Session</option>
+              <option value="flat">Flat / project</option>
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-sm font-normal block mb-2 text-lp-slate">Pricing note</span>
+            <input
+              type="text"
+              value={form.pricingNote}
+              onChange={(e) => setForm({ ...form, pricingNote: e.target.value })}
+              placeholder="e.g. Free 15-min intro call"
+              className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
+            />
+          </label>
+        </div>
+
         <label className="block">
           <span className="text-sm font-normal block mb-2 text-lp-slate">Bio</span>
           <textarea
             value={form.bio}
             onChange={(e) => setForm({ ...form, bio: e.target.value })}
             rows={3}
+            placeholder="What you help clients with, your approach, and anything that sets you apart."
             className="w-full bg-lp-chalk border border-lp-line-strong rounded-[5px] px-4 py-3 focus:border-[var(--color-lp-cyan)] outline-none text-lp-graphite"
           />
         </label>
 
         {error && <div className="text-sm text-lp-bad">{error}</div>}
-        {saved && !error && <div className="text-sm text-lp-good">Saved.</div>}
 
-        <button type="submit" disabled={saving} className="lp-gradient-btn px-6 py-3">
-          {saving ? 'Saving…' : 'Save profile'}
-        </button>
+        <div className="flex items-center gap-3">
+          <button type="submit" disabled={saving} className="lp-gradient-btn px-6 py-3">
+            {saving ? 'Saving…' : 'Save profile'}
+          </button>
+          {profile && (
+            <button
+              type="button"
+              onClick={() => setEditing(false)}
+              className="text-sm text-lp-slate hover:text-lp-graphite transition-colors"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   )

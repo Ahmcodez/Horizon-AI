@@ -103,6 +103,17 @@ const FAQS = [
     q: 'How do I know if a Social Security rule change affects me?',
     a: 'MyClaimAge checks SSA, IRS, and CMS filings every day and flags genuine benefit-relevant changes — like a COLA update or a change to WEP/GPO rules — against your own saved profile, so you only hear about the changes that actually apply to you.',
   },
+  {
+    q: 'What is the Social Security COLA increase for 2026?',
+    a: (
+      <>
+        2.8%, announced by the SSA on October 24, 2025 — about $56 more a month for the average retiree, starting
+        with the January 2026 payment. A bigger Medicare Part B premium increase the same year eats into some of
+        that raise for most retirees. See the full{' '}
+        <a href="/guides/social-security-cola-2026.html">2026 COLA breakdown</a> for the numbers.
+      </>
+    ),
+  },
 ]
 
 export default function HomePage() {
@@ -565,6 +576,14 @@ export default function HomePage() {
         <Reveal tag="p" className="section-sub d2">Plain-English guides to the Social Security decisions that come up most.</Reveal>
 
         <Reveal tag="div" className="guides-grid d3">
+          <a className="guide-card" href="/guides/social-security-cola-2026.html">
+            <div className="bento-label">News · Oct 2026</div>
+            <h3>Social Security COLA 2026: 2.8% increase, explained</h3>
+            <p>What's driving the raise, when it lands in your account, and why a bigger Medicare premium increase eats into it.</p>
+            <span className="path-arrow">
+              Read the update <span>→</span>
+            </span>
+          </a>
           <a className="guide-card" href="/guides/social-security-62-vs-67.html">
             <div className="bento-label">Guide</div>
             <h3>Social Security at 62 vs. 67: the full breakdown</h3>
@@ -573,16 +592,38 @@ export default function HomePage() {
               Read the guide <span>→</span>
             </span>
           </a>
-          <div className="guide-card coming-soon">
-            <div className="bento-label">Coming soon</div>
+          <a className="guide-card" href="/guides/social-security-spousal-survivor-benefits.html">
+            <div className="bento-label">Guide</div>
             <h3>Spousal &amp; survivor benefits, explained</h3>
             <p>How claiming ages between spouses interact, and what happens to a survivor's benefit after a spouse passes away.</p>
-          </div>
-          <div className="guide-card coming-soon">
-            <div className="bento-label">Coming soon</div>
-            <h3>IRMAA and Medicare surcharges</h3>
+            <span className="path-arrow">
+              Read the guide <span>→</span>
+            </span>
+          </a>
+          <a className="guide-card" href="/guides/medicare-irmaa-surcharges-2026.html">
+            <div className="bento-label">Guide</div>
+            <h3>IRMAA and Medicare surcharges in 2026</h3>
             <p>How higher income can raise your Medicare premium, and what that does to your net Social Security deposit.</p>
-          </div>
+            <span className="path-arrow">
+              Read the guide <span>→</span>
+            </span>
+          </a>
+          <a className="guide-card" href="/guides/full-retirement-age-chart.html">
+            <div className="bento-label">Guide</div>
+            <h3>Full retirement age chart, by birth year</h3>
+            <p>Find your exact FRA and what it controls — spousal benefits, the earnings test, and delayed credits.</p>
+            <span className="path-arrow">
+              Read the guide <span>→</span>
+            </span>
+          </a>
+          <a className="guide-card" href="/guides/">
+            <div className="bento-label">All guides</div>
+            <h3>See every guide and policy update</h3>
+            <p>Browse the full library of plain-English Social Security and Medicare guides, updated as the rules change.</p>
+            <span className="path-arrow">
+              Browse all guides <span>→</span>
+            </span>
+          </a>
         </Reveal>
       </section>
 

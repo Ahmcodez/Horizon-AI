@@ -199,6 +199,22 @@ function PolicyNewsSection() {
           ))}
         </div>
       </div>
+
+      <div className="mt-12 pt-8 border-t border-lp-line text-sm text-lp-slate">
+        Want the plain-English write-up instead of the raw source links? Read our{' '}
+        <a href="/guides/" className="text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors">
+          guides &amp; policy updates
+        </a>{' '}
+        — including the full breakdown of the{' '}
+        <a href="/guides/social-security-cola-2026.html" className="text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors">
+          2026 COLA increase
+        </a>{' '}
+        and{' '}
+        <a href="/guides/medicare-irmaa-surcharges-2026.html" className="text-[var(--color-lp-cyan)] hover:text-lp-graphite transition-colors">
+          2026 Medicare premiums
+        </a>
+        .
+      </div>
     </section>
   )
 }

@@ -114,6 +114,18 @@ const FAQS = [
       </>
     ),
   },
+  {
+    q: 'How do I find a Social Security financial advisor?',
+    a: (
+      <>
+        Browse advisor profiles right on MyClaimAge — each one lists credentials, states
+        licensed, specialties like Social Security claiming strategy or Medicare and IRMAA
+        planning, and a starting price, so you can compare before you reach out. Message an
+        advisor directly and share documents in the same conversation.{' '}
+        <Link to="/login?mode=signup">See advisor profiles</Link>.
+      </>
+    ),
+  },
 ]
 
 export default function HomePage() {
@@ -429,6 +441,89 @@ export default function HomePage() {
             <h3>Public-service pensions, handled correctly</h3>
             <p>Reflects the 2025 Social Security Fairness Act repeal automatically.</p>
           </article>
+        </Reveal>
+      </section>
+
+      <div className="section-divider" aria-hidden="true">
+        <div className="line" />
+        <div className="marker" />
+        <div className="line" />
+      </div>
+
+      <section className="block" id="find-advisor" aria-labelledby="find-advisor-heading">
+        <Reveal tag="div" className="eyebrow-label">Advisor marketplace</Reveal>
+        <Reveal tag="h2" className="section-title d1" id="find-advisor-heading">
+          Get the best Social Security advisor for your situation.
+        </Reveal>
+        <Reveal tag="p" className="section-sub d2">
+          Browse real advisor profiles, compare specialties and pricing up front, and message a
+          licensed financial advisor directly — no phone tag, no office visit, no obligation.
+        </Reveal>
+
+        <Reveal tag="div" className="guides-grid d3">
+          <div className="guide-card">
+            <div className="bento-label">What advisors help with</div>
+            <h3>Social Security claiming strategy, done by a professional</h3>
+            <p>
+              Match with a Certified Financial Planner (CFP®) who specializes in Social Security
+              claiming strategy, spousal and survivor coordination, Medicare and IRMAA planning,
+              WEP/GPO pension offsets, tax-efficient withdrawal order, and retirement income
+              planning — the exact decisions that come up once the calculator gives you the
+              numbers.
+            </p>
+          </div>
+          <div className="guide-card">
+            <div className="bento-label">Browse gig-style profiles</div>
+            <h3>Compare credentials, specialties, and starting price</h3>
+            <p>
+              Every advisor on MyClaimAge has a profile — photo, credentials, states licensed,
+              years of experience, the specific specialties they cover, and their starting price
+              per hour, session, or flat project — so you can compare advisors the way you'd
+              compare any other service, before you ever reach out.
+            </p>
+          </div>
+          <div className="guide-card">
+            <div className="bento-label">Message them directly</div>
+            <h3>Chat with your advisor inside the app</h3>
+            <p>
+              Send a message describing your situation and get a real reply from a real advisor —
+              all inside MyClaimAge. No scheduling a call just to ask a scoping question, no
+              separate email thread to keep track of.
+            </p>
+          </div>
+          <div className="guide-card">
+            <div className="bento-label">Share documents securely</div>
+            <h3>Hand over your SSA statement or tax forms in the conversation</h3>
+            <p>
+              Attach your Social Security statement, a W-2, or any other document your advisor
+              asks for right inside the chat thread, so they're working from your real numbers
+              from the first reply instead of a back-and-forth describing them.
+            </p>
+          </div>
+          <div className="guide-card">
+            <div className="bento-label">Licensed &amp; vetted</div>
+            <h3>Every advisor lists the states they're licensed in</h3>
+            <p>
+              Advisor profiles show their credentials and licensing up front, so you know who
+              you're talking to before you ever send a message — not after you've already paid
+              for a consultation.
+            </p>
+          </div>
+          <div className="guide-card">
+            <div className="bento-label">No surprise bills</div>
+            <h3>Pricing shown before you say a word</h3>
+            <p>
+              Hourly, per-session, or flat-project pricing is right there on the profile. Message
+              an advisor already knowing what the conversation is likely to cost, instead of
+              finding out at the end of a call.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal tag="div" className="d4" style={{ marginTop: '40px', textAlign: 'center' }}>
+          <Link to="/login?mode=signup" className="btn-primary">
+            Browse advisor profiles — free to start
+          </Link>
         </Reveal>
       </section>
 

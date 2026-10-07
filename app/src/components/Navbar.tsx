@@ -137,6 +137,7 @@ function MarketingNav({ scrolled, loggedIn }: { scrolled: boolean; loggedIn: boo
                 <a className="dd-item" href="/#features"><div className="dd-icon">Σ</div><div><h3>Claiming calculator</h3><p>Compare every age from 62 to 70</p></div></a>
                 <a className="dd-item" href="/#features"><div className="dd-icon">✉</div><div><h3>Document reader</h3><p>Upload SSA &amp; Medicare letters, get plain-English answers</p></div></a>
                 <a className="dd-item" href="/#alerts"><div className="dd-icon">◔</div><div><h3>Rule-change alerts</h3><p>Know the moment something affects your plan</p></div></a>
+                <a className="dd-item" href="/#find-advisor"><div className="dd-icon">♦</div><div><h3>Find an advisor</h3><p>Browse and message licensed Social Security advisors</p></div></a>
               </div>
             </li>
             <li className="nav-item"><a className="nav-link" href="/#guides">Guides</a></li>
